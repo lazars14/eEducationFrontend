@@ -2,12 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule, RouterLinkActive } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './_core/index';
 import { TeacherGuard } from './_core/index';
 import { StudentGuard } from './_core/index';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClassesComponent } from './classes/classes.component';
+import { TeachersComponent } from './teachers/teachers.component';
+import { CoursesComponent } from './courses/courses.component';
+import { GradingComponent } from './grading/grading.component';
+import { ChangeEmailComponent } from './change-email/change-email.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { GradesComponent } from './grades/grades.component';
+import { PaymentsComponent } from './payments/payments.component';
+import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -102,7 +112,7 @@ const appRoutes: Routes = [
 
             }
         ]
-    }
+    },
     { path: '**', redirectTo: '' }
 ];
 
