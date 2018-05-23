@@ -1,0 +1,66 @@
+<div class="nav-side-menu">
+  <div class="brand">eEducation</div>
+  <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  <div class="menu-list">
+    <ul id="menu-content" class="menu-content collapse out">
+      <!-- <li>
+        <a routerLink="" routerLinkActive="active-link">
+          <i class="fa fa-dashboard fa-lg"></i> Dashboard
+        </a>
+      </li> -->
+      <li *ngIf="admin">
+        <a routerLink="classes" routerLinkActive="active-link">
+          <i class="fa fa-users fa-lg"></i> Classes
+        </a>
+      </li>
+      <li *ngIf="admin">
+        <a routerLink="teachers" routerLinkActive="active-link">
+          <i class="fa fa-users fa-lg"></i> Teachers
+        </a>
+      </li>
+      <li *ngIf="teacher || student">
+        <a routerLink="courses" routerLinkActive="active-link">
+          <i class="fa fa-graduation-cap fa-lg"></i> Courses
+        </a>
+      </li>
+      <li *ngIf="teacher">
+        <a routerLink="grading" routerLinkActive="active-link">
+          <i class="fa fa-bar-chart fa-lg"></i> Grading
+        </a>
+      </li>
+      <li *ngIf="student">
+        <a routerLink="examEntries" routerLinkActive="active-link">
+          <i class="fa fa-calendar fa-lg"></i> Exam Entries
+        </a>
+      </li>
+      <li *ngIf="student">
+        <a routerLink="payments" routerLinkActive="active-link">
+          <i class="fa fa-money fa-lg"></i> Payments
+        </a>
+      </li>
+      <li *ngIf="student">
+        <a routerLink="grades" routerLinkActive="active-link">
+          <i class="fa fa-book fa-lg"></i> Grades
+        </a>
+      </li>
+      <li *ngIf="student || teacher" class="customTopBorder">
+        <a routerLink="changeEmail" routerLinkActive="active-link">
+          <i class="fa fa-envelope fa-lg"></i> Change Email
+        </a>
+      </li>
+      <li *ngIf="student || teacher">
+        <a routerLink="changePassword" routerLinkActive="active-link">
+          <i class="fa fa-key fa-lg"></i> Change Password
+        </a>
+      </li>
+      <li>
+        <a (click)="logout()">
+          <i class="fa fa-sign-out fa-lg"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div id="main">
+  <router-outlet></router-outlet>
+</div>

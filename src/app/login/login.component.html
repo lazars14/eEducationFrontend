@@ -1,0 +1,23 @@
+<div class="wrapper-login login-container">
+  <div class="container">
+
+    <form class="form-signin" #f="ngForm" name="form">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="../../assets/images/logo1.jpg" alt="">
+      </div>
+      <h2 class="form-signin-heading text-center">{{ userType }} Login</h2>
+
+      <label for="email" class="sr-only">Email address</label>
+      <input type="email" id="email" class="form-control" placeholder="Email" [(ngModel)]="email"
+        required autofocus="" name="email" email>
+      
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Password" [(ngModel)]="password"
+        name="password" required>
+      
+      <button class="btn btn-lg btn-primary btn-block" [disabled]="!f.valid" (click)="onSubmit()" type="submit">Sign in</button>
+    </form>
+
+  </div>
+
+</div>
