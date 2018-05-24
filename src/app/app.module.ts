@@ -23,6 +23,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { GradesComponent } from './grades/grades.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsTeacherComponent } from './notifications-teacher/notifications-teacher.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -41,7 +43,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ChangePasswordComponent,
     GradesComponent,
     PaymentsComponent,
-    ExamEntriesComponent
+    ExamEntriesComponent,
+    NotificationsComponent,
+    NotificationsTeacherComponent
   ],
   imports: [
     BrowserModule,

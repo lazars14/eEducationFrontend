@@ -33,6 +33,11 @@
           <i class="fa fa-calendar fa-lg"></i> Exam Entries
         </a>
       </li>
+      <li *ngIf="student || teacher">
+        <a routerLink="notifications" routerLinkActive="active-link">
+          <i class="fa fa-calendar fa-lg"></i> Notifications
+        </a>
+      </li>
       <li *ngIf="student">
         <a routerLink="payments" routerLinkActive="active-link">
           <i class="fa fa-money fa-lg"></i> Payments

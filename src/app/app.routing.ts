@@ -18,6 +18,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { GradesComponent } from './grades/grades.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsTeacherComponent } from './notifications-teacher/notifications-teacher.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -67,6 +69,10 @@ const appRoutes: Routes = [
                     {
                         path: 'changePassword',
                         component: ChangePasswordComponent,
+                    },
+                    {
+                        path: 'notifications',
+                        component: NotificationsTeacherComponent
                     }
                 ]
 
@@ -107,6 +113,10 @@ const appRoutes: Routes = [
                     {
                         path: 'changePassword',
                         component: ChangePasswordComponent,
+                    },
+                    {
+                        path: 'notifications',
+                        component: NotificationsComponent
                     }
                 ]
 

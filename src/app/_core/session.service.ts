@@ -58,7 +58,7 @@ export class SessionService {
     const data = localStorage.getItem(userRole);
     if (!data) { return null; }
     const user = JSON.parse(data);
-    return user.email;
+    return user.user.email;
   }
 
   // /**
@@ -72,7 +72,7 @@ export class SessionService {
   // }
 
   /**
-   * Set updated user
+   * Set updated email
    */
   setUpdatedUser(updatedUser: Object, userRole: string) {
     const user = JSON.parse(localStorage.getItem(userRole));
