@@ -25,6 +25,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotificationsTeacherComponent } from './notifications-teacher/notifications-teacher.component';
+import { ExamPeriodsComponent } from './exam-periods/exam-periods.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -45,7 +46,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     PaymentsComponent,
     ExamEntriesComponent,
     NotificationsComponent,
-    NotificationsTeacherComponent
+    NotificationsTeacherComponent,
+    ExamTermsComponent,
+    ExamPeriodsComponent
   ],
   imports: [
     BrowserModule,

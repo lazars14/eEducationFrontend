@@ -18,6 +18,11 @@
           <i class="fa fa-users fa-lg"></i> Teachers
         </a>
       </li>
+      <li *ngIf="admin">
+        <a routerLink="examPeriods" routerLinkActive="active-link">
+          <i class="fa fa-calendar fa-lg"></i> Exam Periods
+        </a>
+      </li>
       <li *ngIf="teacher || student">
         <a routerLink="courses" routerLinkActive="active-link">
           <i class="fa fa-graduation-cap fa-lg"></i> Courses

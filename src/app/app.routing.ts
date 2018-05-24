@@ -20,6 +20,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotificationsTeacherComponent } from './notifications-teacher/notifications-teacher.component';
+import { ExamPeriodsComponent } from './exam-periods/exam-periods.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -37,6 +38,10 @@ const appRoutes: Routes = [
                     {
                         path: 'teachers',
                         component: TeachersComponent,
+                    },
+                    {
+                        path: 'examPeriods',
+                        component: ExamPeriodsComponent
                     }
                 ]
 
