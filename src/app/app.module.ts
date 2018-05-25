@@ -33,6 +33,7 @@ import { CourseNotificationsComponent } from './course-notifications/course-noti
 import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
 import { CourseFilesComponent } from './course-files/course-files.component';
 import { CourseColloquiumsComponent } from './course-colloquiums/course-colloquiums.component';
+import { CourseLessonComponent } from './course-lesson/course-lesson.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -61,7 +62,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     CourseNotificationsComponent,
     CourseLessonsComponent,
     CourseFilesComponent,
-    CourseColloquiumsComponent
+    CourseColloquiumsComponent,
+    CourseLessonComponent
   ],
   imports: [
     BrowserModule,
