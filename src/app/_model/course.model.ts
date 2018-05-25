@@ -2,7 +2,8 @@ import { Teacher } from "./index";
 
 export class Course {
     id: number;
-    courseName: string;
+    name: string;
+    description: string;
     espbPoints: number;
     teacher: Teacher;
 }

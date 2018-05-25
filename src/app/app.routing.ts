@@ -19,8 +19,15 @@ import { GradesComponent } from './grades/grades.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { NotificationsTeacherComponent } from './notifications-teacher/notifications-teacher.component';
 import { ExamPeriodsComponent } from './exam-periods/exam-periods.component';
+import { CoursesAdminComponent } from './courses-admin/courses-admin.component';
+import { NotificationComponent } from './notification/notification.component';
+import { CourseComponent } from './course/course.component';
+import { ClassComponent } from './class/class.component';
+import { CourseNotificationsComponent } from './course-notifications/course-notifications.component';
+import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
+import { CourseFilesComponent } from './course-files/course-files.component';
+import { CourseColloquiumsComponent } from './course-colloquiums/course-colloquiums.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -36,12 +43,20 @@ const appRoutes: Routes = [
                         component: ClassesComponent
                     },
                     {
+                        path: 'classes/:id',
+                        component: ClassComponent
+                    },
+                    {
                         path: 'teachers',
                         component: TeachersComponent,
                     },
                     {
                         path: 'examPeriods',
                         component: ExamPeriodsComponent
+                    },
+                    {
+                        path: 'courses',
+                        component: CoursesAdminComponent
                     }
                 ]
 
@@ -59,10 +74,26 @@ const appRoutes: Routes = [
                         path: 'courses',
                         component: CoursesComponent
                     },
-                    // {
-                    //     path: 'courses/:id',
-                    //     component: CourseComponent
-                    // },
+                    {
+                        path: 'courses/:id',
+                        component: CourseComponent
+                    },
+                    {
+                        path: 'courses/:id/notifications',
+                        component: CourseNotificationsComponent
+                    },
+                    {
+                        path: 'courses/:id/lessons',
+                        component: CourseLessonsComponent
+                    },
+                    {
+                        path: 'courses/:id/files',
+                        component: CourseFilesComponent
+                    },
+                    {
+                        path: 'courses/:id/colloquiums',
+                        component: CourseColloquiumsComponent
+                    },
                     {
                         path: 'grading',
                         component: GradingComponent
@@ -74,10 +105,6 @@ const appRoutes: Routes = [
                     {
                         path: 'changePassword',
                         component: ChangePasswordComponent,
-                    },
-                    {
-                        path: 'notifications',
-                        component: NotificationsTeacherComponent
                     }
                 ]
 
@@ -95,10 +122,26 @@ const appRoutes: Routes = [
                         path: 'courses',
                         component: CoursesComponent
                     },
-                    // {
-                    //     path: 'courses/:id',
-                    //     component: CourseComponent
-                    // },
+                    {
+                        path: 'courses/:id',
+                        component: CourseComponent
+                    },
+                    {
+                        path: 'courses/:id/notifications',
+                        component: CourseNotificationsComponent
+                    },
+                    {
+                        path: 'courses/:id/lessons',
+                        component: CourseLessonsComponent
+                    },
+                    {
+                        path: 'courses/:id/files',
+                        component: CourseFilesComponent
+                    },
+                    {
+                        path: 'courses/:id/colloquiums',
+                        component: CourseColloquiumsComponent
+                    },
                     {
                         path: 'grades',
                         component: GradesComponent
@@ -122,6 +165,10 @@ const appRoutes: Routes = [
                     {
                         path: 'notifications',
                         component: NotificationsComponent
+                    },
+                    {
+                        path: 'notifications/:id',
+                        component: NotificationComponent
                     }
                 ]
 

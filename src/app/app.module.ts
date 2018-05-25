@@ -24,8 +24,15 @@ import { GradesComponent } from './grades/grades.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ExamEntriesComponent } from './exam-entries/exam-entries.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { NotificationsTeacherComponent } from './notifications-teacher/notifications-teacher.component';
 import { ExamPeriodsComponent } from './exam-periods/exam-periods.component';
+import { CoursesAdminComponent } from './courses-admin/courses-admin.component';
+import { NotificationComponent } from './notification/notification.component';
+import { CourseComponent } from './course/course.component';
+import { ClassComponent } from './class/class.component';
+import { CourseNotificationsComponent } from './course-notifications/course-notifications.component';
+import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
+import { CourseFilesComponent } from './course-files/course-files.component';
+import { CourseColloquiumsComponent } from './course-colloquiums/course-colloquiums.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -46,9 +53,15 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     PaymentsComponent,
     ExamEntriesComponent,
     NotificationsComponent,
-    NotificationsTeacherComponent,
-    ExamTermsComponent,
-    ExamPeriodsComponent
+    ExamPeriodsComponent,
+    CoursesAdminComponent,
+    NotificationComponent,
+    CourseComponent,
+    ClassComponent,
+    CourseNotificationsComponent,
+    CourseLessonsComponent,
+    CourseFilesComponent,
+    CourseColloquiumsComponent
   ],
   imports: [
     BrowserModule,

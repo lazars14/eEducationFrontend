@@ -1,3 +1,48 @@
-<p>
-  teachers works!
-</p>
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+    <h2>Teachers
+      <button class="btn btn-primary btn-lg" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal" (click)="setAction(null)">Add</button>
+    </h2>
+  </div>
+
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Rank</th>
+            <th>Courses</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let teacher of teachers; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ teacher.firstName }}</td>
+            <td>{{ teacher.lastName }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.rank.name }}</td>
+            <td>
+              <button class="btn btn-lg btn-info " (click)="viewCourses(teacher.id)" data-toggle="coursesModal" data-target="#confirmModal" title="Courses">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+              </button>
+            </td>
+            <td class="btn-group-small text-center">
+              <button class="btn btn-lg btn-info " (click)="setAction(teacher)" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal" title="Edit">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-lg btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal" title="Delete">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -1,3 +1,15 @@
-<p>
-  notifications works!
-</p>
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+    <h2>Notifications</h2>
+  </div>
+
+  <div class="panel-body">
+    <ul>
+      <li *ngFor="let notification of notifications" class="singleItem" [ngClass]="{'unreadBackground': notification.seen == false }" (click)="moreInfo(notification.id)">
+        <p>{{ notification.course.courseName }}</p>
+        <p>{{ notification.nDate | date:'short' }}</p>
+        <p>{{ notification.message | slice:0:50 }}...</p>
+      </li>
+    </ul>
+  </div>
+</div>

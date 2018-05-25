@@ -1,3 +1,40 @@
-<p>
-  payments works!
-</p>
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+    <h2>Payments</h2>
+  </div>
+
+  <div class="panel-body">
+    <div>
+      <h2>Account Info</h2>
+      <p>Account Number: {{ accountNumber }}</p>
+      <p>Reference Number: {{ referenceNumber }}</p>
+      <p>Balance: {{ balance }}</p>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Cause</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Owes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of payments; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ payment.cause }}</td>
+            <td>{{ payment.date | date: 'short' }}</td>
+            <td>{{ payment.amount }}</td>
+            <td *ngIf="owes == true">+</td>
+            <td *ngIf="owes == false">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+

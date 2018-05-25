@@ -1,0 +1,16 @@
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+    <h2>Notification</h2>
+  </div>
+
+  <div class="panel-body">
+    <p><strong>Course: </strong>{{ notification.course.courseName }}</p>
+    <p><strong>Date: </strong>{{ notification.nDate | date:'short' }}</p>
+    <p>{{ notification.message }}</p>
+    <p *ngIf="notification.document != null">Download attachment: 
+      <button class="btn btn-lg btn-info " (click)="download(notification.document.id)" title="Download">
+        <i class="fa fa-download" aria-hidden="true"></i>
+      </button>
+    </p>
+  </div>
+</div>

@@ -1,6 +1,8 @@
+import { Student } from "./index";
+
 export class Payment {
     id: number;
-    accountNumber: string;
+    student: Student;
     amount: number;
     cause: string;
     paymentDate: Date;

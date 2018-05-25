@@ -6,6 +6,7 @@ export class Student {
     firstName: string;
     lastName: string;
     accountNumber: string;
+    referenceNumber: string;
     studYear: number;
     studYearOrdNum: number;
     email: string;
