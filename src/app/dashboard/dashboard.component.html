@@ -8,62 +8,57 @@
           <i class="fa fa-dashboard fa-lg"></i> Dashboard
         </a>
       </li> -->
-      <li *ngIf="admin">
+      <li *ngIf="role == admin">
         <a routerLink="classes" routerLinkActive="active-link">
           <i class="fa fa-users fa-lg"></i> Classes
         </a>
       </li>
-      <li *ngIf="admin">
+      <li *ngIf="role == admin">
         <a routerLink="teachers" routerLinkActive="active-link">
           <i class="fa fa-users fa-lg"></i> Teachers
         </a>
       </li>
-      <li *ngIf="admin">
+      <li *ngIf="role == admin">
         <a routerLink="examPeriods" routerLinkActive="active-link">
           <i class="fa fa-calendar fa-lg"></i> Exam Periods
         </a>
       </li>
-      <li *ngIf="admin">
+      <li *ngIf="role == student">
+        <a routerLink="notifications" routerLinkActive="active-link">
+          <i class="fa fa-bell fa-lg"></i> Notifications
+        </a>
+      </li>
+      <li>
         <a routerLink="courses" routerLinkActive="active-link">
           <i class="fa fa-graduation-cap fa-lg"></i> Courses
         </a>
       </li>
-      <li *ngIf="teacher || student">
-        <a routerLink="courses" routerLinkActive="active-link">
-          <i class="fa fa-graduation-cap fa-lg"></i> Courses
-        </a>
-      </li>
-      <li *ngIf="teacher">
+      <li *ngIf="role == teacher">
         <a routerLink="grading" routerLinkActive="active-link">
           <i class="fa fa-bar-chart fa-lg"></i> Grading
         </a>
       </li>
-      <li *ngIf="student">
+      <li *ngIf="role == student">
         <a routerLink="examEntries" routerLinkActive="active-link">
           <i class="fa fa-calendar fa-lg"></i> Exam Entries
         </a>
       </li>
-      <li *ngIf="student || teacher">
-        <a routerLink="notifications" routerLinkActive="active-link">
-          <i class="fa fa-calendar fa-lg"></i> Notifications
-        </a>
-      </li>
-      <li *ngIf="student">
+      <li *ngIf="role == student">
         <a routerLink="payments" routerLinkActive="active-link">
           <i class="fa fa-money fa-lg"></i> Payments
         </a>
       </li>
-      <li *ngIf="student">
+      <li *ngIf="role == student">
         <a routerLink="grades" routerLinkActive="active-link">
           <i class="fa fa-book fa-lg"></i> Grades
         </a>
       </li>
-      <li *ngIf="student || teacher" class="customTopBorder">
+      <li class="customTopBorder">
         <a routerLink="changeEmail" routerLinkActive="active-link">
           <i class="fa fa-envelope fa-lg"></i> Change Email
         </a>
       </li>
-      <li *ngIf="student || teacher">
+      <li>
         <a routerLink="changePassword" routerLinkActive="active-link">
           <i class="fa fa-key fa-lg"></i> Change Password
         </a>

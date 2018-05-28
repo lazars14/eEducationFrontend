@@ -34,6 +34,10 @@ import { CourseLessonsComponent } from './course-lessons/course-lessons.componen
 import { CourseFilesComponent } from './course-files/course-files.component';
 import { CourseColloquiumsComponent } from './course-colloquiums/course-colloquiums.component';
 import { CourseLessonComponent } from './course-lesson/course-lesson.component';
+import { CollegeDirectionService, ColloquiumResultService, ColloquiumService, CourseFileService,
+        CourseLessonService, CourseService, ExamPeriodService, ExamTermService, GradeService, NotificationService,
+        PaymentService, RankService, StudentAttendsCourseService, StudentDocumentService, StudentExamEntryService,
+        StudentService, TeacherTeachesCourseService, TeacherService } from './_services/index';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -75,6 +79,11 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ReactiveFormsModule
   ],
   providers: [
+    SessionService, HttpService, AdminGuard, StudentGuard,
+    CollegeDirectionService, ColloquiumResultService, ColloquiumService, CourseFileService,
+        CourseLessonService, CourseService, ExamPeriodService, ExamTermService, GradeService, NotificationService,
+        PaymentService, RankService, StudentAttendsCourseService, StudentDocumentService, StudentExamEntryService,
+        StudentService, TeacherTeachesCourseService, TeacherService, 
     { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
     {
       provide: HttpService,

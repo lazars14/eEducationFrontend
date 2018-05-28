@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from './../_core/index';
+import { roles } from './../_core/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sessionService: SessionService, private router: Router) { }
+
+  role: string;
+
+  admin = roles.admin;
+  teacher = roles.teacher;
+  student = roles.student;
 
   ngOnInit() {
+    this.role = this.sessionService.getUserRole(this.router.url);
   }
 
 }

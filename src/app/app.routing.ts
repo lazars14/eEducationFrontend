@@ -58,6 +58,14 @@ const appRoutes: Routes = [
                     {
                         path: 'courses',
                         component: CoursesAdminComponent
+                    },
+                    {
+                        path: 'changeEmail',
+                        component: ChangeEmailComponent,
+                    },
+                    {
+                        path: 'changePassword',
+                        component: ChangePasswordComponent,
                     }
                 ]
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionService } from './index';
+import { SessionService } from './session.service';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable({

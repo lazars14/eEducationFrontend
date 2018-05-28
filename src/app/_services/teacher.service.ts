@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService, ErrorHandlerService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { Teacher } from '../_model/index';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class TeacherService {
