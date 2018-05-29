@@ -12,7 +12,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClassesComponent } from './classes/classes.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { CoursesComponent } from './courses/courses.component';
-import { GradingComponent } from './grading/grading.component';
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { GradesComponent } from './grades/grades.component';
@@ -109,7 +108,7 @@ const appRoutes: Routes = [
                     },
                     {
                         path: 'grading',
-                        component: GradingComponent
+                        component: ExamEntriesComponent
                     },
                     {
                         path: 'changeEmail',

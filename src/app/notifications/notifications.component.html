@@ -4,11 +4,11 @@
   </div>
 
   <div class="panel-body">
-    <ul>
-      <li *ngFor="let notification of notifications" class="singleItem" [ngClass]="{'unreadBackground': notification.seen == false }" (click)="moreInfo(notification.id)">
-        <p>{{ notification.course.courseName }}</p>
-        <p>{{ notification.nDate | date:'short' }}</p>
-        <p>{{ notification.message | slice:0:50 }}...</p>
+    <ul class="notificationsList">
+      <li *ngFor="let notification of notifications" class="singleNotification" [ngClass]="{'unreadBackground': notification.seen == false }" (click)="moreInfo(notification.id)">
+        <p class="notificationCourse">{{ notification.course.courseName }}</p>
+        <p class="notificationDate">{{ notification.nDate | date:'short' }}</p>
+        <p class="notificationMessage">{{ notification.message | slice:0:50 }}...</p>
       </li>
     </ul>
   </div>

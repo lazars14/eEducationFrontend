@@ -1,9 +1,9 @@
-import { Course } from "./index";
+import { Course, ExamPeriod } from "./index";
 
 export class ExamTerm {
     id: number;
     examDate: Date;
     classRoom: string;
     course: Course;
-    examPeriod: number;
+    examPeriod: ExamPeriod;
 }

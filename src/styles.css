@@ -102,10 +102,10 @@ form input {
 
 #entity-management h3 {
   font-size: 22px;
+  margin-bottom: 20px;
 }
 
 #entity-management h3 button {
-  margin-bottom: 13px;
   float: right;
 }
 
@@ -114,7 +114,40 @@ form input {
   font-size: 14px;
 }
 
-/* Single item */
+/* Single notification */
+
+.notificationsList {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.singleNotification {
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.singleNotification:hover {
+  background: yellow;
+}
+
+.notificationCourse {
+  font-size: 16pt;
+  margin: 0px;
+  font-weight: 600;
+}
+
+.notificationDate {
+  font-size: 12pt;
+  margin: 3px 0px;
+}
+
+.notificationMessage {
+  font-size: 14pt;
+  margin: 0px;
+}
+
+/* Single class/course */
 
 .cardBorder {
   border: 2px solid black;
@@ -169,4 +202,13 @@ form input {
 .moreInfo h2 {
   font-weight: 800;
   font-size: 12pt;
+}
+
+/* Exam periods */
+
+.examPeriod {
+  background: #FAEBD7;
+  margin-bottom: 50px !important;
+  padding: 10px;
+  border-radius: 20px;
 }
