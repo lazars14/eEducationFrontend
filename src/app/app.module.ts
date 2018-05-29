@@ -37,6 +37,16 @@ import { CollegeDirectionService, ColloquiumResultService, ColloquiumService, Co
         CourseLessonService, CourseService, ExamPeriodService, ExamTermService, GradeService, NotificationService,
         PaymentService, RankService, StudentAttendsCourseService, StudentDocumentService, StudentExamEntryService,
         StudentService, TeacherTeachesCourseService, TeacherService } from './_services/index';
+import { ClassModalComponent } from './class-modal/class-modal.component';
+import { TeacherModalComponent } from './teacher-modal/teacher-modal.component';
+import { ExamPeriodModalComponent } from './exam-period-modal/exam-period-modal.component';
+import { ExamTermModalComponent } from './exam-term-modal/exam-term-modal.component';
+import { CourseModalComponent } from './course-modal/course-modal.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { GradingModalComponent } from './grading-modal/grading-modal.component';
+import { SetTeachersModalComponent } from './set-teachers-modal/set-teachers-modal.component';
+import { NotificationModalComponent } from './notification-modal/notification-modal.component';
+import { LessonModalComponent } from './lesson-modal/lesson-modal.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -65,7 +75,17 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     CourseLessonsComponent,
     CourseFilesComponent,
     CourseColloquiumsComponent,
-    CourseLessonComponent
+    CourseLessonComponent,
+    ClassModalComponent,
+    TeacherModalComponent,
+    ExamPeriodModalComponent,
+    ExamTermModalComponent,
+    CourseModalComponent,
+    ConfirmModalComponent,
+    GradingModalComponent,
+    SetTeachersModalComponent,
+    NotificationModalComponent,
+    LessonModalComponent
   ],
   imports: [
     BrowserModule,

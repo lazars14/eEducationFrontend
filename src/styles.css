@@ -212,3 +212,9 @@ form input {
   padding: 10px;
   border-radius: 20px;
 }
+
+/* Other */
+
+.customMarginLeft {
+  margin-left: 20px;
+}

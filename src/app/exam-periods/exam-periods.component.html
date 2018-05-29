@@ -1,7 +1,9 @@
+<app-exam-term-modal></app-exam-term-modal>
+<app-exam-period-modal></app-exam-period-modal>
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Exam Periods
-      <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#vehicleModal"
+      <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#examPeriodModal"
         (click)="setAction(true, null, null)">Add</button>
     </h2>
   </div>
@@ -53,7 +55,7 @@
 
       <div class="collapse" id="collapseExample">
         <h3>Exam terms
-          <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#expenseModal"
+          <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#examTermModal"
             (click)="setAction(false, null, vehicle._id)">Add</button>
         </h3>
 
