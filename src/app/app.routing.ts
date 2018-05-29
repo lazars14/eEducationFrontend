@@ -21,7 +21,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ExamPeriodsComponent } from './exam-periods/exam-periods.component';
 import { CoursesAdminComponent } from './courses-admin/courses-admin.component';
 import { NotificationComponent } from './notification/notification.component';
-import { CourseComponent } from './course/course.component';
 import { ClassComponent } from './class/class.component';
 import { CourseNotificationsComponent } from './course-notifications/course-notifications.component';
 import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
@@ -83,10 +82,6 @@ const appRoutes: Routes = [
                         component: CoursesComponent
                     },
                     {
-                        path: 'courses/:id',
-                        component: CourseComponent
-                    },
-                    {
                         path: 'courses/:id/notifications',
                         component: CourseNotificationsComponent
                     },
@@ -133,10 +128,6 @@ const appRoutes: Routes = [
                     {
                         path: 'courses',
                         component: CoursesComponent
-                    },
-                    {
-                        path: 'courses/:id',
-                        component: CourseComponent
                     },
                     {
                         path: 'courses/:id/notifications',

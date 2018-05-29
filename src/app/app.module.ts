@@ -26,7 +26,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ExamPeriodsComponent } from './exam-periods/exam-periods.component';
 import { CoursesAdminComponent } from './courses-admin/courses-admin.component';
 import { NotificationComponent } from './notification/notification.component';
-import { CourseComponent } from './course/course.component';
 import { ClassComponent } from './class/class.component';
 import { CourseNotificationsComponent } from './course-notifications/course-notifications.component';
 import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
@@ -47,6 +46,9 @@ import { GradingModalComponent } from './grading-modal/grading-modal.component';
 import { SetTeachersModalComponent } from './set-teachers-modal/set-teachers-modal.component';
 import { NotificationModalComponent } from './notification-modal/notification-modal.component';
 import { LessonModalComponent } from './lesson-modal/lesson-modal.component';
+
+import { FileDropModule } from 'ngx-file-drop';
+import { CourseNavbarComponent } from './course-navbar/course-navbar.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -69,7 +71,6 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ExamPeriodsComponent,
     CoursesAdminComponent,
     NotificationComponent,
-    CourseComponent,
     ClassComponent,
     CourseNotificationsComponent,
     CourseLessonsComponent,
@@ -85,7 +86,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     GradingModalComponent,
     SetTeachersModalComponent,
     NotificationModalComponent,
-    LessonModalComponent
+    LessonModalComponent,
+    CourseNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     HttpModule,
     NgProgressModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileDropModule
   ],
   providers: [
     SessionService, HttpService, AdminGuard, StudentGuard,

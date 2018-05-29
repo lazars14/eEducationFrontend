@@ -1,0 +1,15 @@
+/* Custom navbar */
+
+.myNavbar {
+    width: 100%;
+    height: auto;
+  }
+  
+  .myNavbar a {
+    height: auto;
+    padding: 5px;
+    border: 2px solid yellow;
+    text-decoration: none;
+    color: black;
+    background: white;
+  }

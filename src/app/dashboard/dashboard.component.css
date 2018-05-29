@@ -170,4 +170,8 @@
 .customTopBorder {
   border-top: 1px solid #d19b3d;
 }
+
+.customBottomBorder {
+  border-bottom: 1px solid #d19b3d !important;
+}
   

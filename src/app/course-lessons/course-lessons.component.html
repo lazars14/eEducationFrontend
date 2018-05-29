@@ -1,3 +1,26 @@
-<p>
-  course-lessons works!
-</p>
+<app-course-navbar></app-course-navbar>
+
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+      <h2>Course Lessons
+          <button class="btn btn-info">
+              Add
+            </button>
+      </h2>
+    </div>
+
+  <div class="panel-body">
+    <ul class="notificationsList">
+      <li *ngFor="let courseLesson of courseLessons" class="singleNotification" (click)="moreInfo(courseLesson.id)">
+        <p class="notificationCourse">{{ courseLesson.name }}</p>
+        <p class="notificationMessage">{{ courseLesson.description | slice:0:50 }}...</p>
+        <button class="btn btn-info">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger">
+          <i class="fa fa-trash-o"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

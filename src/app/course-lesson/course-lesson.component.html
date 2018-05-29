@@ -1,3 +1,54 @@
-<p>
-  course-lesson works!
-</p>
+<app-course-navbar></app-course-navbar>
+
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+    <h2>Course Lesson</h2>
+  </div>
+
+  <div class="panel-body">
+    <p>
+      <strong>Name: </strong>{{ courseLesson.name }}</p>
+    <p>
+      <strong>Description: </strong>{{ courseLesson.description }}</p>
+
+    <div class="form-group">
+      <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+        <span>optional content (don't set headertext then)</span>
+      </file-drop>
+      <div class="upload-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="upload-name-style">
+            <tr *ngFor="let item of files; let i=index">
+              <td>
+                <strong>{{ item.relativePath }}</strong>
+              </td>
+              <td class="btn-group-small text-center">
+                <button class="btn btn-lg btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal"
+                  title="Delete">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal"
+      title="Save">
+      Save changes
+    </button>
+
+    <p *ngIf="courseFiles.length > 0">Download attachment:
+      <button class="btn btn-lg btn-info " (click)="download(notification.document.id)" title="Download">
+        <i class="fa fa-download" aria-hidden="true"></i>
+      </button>
+    </p>
+  </div>
+</div>
