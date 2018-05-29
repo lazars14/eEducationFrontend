@@ -61,15 +61,15 @@ export class SessionService {
     return user.user.email;
   }
 
-  // /**
-  //  * Get logged user id
-  //  */
-  // getUserId(userRole: string) {
-  //   const data = localStorage.getItem(userRole);
-  //   if (!data) { return null; }
-  //   const user = JSON.parse(data);
-  //   return user._id;
-  // }
+  /**
+   * Get logged user id
+   */
+  getUserId(userRole: string) {
+    const data = localStorage.getItem(userRole);
+    if (!data) { return null; }
+    const user = JSON.parse(data);
+    return user._id;
+  }
 
   /**
    * Set updated email

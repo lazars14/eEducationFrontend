@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpService, ErrorHandlerService } from '../_core/index';
+import { HttpService, ErrorHandlerService, SessionService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { Payment } from '../_model/index';
 @Injectable()
 export class PaymentService {
 
-  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService) {}
+  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService,
+    private sessionService: SessionService) {}
 
   apiUrl = environment.apiUrl;
 
@@ -35,6 +36,12 @@ export class PaymentService {
 
   delete(id: number) {
     return this.httpService.delete(this.apiUrl + '/payments/' + id)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getByStudent(userRole: string) {
+    return this.httpService.get(this.apiUrl + '/payments/students/' + this.sessionService.getUserId(userRole))
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
