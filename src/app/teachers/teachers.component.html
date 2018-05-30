@@ -1,8 +1,7 @@
-<app-teacher-modal></app-teacher-modal>
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Teachers
-      <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal" (click)="setAction(null)">Add</button>
+      <button class="btn btn-primary" (click)="add()">Add</button>
     </h2>
   </div>
 
@@ -28,15 +27,15 @@
             <td>{{ teacher.email }}</td>
             <td>{{ teacher.rank.name }}</td>
             <td>
-              <button class="btn btn-lg btn-info " (click)="viewCourses(teacher.id)" data-toggle="coursesModal" data-target="#confirmModal" title="Courses">
+              <button class="btn btn-info" (click)="viewCourses(teacher.id)" title="Courses">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
               </button>
             </td>
             <td class="btn-group-small text-center">
-              <button class="btn btn-lg btn-info " (click)="setAction(teacher)" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal" title="Edit">
+              <button class="btn btn-info" (click)="edit(teacher)" title="Edit">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-lg btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal" title="Delete">
+              <button class="btn btn-danger" (click)="delete(teacher.id)" title="Delete">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
             </td>

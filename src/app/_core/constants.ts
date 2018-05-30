@@ -3,3 +3,8 @@ export const roles = {
     teacher: 'teacher',
     student: 'student'
 };
+
+export const actions = {
+    add: 'Add',
+    edit: 'Edit'
+}

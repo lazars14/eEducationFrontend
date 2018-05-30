@@ -1,65 +1,56 @@
-<div class="container">
-  <!-- The Modal -->
-  <div class="modal fade defaultModal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<div class="modal-dialog">
+  <div class="modal-content">
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">{{ action }} Teacher</h4>
-          <button type="button" class="close" data-dismiss="modal" (click)="cancel(f)">&times;</button>
+    <div class="modal-header">
+      <h4 class="modal-title">{{ action }} Teacher</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <form #f="ngForm" name="form">
+        <div class="form-group">
+          <label for="firstname">
+            <span class="red-text">*</span>Firstname</label>
+          <input type="text" class="form-control" [(ngModel)]="teacher.firstName" name="firstname" required autofocus>
         </div>
 
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form #f="ngForm" name="form">
-            <div class="form-group">
-              <label for="firstname">
-                <span class="red-text">*</span>Firstname</label>
-              <input type="text" class="form-control" [(ngModel)]="teacher.firstName" name="firstname" required autofocus>
-            </div>
-
-            <div class="form-group">
-              <label for="lastname">
-                <span class="red-text">*</span>Lastname</label>
-              <input type="text" class="form-control" [(ngModel)]="teacher.lastName" name="lastname" required>
-            </div>
-
-            <div class="form-group">
-              <label for="email">
-                <span class="red-text">*</span>Email</label>
-              <input type="email" class="form-control" [(ngModel)]="teacher.email" name="email" required email>
-            </div>
-
-            <div class="form-group">
-              <label for="password">
-                <span class="red-text">*</span>Password</label>
-              <input type="password" class="form-control" [(ngModel)]="teacher.sPassword" name="password" required>
-            </div>
-
-            <div class="form-group">
-                <label for="rank">
-                    <span class="red-text">*</span>Rank</label>
-              <select id="rank" name="rank" class="customMarginLeft">
-                <option *ngFor="let rank of ranks" [selected]="teacher.rank.id == rank.id" value="{{ rank.id }}">{{ rank.name }}</option>
-              </select>
-            </div>
-
-            <p>
-              <span class="red-text">*</span> - mandatory fields</p>
-          </form>
+        <div class="form-group">
+          <label for="lastname">
+            <span class="red-text">*</span>Lastname</label>
+          <input type="text" class="form-control" [(ngModel)]="teacher.lastName" name="lastname" required>
         </div>
 
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <div class="mx-auto">
-            <button type="submit" class="btn btn-success" data-dismiss="modal" [disabled]="!f.valid" (click)="ok()">Ok</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancel(f)">Cancel</button>
-          </div>
+        <div class="form-group">
+          <label for="email">
+            <span class="red-text">*</span>Email</label>
+          <input type="email" class="form-control" [(ngModel)]="teacher.email" name="email" required email>
         </div>
 
+        <div class="form-group">
+          <label for="password">
+            <span class="red-text">*</span>Password</label>
+          <input type="password" class="form-control" [(ngModel)]="teacher.sPassword" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rank">
+                <span class="red-text">*</span>Rank</label>
+          <select id="rank" name="rank" class="customMarginLeft">
+            <option *ngFor="let rank of ranks" [selected]="teacher.rank.id == rank.id" value="{{ rank.id }}">{{ rank.name }}</option>
+          </select>
+        </div>
+
+        <p>
+          <span class="red-text">*</span> - mandatory fields</p>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid" (click)="ok()">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

@@ -1,42 +1,33 @@
-<div class="container">
-  <!-- The Modal -->
-  <div class="modal fade defaultModal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">{{ action }} Class</h4>
-          <button type="button" class="close" data-dismiss="modal" (click)="cancel(f)">&times;</button>
+<div class="modal-dialog">
+  <div class="modal-content">
+  
+    <div class="modal-header">
+      <h4 class="modal-title">{{ action }} Class</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <form #f="ngForm" name="form">
+        <div class="form-group">
+          <label for="name"><span class="red-text">*</span>Name</label>
+          <input type="text" class="form-control" [(ngModel)]="class.name" name="name" required autofocus>
         </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form #f="ngForm" name="form">
-            <div class="form-group">
-              <label for="name"><span class="red-text">*</span>Name</label>
-              <input type="text" class="form-control" [(ngModel)]="class.name" name="name" required autofocus>
-            </div>
-      
-            <div class="form-group">
-              <label for="numOfYears"><span class="red-text">*</span>Number of years</label>
-              <input type="number" class="form-control" [(ngModel)]="class.numOfYears" min="1" name="lastname" required>
-            </div>
+  
+        <div class="form-group">
+          <label for="numOfYears"><span class="red-text">*</span>Number of years</label>
+          <input type="number" class="form-control" [(ngModel)]="class.numOfYears" min="1" name="lastname" required>
+        </div>
 
-            <p><span class="red-text">*</span> - mandatory fields</p>
-          </form>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <div class="mx-auto">
-            <button type="submit" class="btn btn-success" data-dismiss="modal" [disabled]="!f.valid" (click)="ok()">Ok</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancel(f)">Cancel</button>
-          </div>
-        </div>
-        
+        <p><span class="red-text">*</span> - mandatory fields</p>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" data-dismiss="modal" [disabled]="!f.valid" (click)="ok()">Ok</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancel()">Cancel</button>
       </div>
     </div>
+    
   </div>
-  
 </div>

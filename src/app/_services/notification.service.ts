@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpService, ErrorHandlerService } from '../_core/index';
+import { HttpService, ErrorHandlerService, SessionService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { Notification } from '../_model/index';
+import { roles } from './../_core/constants';
 
 @Injectable()
 export class NotificationService {
 
-  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService) {}
+  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService,
+    private sessionService: SessionService) {}
 
   apiUrl = environment.apiUrl;
 
@@ -36,6 +38,18 @@ export class NotificationService {
 
   delete(id: number) {
     return this.httpService.delete(this.apiUrl + '/notifications/' + id)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getByStudent() {
+    return this.httpService.get(this.apiUrl + '/notifications/student/' + this.sessionService.getUserId(roles.student))
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getByCourse(courseId: number) {
+    return this.httpService.get(this.apiUrl + '/notifications/course/' + courseId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

@@ -1,3 +1,4 @@
+<!-- <app-confirm-modal></app-confirm-modal> -->
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Notifications</h2>
@@ -9,6 +10,9 @@
         <p class="notificationCourse">{{ notification.course.courseName }}</p>
         <p class="notificationDate">{{ notification.nDate | date:'short' }}</p>
         <p class="notificationMessage">{{ notification.message | slice:0:50 }}...</p>
+        <button class="btn btn-lg btn-danger " (click)="delete(notification.id)" title="Delete">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
       </li>
     </ul>
   </div>

@@ -114,6 +114,10 @@ form input {
   font-size: 14px;
 }
 
+.customPaddingLeft {
+  padding-left: 20px;
+}
+
 /* Single notification */
 
 .notificationsList {

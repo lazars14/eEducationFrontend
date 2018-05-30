@@ -1,8 +1,7 @@
-<app-class-modal></app-class-modal>
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Classes
-      <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal" (click)="setAction(null)">Add</button>
+      <button class="btn btn-primary" (click)="add()">Add</button>
     </h2>
   </div>
 
@@ -14,10 +13,10 @@
         <a routerLink="class.id" class="btn btn-primary">
           <i class="fa fa-info"></i>
         </a>
-        <a href="#" class="btn btn-info">
+        <a href="#" (click)="edit(class)" class="btn btn-info">
           <i class="fa fa-pencil"></i>
         </a>
-        <a href="#" class="btn btn-danger">
+        <a href="#" (click)="delete()" class="btn btn-danger">
           <i class="fa fa-trash-o"></i>
         </a>
       </div>

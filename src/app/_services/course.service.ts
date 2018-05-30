@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpService, ErrorHandlerService } from '../_core/index';
+import { HttpService, ErrorHandlerService, SessionService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { Course } from '../_model/index';
+import { roles } from '../_core/constants';
 
 @Injectable()
 export class CourseService {
 
-  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService) {}
+  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService, private sessionService: SessionService) {}
 
   apiUrl = environment.apiUrl;
 
@@ -39,4 +40,17 @@ export class CourseService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  getByTeacher() {
+    return this.httpService.get(this.apiUrl + '/courses/teacher/' + this.sessionService.getUserId(roles.teacher))
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getByStudent() {
+    return this.httpService.get(this.apiUrl + '/courses/student/' + this.sessionService.getUserId(roles.student))
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
 }

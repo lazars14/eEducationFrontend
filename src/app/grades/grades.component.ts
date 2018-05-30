@@ -3,6 +3,7 @@ import { SessionService } from '../_core/index';
 import { GradeService } from '../_services/index';
 import { roles } from './../_core/constants';
 import { Grade } from '../_model/index';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-grades',
@@ -11,7 +12,7 @@ import { Grade } from '../_model/index';
 })
 export class GradesComponent implements OnInit {
 
-  constructor(private sessionService: SessionService, private gradeService: GradeService) { }
+  constructor(private sessionService: SessionService, private gradeService: GradeService, private toasterService: ToasterService) { }
 
   grades = Array<Grade>();
   average = 0;
@@ -30,7 +31,7 @@ export class GradesComponent implements OnInit {
         }
       }
     }, error => {
-      // notification
+      this.toasterService.pop({type: 'error', title: 'Get Grades By Student', body: error.status + ' ' + error.statusText });
     });
   }
 

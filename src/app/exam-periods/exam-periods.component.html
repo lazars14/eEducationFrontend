@@ -3,8 +3,7 @@
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Exam Periods
-      <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#examPeriodModal"
-        (click)="setAction(true, null, null)">Add</button>
+      <button class="btn btn-primary" (click)="addExamPeriod()">Add</button>
     </h2>
   </div>
 
@@ -29,11 +28,10 @@
               <td>{{ examPeriod.startDate | date:'short' }}</td>
               <td>{{ examPeriod.endDate | date:'short' }}</td>
               <td class="btn-group-small text-center">
-                <button class="btn btn-info" (click)="setAction(teacher)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                  data-target="#myModal" title="Edit">
+                <button class="btn btn-info" (click)="editExamPeriod(examPeriod)" title="Edit">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button class="btn btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal" title="Delete">
+                <button class="btn btn-danger" (click)="deleteExamPeriod(examPeriod.id)" title="Delete">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
               </td>
@@ -55,8 +53,7 @@
 
       <div class="collapse" id="collapseExample">
         <h3>Exam terms
-          <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#examTermModal"
-            (click)="setAction(false, null, vehicle._id)">Add</button>
+          <button class="btn btn-primary" (click)="addExamTerm()">Add</button>
         </h3>
 
         <div class="table-responsive">
@@ -77,12 +74,10 @@
                 <td>{{ examTerm.examDate | date:'short' }}</td>
                 <td>{{ examTerm.classRoom }}</td>
                 <td class="btn-group-small text-center">
-                  <button class="btn btn-info" (click)="setAction(false, expense, null)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                    data-target="#expenseModal" title="Edit">
+                  <button class="btn btn-info" (click)="editExamTerm(examTerm)" title="Edit">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
-                  <button class="btn btn-danger" (click)="setDeleteId(expense._id, vehicles[i]._id)" data-toggle="modal" data-target="#confirmModal"
-                    title="Delete">
+                  <button class="btn btn-danger" (click)="deleteExamTerm(examTerm.id)" title="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </button>
                 </td>

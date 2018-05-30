@@ -1,9 +1,7 @@
-<app-course-modal></app-course-modal>
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Courses
-      <button class="btn btn-primary" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal"
-        (click)="setAction(null)">Add</button>
+      <button class="btn btn-primary" (click)="add()">Add</button>
     </h2>
   </div>
 
@@ -28,16 +26,13 @@
             <td>{{ course.espbPoints }}</td>
             <td>{{ course.teacher.firstName + ' ' + course.teacher.lastName }}</td>
             <td class="btn-group-small text-center">
-              <button class="btn btn-lg btn-success " (click)="sometniht()" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                data-target="#myModal" title="Set Teachers">
+              <button class="btn btn-success" (click)="setTeachers(course.id)" title="Set Teachers">
                 <i class="fa fa-users" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-lg btn-info " (click)="setAction(driver)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                data-target="#myModal" title="Edit">
+              <button class="btn btn-info" (click)="edit(course)" title="Edit">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-lg btn-danger " (click)="setDeleteId(driver._id)" data-toggle="modal" data-target="#confirmModal"
-                title="Delete">
+              <button class="btn btn-danger" (click)="delete(driver.id)" title="Delete">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
             </td>
@@ -45,9 +40,6 @@
         </tbody>
       </table>
     </div>
-
-
-
 
   </div>
 </div>

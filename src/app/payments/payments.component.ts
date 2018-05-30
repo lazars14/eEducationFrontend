@@ -3,6 +3,7 @@ import { StudentService, PaymentService } from '../_services/index';
 import { roles } from './../_core/constants';
 import { SessionService } from '../_core/index';
 import { Payment } from '../_model/index';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-payments',
@@ -12,7 +13,7 @@ import { Payment } from '../_model/index';
 export class PaymentsComponent implements OnInit {
 
   constructor(private studentService: StudentService, private paymentService: PaymentService,
-    private sessionService: SessionService) { }
+    private sessionService: SessionService, private toasterService: ToasterService) { }
 
   payments = Array<Payment>();
 
@@ -27,14 +28,14 @@ export class PaymentsComponent implements OnInit {
         this.balance = (payment.owes == true) ? this.balance += payment.amount : this.balance -= payment.amount;
       });
     }, error => {
-      // notification
+      this.toasterService.pop({type: 'error', title: 'Get Payments For Student', body: error.status + ' ' + error.statusText });
     });
 
     this.studentService.findById(this.sessionService.getUserId(roles.student)).subscribe(student => {
       this.accountNumber = student.accountNumber;
       this.referenceNumber = student.referenceNumber;
     }, error => {
-      // notification
+      this.toasterService.pop({type: 'error', title: 'Get Student By Id', body: error.status + ' ' + error.statusText });
     });
 
   }

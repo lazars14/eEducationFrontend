@@ -49,6 +49,8 @@ import { LessonModalComponent } from './lesson-modal/lesson-modal.component';
 
 import { FileDropModule } from 'ngx-file-drop';
 import { CourseNavbarComponent } from './course-navbar/course-navbar.component';
+import { ToasterModule } from 'angular2-toaster';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -97,7 +99,15 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     NgProgressModule,
     FormsModule,
     ReactiveFormsModule,
-    FileDropModule
+    FileDropModule,
+    ToasterModule.forRoot(),
+    BootstrapModalModule.forRoot({container:document.body})
+  ],
+  entryComponents: [
+    ConfirmModalComponent,
+    CourseModalComponent,
+    TeacherModalComponent,
+    ClassModalComponent
   ],
   providers: [
     SessionService, HttpService, AdminGuard, StudentGuard,
