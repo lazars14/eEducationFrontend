@@ -41,8 +41,8 @@ export class CourseService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  getByTeacher() {
-    return this.httpService.get(this.apiUrl + '/courses/teacher/' + this.sessionService.getUserId(roles.teacher))
+  getByTeacher(teacherId) {
+    return this.httpService.get(this.apiUrl + '/courses/teacher/' + teacherId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

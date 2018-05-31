@@ -1,0 +1,23 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+  
+      <div class="modal-header">
+        <h4 class="modal-title">Teacher Courses</h4>
+        <button type="button" class="close" (click)="cancel()">&times;</button>
+      </div>
+      
+      <h3>Teacher: {{ name }}</h3>
+
+      <div class="modal-body">
+        <p *ngFor="let course of courses">{{ course.name }}</p>
+      </div>
+  
+      <div class="modal-footer">
+        <div class="mx-auto">
+          <button type="submit" class="btn btn-success" (click)="close()">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

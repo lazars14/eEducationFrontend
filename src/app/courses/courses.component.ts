@@ -23,7 +23,7 @@ export class CoursesComponent implements OnInit {
 
     if (role == roles.teacher) {
 
-      this.courseService.getByTeacher().subscribe(data => {
+      this.courseService.getByTeacher(this.sessionService.getUserId(role)).subscribe(data => {
         this.courses = data;
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Get Courses For Teacher', body: error.status + ' ' + error.statusText });

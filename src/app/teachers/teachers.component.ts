@@ -6,6 +6,7 @@ import { ToasterService } from 'angular2-toaster';
 import { TeacherModalComponent } from '../teacher-modal/teacher-modal.component';
 import { actions } from './../_core/constants';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { TeacherCoursesModalComponent } from '../teacher-courses-modal/teacher-courses-modal.component';
 
 @Component({
   selector: 'app-teachers',
@@ -105,8 +106,23 @@ export class TeachersComponent implements OnInit {
     }, 10000);
   }
 
-  viewCourses(teacherId: number) {
-
+  viewCourses(teacherId: number, teacherFirstName: string, teacherLastName) {
+    let disposable = this.dialogService.addDialog(TeacherCoursesModalComponent, {
+      name: teacherFirstName + ' ' + teacherLastName, 
+      teacherId: teacherId })
+      .subscribe((edited)=>{
+          //We get dialog result
+          if (edited != null) {
+            // read only, do nothing
+          } else {
+            // do nothing, dialog closed
+          }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+        disposable.unsubscribe();
+    }, 10000);
   }
 
 }
