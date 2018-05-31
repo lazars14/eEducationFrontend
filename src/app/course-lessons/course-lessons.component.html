@@ -3,9 +3,7 @@
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
       <h2>Course Lessons
-          <button class="btn btn-info">
-              Add
-            </button>
+          <button *ngIf="role == teacher" class="btn btn-info" (click)="add()">Add</button>
       </h2>
     </div>
 
@@ -14,12 +12,14 @@
       <li *ngFor="let courseLesson of courseLessons" class="singleNotification" (click)="moreInfo(courseLesson.id)">
         <p class="notificationCourse">{{ courseLesson.name }}</p>
         <p class="notificationMessage">{{ courseLesson.description | slice:0:50 }}...</p>
-        <button class="btn btn-info">
-          <i class="fa fa-pencil"></i>
-        </button>
-        <button class="btn btn-danger">
-          <i class="fa fa-trash-o"></i>
-        </button>
+        <div *ngIf="role == teacher">
+          <button class="btn btn-info" title="Edit" (click)="edit(lesson)">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button class="btn btn-danger" title="Delete" (click)="delete(lesson.id)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </div>
       </li>
     </ul>
   </div>

@@ -86,6 +86,10 @@ const appRoutes: Routes = [
                         component: CourseNotificationsComponent
                     },
                     {
+                        path: 'courses/:id/notifications/:notificationId',
+                        component: NotificationComponent
+                    },
+                    {
                         path: 'courses/:id/lessons',
                         component: CourseLessonsComponent
                     },
@@ -132,6 +136,10 @@ const appRoutes: Routes = [
                     {
                         path: 'courses/:id/notifications',
                         component: CourseNotificationsComponent
+                    },
+                    {
+                        path: 'courses/:id/notifications/:notificationId',
+                        component: NotificationComponent
                     },
                     {
                         path: 'courses/:id/lessons',

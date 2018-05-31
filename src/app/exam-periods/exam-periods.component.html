@@ -1,5 +1,3 @@
-<app-exam-term-modal></app-exam-term-modal>
-<app-exam-period-modal></app-exam-period-modal>
 <div class="panel panel-default" id="entity-management">
   <div class="panel-heading">
     <h2>Exam Periods
@@ -53,7 +51,7 @@
 
       <div class="collapse" id="collapseExample">
         <h3>Exam terms
-          <button class="btn btn-primary" (click)="addExamTerm()">Add</button>
+          <button class="btn btn-primary" (click)="addExamTerm(examPeriod[i].id)">Add</button>
         </h3>
 
         <div class="table-responsive">
@@ -68,16 +66,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let examTerm of examPeriod[i].examTerms; let ii = index">
+              <tr *ngFor="let examTerm of examPeriods[i].examTerms; let ii = index">
                 <td>{{ ii + 1 }}</td>
                 <td>{{ examTerm.course.name }}</td>
                 <td>{{ examTerm.examDate | date:'short' }}</td>
                 <td>{{ examTerm.classRoom }}</td>
                 <td class="btn-group-small text-center">
-                  <button class="btn btn-info" (click)="editExamTerm(examTerm)" title="Edit">
+                  <button class="btn btn-info" (click)="editExamTerm(examPeriods[i].id, examTerm)" title="Edit">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
-                  <button class="btn btn-danger" (click)="deleteExamTerm(examTerm.id)" title="Delete">
+                  <button class="btn btn-danger" (click)="deleteExamTerm(examPeriods[i].id, examTerm.id)" title="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </button>
                 </td>

@@ -28,9 +28,8 @@
               <td>
                 <strong>{{ item.relativePath }}</strong>
               </td>
-              <td class="btn-group-small text-center">
-                <button class="btn btn-lg btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal"
-                  title="Delete">
+              <td *ngIf="role == teacher" class="btn-group-small text-center">
+                <button class="btn btn-danger" (click)="deleteFile(item)" title="Delete">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
               </td>
@@ -40,13 +39,10 @@
       </div>
     </div>
 
-    <button class="btn btn-lg btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal"
-      title="Save">
-      Save changes
-    </button>
+    <button class="btn btn-danger" (click)="saveChanges()" title="Save">Save changes</button>
 
-    <p *ngIf="courseFiles.length > 0">Download attachment:
-      <button class="btn btn-lg btn-info " (click)="download(notification.document.id)" title="Download">
+    <p *ngIf="courseLesson.courseFiles.length > 0">Download attachment:
+      <button class="btn btn-info " (click)="download(courseLesson.document.id)" title="Download">
         <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </p>

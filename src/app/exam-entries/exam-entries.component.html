@@ -15,7 +15,6 @@
               <th>Name</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th class="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -23,15 +22,6 @@
               <td>{{ examPeriod.name }}</td>
                 <td>{{ examPeriod.startDate | date:'short' }}</td>
                 <td>{{ examPeriod.endDate | date:'short' }}</td>
-              <td class="btn-group-small text-center">
-                <button class="btn btn-info" (click)="setAction(teacher)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                  data-target="#myModal" title="Edit">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-                <button class="btn btn-danger " (click)="setDeleteId(teacher.id)" data-toggle="modal" data-target="#confirmModal" title="Delete">
-                  <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -50,7 +40,7 @@
 
       <div class="collapse" id="collapseExample">
 
-        <div *ngIf="role == student && today < examPeriod.endDate">
+        <div *ngIf="role == student && today < examPeriod.endDate.getTime()">
           <h3>Exam terms</h3>
 
           <div class="table-responsive">
@@ -71,8 +61,8 @@
                             <td>{{ examTerm.examDate | date:'short' }}</td>
                             <td>{{ examTerm.classRoom }}</td>
                   <td class="btn-group-small text-center">
-                    <!-- ispit moze da se prijavi maks 3 dana pre datuma, ili ako je prosao termin ispita -->
-                    <button [disabled]="today - 3 > examTerm.examDate || today > examTerm.examDate" class="btn btn-info" (click)="setAction(false, expense, null)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
+                    <!-- ispit moze da se prijavi maks 3 dana pre datuma -->
+                    <button [disabled]="deadlineDateEnter > examTerm.examDate.getTime()" class="btn btn-info" (click)="addExamEntry(examTerm)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
                       data-target="#expenseModal" title="Edit">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                     </button>
@@ -108,13 +98,12 @@
                       <td>{{ examEntry.examTerm.classRoom }}</td>
                       <td>{{ examEntry.grade }}</td>
                 <td class="btn-group-small text-center">
-                  <button *ngIf="role == teacher" class="btn btn-info" (click)="setAction(false, expense, null)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                    data-target="#expenseModal" title="Edit">
+                  <button *ngIf="role == teacher" class="btn btn-info" (click)="grade(examEntry)" title="Edit">
                     <i class="fa fa-gavel" aria-hidden="true"></i>
                   </button>
-                  <!-- ispit ne moze da se odjavi ako je ostalo manje od dva dana do ispita, ili ako je prosao termin ispita -->
-                  <button *ngIf="role == student" [disabled]="today - 3 > examTerm.examDate || today > examTerm.examDate" class="btn btn-danger" (click)="setDeleteId(expense._id, vehicles[i]._id)" data-toggle="modal" data-target="#confirmModal"
-                      title="Cancel">
+                  <!-- ispit ne moze da se odjavi ako je ostalo manje od 3 dana do ispita -->
+                  <button *ngIf="role == student" [disabled]="today > examTerm.examDate" class="btn btn-danger"
+                    (click)="deleteExamEntry(examEntry.id)" title="Cancel">
                       <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </td>

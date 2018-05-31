@@ -107,7 +107,11 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ConfirmModalComponent,
     CourseModalComponent,
     TeacherModalComponent,
-    ClassModalComponent
+    ClassModalComponent,
+    ExamPeriodModalComponent,
+    ExamTermModalComponent,
+    LessonModalComponent,
+    NotificationModalComponent
   ],
   providers: [
     SessionService, HttpService, AdminGuard, StudentGuard,

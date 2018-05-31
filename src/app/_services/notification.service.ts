@@ -48,8 +48,14 @@ export class NotificationService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  getByCourse(courseId: number) {
-    return this.httpService.get(this.apiUrl + '/notifications/course/' + courseId)
+  getByCourseAndStudent(courseId: number) {
+    return this.httpService.get(this.apiUrl + '/notifications/course/' + courseId + '/student/' + this.sessionService.getUserId(roles.student))
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getByCourseDistinct(courseId: number) {
+    return this.httpService.get(this.apiUrl + '/notifications/course/' + courseId + '/distinctMessages')
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

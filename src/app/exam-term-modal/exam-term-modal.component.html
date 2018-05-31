@@ -1,61 +1,51 @@
-<div class="container">
-    <!-- The Modal -->
-    <div class="modal fade defaultModal" id="examTermModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-  
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">{{ action }} Exam Term</h4>
-            <button type="button" class="close" data-dismiss="modal" (click)="cancel(f)">&times;</button>
-          </div>
-  
-          <!-- Modal body -->
-          <div class="modal-body">
-            <form #f="ngForm" name="form">
-  
-              <div class="form-group">
-                <label for="startDate">
-                  <span class="red-text">*</span>Start Date</label>
-                <input type="date" class="form-control" [min]="today" [(ngModel)]="destination.startDate" useValueAsDate id="startDate" name="startDate" required>
-              </div>
-  
-              <div class="form-group">
-                <label for="startTime">
-                  <span class="red-text">*</span>Start Time</label>
-                <input type="time" #startTime class="form-control" [(ngModel)]="time" name="startTime" required>
-              </div>
-  
-              <div class="form-group">
-                <label for="classRoom">Classroom</label>
-                <input type="text" class="form-control" [(ngModel)]="examTerm.classRoom" name="classRoom">
-              </div>
-  
-              <div class="form-group">
-                  <label for="course">
-                      <span class="red-text">*</span>Course</label>
-                <select id="course" name="course" class="customMarginLeft">
-                  <option *ngFor="let course of courses" [selected]="examTerm.course.id == course.id" value="{{ course.id }}">{{ course.name }}</option>
-                </select>
-              </div>
-  
-              <p><span class="red-text">*</span> - mandatory fields</p>
-  
-            </form>
-          </div>
-  
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <div class="mx-auto">
-              <button type="submit" class="btn btn-success btn-lg" data-dismiss="modal" [disabled]="startTime.value == null || !visible"
-                (click)="ok(startTime.value)">Ok</button>
-              <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" (click)="cancel(f)">Cancel</button>
-            </div>
-          </div>
-  
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4 class="modal-title">{{ action }} Exam Term</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <form #f="ngForm" name="form">
+
+        <div class="form-group">
+          <label for="startDate">
+            <span class="red-text">*</span>Start Date</label>
+          <input type="date" class="form-control" [min]="today" [(ngModel)]="examTerm.startDate" useValueAsDate id="startDate" name="startDate" required>
         </div>
+
+        <div class="form-group">
+          <label for="startTime">
+            <span class="red-text">*</span>Start Time</label>
+          <input type="time" #startTime class="form-control" value="{{ time }}" name="startTime" required>
+        </div>
+
+        <div class="form-group">
+          <label for="classRoom">Classroom</label>
+          <input type="text" class="form-control" [(ngModel)]="examTerm.classRoom" name="classRoom">
+        </div>
+
+        <div class="form-group">
+            <label for="course">
+                <span class="red-text">*</span>Course</label>
+          <select id="course" name="course" class="customMarginLeft">
+            <option *ngFor="let course of courses" [selected]="examTerm.course.id == course.id" value="{{ course.id }}">{{ course.name }}</option>
+          </select>
+        </div>
+
+        <p><span class="red-text">*</span> - mandatory fields</p>
+
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" [disabled]="startTime.value == null || !visible"
+          (click)="ok(startTime.value)">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
       </div>
     </div>
-  
+
   </div>
-  
+</div>  

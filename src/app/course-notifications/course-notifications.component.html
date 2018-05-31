@@ -2,21 +2,25 @@
 
 <div class="panel panel-default" id="entity-management">
     <div class="panel-heading">
-      <h2>Notifications</h2>
+      <h2>Notifications
+        <button *ngIf="role == teacher" class="btn btn-info" (click)="add()">Add</button>
+      </h2>
     </div>
   
     <div class="panel-body">
       <ul class="notificationsList">
-        <li *ngFor="let notification of notifications" class="singleNotification" [ngClass]="{'unreadBackground': notification.seen == false }" (click)="moreInfo(notification.id)">
+        <li *ngFor="let notification of notifications" class="singleNotification" [ngClass]="{'unreadBackground': role == student && notification.seen == false }" (click)="moreInfo(notification.id)">
           <p class="notificationCourse">{{ notification.course.courseName }}</p>
           <p class="notificationDate">{{ notification.nDate | date:'short' }}</p>
           <p class="notificationMessage">{{ notification.message | slice:0:50 }}...</p>
-          <button class="btn btn-info">
+          <div *ngIf="role == teacher">
+            <button class="btn btn-info" title="Edit" (click)="edit(notification)">
               <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-danger">
+            <button class="btn btn-danger" title="Delete" (click)="delete(notification.id)">
               <i class="fa fa-trash-o"></i>
             </button>
+          </div>
         </li>
       </ul>
     </div>

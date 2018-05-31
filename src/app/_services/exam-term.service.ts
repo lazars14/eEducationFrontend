@@ -11,31 +11,37 @@ export class ExamTermService {
   apiUrl = environment.apiUrl;
 
   findAll(examPeriodId: number) {
-    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId + '/colloquiums')
+    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  findById(examPeriodId: number, colloquiumId: number) {
-    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId + '/colloquiums/' + colloquiumId)
+  findById(examPeriodId: number) {
+    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
   create(examPeriodId: number, examTerm: ExamTerm) {
-    return this.httpService.post(this.apiUrl + '/examPeriod/' + examPeriodId + '/colloquiums/', examTerm)
+    return this.httpService.post(this.apiUrl + '/examPeriod/' + examPeriodId + '/examTerms/', examTerm)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
   update(examPeriodId: number, examTerm: ExamTerm) {
-    return this.httpService.put(this.apiUrl + '/examPeriod/' + examPeriodId +  '/colloquiums/' + examTerm.id, examTerm)
+    return this.httpService.put(this.apiUrl + '/examPeriod/' + examPeriodId +  '/examTerms/' + examTerm.id, examTerm)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  delete(examPeriodId: number, colloquiumId: number) {
-    return this.httpService.delete(this.apiUrl + '/examPeriod/' + examPeriodId + '/colloquiums/' + colloquiumId)
+  delete(examPeriodId: number, examTermId: number) {
+    return this.httpService.delete(this.apiUrl + '/examPeriod/' + examPeriodId + '/examTerms/' + examTermId)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getByExamPeriod(examPeriodId: number) {
+    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId + '/byExamPeriod')
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
