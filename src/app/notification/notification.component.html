@@ -4,7 +4,7 @@
   </div>
 
   <div class="panel-body">
-    <p><strong>Course: </strong>{{ notification.course.courseName }}</p>
+    <p><strong>Course: </strong>{{ notification.course.name }}</p>
     <p><strong>Date: </strong>{{ notification.nDate | date:'short' }}</p>
     <p>{{ notification.message }}</p>
     <p *ngIf="notification.document != null">Download attachment: 

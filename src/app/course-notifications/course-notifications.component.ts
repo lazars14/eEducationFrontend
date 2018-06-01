@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Notification } from '../_model/index';
+import { Notification, Course } from '../_model/index';
 import { roles, actions } from './../_core/constants';
 import { Router } from '@angular/router';
 import { SessionService } from '../_core/index';
-import { NotificationService } from './../_services/index';
+import { NotificationService, CourseService } from './../_services/index';
 import { ToasterService } from 'angular2-toaster';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { NotificationModalComponent } from '../notification-modal/notification-modal.component';
@@ -17,7 +17,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 export class CourseNotificationsComponent implements OnInit {
 
   constructor(private sessionService: SessionService, private router: Router, private notificationService: NotificationService,
-    private toasterService: ToasterService, private dialogService: DialogService) { }
+    private toasterService: ToasterService, private dialogService: DialogService, private courseService: CourseService) { }
 
   notifications: Array<Notification>;
   
@@ -26,6 +26,7 @@ export class CourseNotificationsComponent implements OnInit {
   student = roles.student;
 
   courseId: number;
+  course: Course;
 
   ngOnInit() {
     this.refreshPage();
@@ -37,6 +38,12 @@ export class CourseNotificationsComponent implements OnInit {
     // get course id
     const urlItems = this.router.url.split('/');
     this.courseId = Number(urlItems[4]);
+
+    this.courseService.findById(this.courseId).subscribe(course => {
+      this.course = course;
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Get Course By Id', body: error.status + ' ' + error.statusText });
+    });
 
     if (this.role == this.teacher) {
       this.notificationService.getByCourseDistinct(this.courseId).subscribe(data => {
@@ -65,7 +72,8 @@ export class CourseNotificationsComponent implements OnInit {
       .subscribe((added) => {
           //We get dialog result
           if(added != null) {
-            this.notificationService.create(added).subscribe(added => {
+            added.course = this.course;
+            this.notificationService.batchAdd(added).subscribe(added => {
               this.toasterService.pop({type: 'success', title: 'Created New Notification', body: '' });
               this.refreshPage();
             }, error => {
@@ -84,13 +92,17 @@ export class CourseNotificationsComponent implements OnInit {
   }
 
   edit(notification: Notification) {
+    const oldNotificationMessage = notification.message;
+
     let disposable = this.dialogService.addDialog(NotificationModalComponent, {
       action: actions.add, 
       notification: notification})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {
-            this.notificationService.create(edited).subscribe(updated => {
+            edited.course = this.course;
+            edited.message += "|" + oldNotificationMessage;
+            this.notificationService.batchUpdate(edited).subscribe(updated => {
               this.toasterService.pop({type: 'success', title: 'Updated Notification', body: '' });
               this.refreshPage();
             }, error => {

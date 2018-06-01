@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../_model/index';
-import { CourseService } from '../_services/index';
+import { CourseService, TeacherTeachesCourseService } from '../_services/index';
 import { ToasterService } from 'angular2-toaster';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { actions } from './../_core/constants';
 import { CourseModalComponent } from '../course-modal/course-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { SetTeachersModalComponent } from '../set-teachers-modal/set-teachers-modal.component';
 
 @Component({
   selector: 'app-courses-admin',
@@ -14,7 +15,8 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 })
 export class CoursesAdminComponent implements OnInit {
 
-  constructor(private dialogService: DialogService, private courseService: CourseService, private toasterService: ToasterService) { }
+  constructor(private dialogService: DialogService, private courseService: CourseService, private toasterService: ToasterService, 
+    private ttcService: TeacherTeachesCourseService) { }
 
   courses: Array<Course>;
 
@@ -106,7 +108,34 @@ export class CoursesAdminComponent implements OnInit {
   }
 
   setTeachers(courseId: number) {
+    let disposable = this.dialogService.addDialog(SetTeachersModalComponent, {
+      courseId: courseId })
+      .subscribe((lists)=>{
+          //We get dialog result
+          if(lists != null) {
+            const addedTeachers = lists['added'];
+            const removedTeachers = lists['removed'];
 
+            this.ttcService.batchAdd(addedTeachers, courseId).subscribe(done => {
+              this.ttcService.batchRemove(removedTeachers, courseId).subscribe(done => {
+                this.refreshPage();
+              }, error => {
+                this.toasterService.pop({type: 'error', title: 'Batch Remove Ttc', body: error.status + ' ' + error.statusText });
+              });
+            }, error => {
+              this.toasterService.pop({type: 'error', title: 'Batch Add Ttc', body: error.status + ' ' + error.statusText });
+            });
+
+          }
+          else {
+            // do nothing, dialog closed
+          }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+        disposable.unsubscribe();
+    }, 10000);
   }
 
 }

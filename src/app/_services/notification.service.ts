@@ -59,4 +59,22 @@ export class NotificationService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  readNotification(id: number) {
+    return this.httpService.get(this.apiUrl + '/notifications/' + id + '/read')
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  batchAdd(notification: Notification) {
+    return this.httpService.post(this.apiUrl + '/notifications/batchAdd', notification)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  batchUpdate(notification: Notification) {
+    return this.httpService.put(this.apiUrl + '/notifications/batchUpdate', notification)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
 }

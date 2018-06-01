@@ -40,4 +40,10 @@ export class TeacherService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  getByCourse(courseId: number) {
+    return this.httpService.get(this.apiUrl + '/course/' + courseId)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
 }

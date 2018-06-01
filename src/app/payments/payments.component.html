@@ -10,10 +10,8 @@
       <h2>Account Info</h2>
       <p>Account Number: {{ accountNumber }}</p>
       <p>Reference Number: {{ referenceNumber }}</p>
-      <p>Balance: <span class="red-text">{{ balance }}</span></p>
+      <p>Balance: <span class="red-text">{{ balance | number : '1.2-2' }}</span></p>
     </div>
-
-    <button (click)="test()">test</button>
 
     <div class="table-responsive">
       <table class="table table-bordered">

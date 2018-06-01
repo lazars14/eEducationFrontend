@@ -1,3 +1,53 @@
-<p>
-  set-teachers-modal works!
-</p>
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4 class="modal-title">Set Course Teachers</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h2>Teachers</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>#</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Rank</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let teacher of teachers; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ teacher.firstName }}</td>
+              <td>{{ teacher.lastName }}</td>
+              <td>{{ teacher.email }}</td>
+              <td>{{ teacher.rank.name }}</td>
+              <td class="btn-group-small text-center">
+                <button class="btn btn-lg btn-success" title="Set" [disabled]="isSelected(teacher.id)" (click)="set(teacher)">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-lg btn-danger" title="Remove" [disabled]="!isSelected(teacher.id)" (click)="remove(teacher)">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" (click)="ok()">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>

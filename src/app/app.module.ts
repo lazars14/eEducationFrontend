@@ -52,6 +52,8 @@ import { CourseNavbarComponent } from './course-navbar/course-navbar.component';
 import { ToasterModule } from 'angular2-toaster';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { TeacherCoursesModalComponent } from './teacher-courses-modal/teacher-courses-modal.component';
+import { ColloquiumModalComponent } from './colloquium-modal/colloquium-modal.component';
+import { ColloquiumResultModalComponent } from './colloquium-result-modal/colloquium-result-modal.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -91,7 +93,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     NotificationModalComponent,
     LessonModalComponent,
     CourseNavbarComponent,
-    TeacherCoursesModalComponent
+    TeacherCoursesModalComponent,
+    ColloquiumModalComponent,
+    ColloquiumResultModalComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +119,9 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     LessonModalComponent,
     NotificationModalComponent,
     TeacherCoursesModalComponent,
-    SetTeachersModalComponent
+    SetTeachersModalComponent, 
+    ColloquiumModalComponent,
+    ColloquiumResultModalComponent
   ],
   providers: [
     SessionService, HttpService, AdminGuard, StudentGuard,

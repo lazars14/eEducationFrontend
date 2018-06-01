@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService, ErrorHandlerService } from '../_core/index';
 import { environment } from '../../environments/environment';
-import { TeacherTeachesCourse } from '../_model/index';
+import { TeacherTeachesCourse, Teacher } from '../_model/index';
 
 @Injectable()
 export class TeacherTeachesCourseService {
@@ -39,4 +39,17 @@ export class TeacherTeachesCourseService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  batchAdd(teachers: Array<Teacher>, courseId: number) {
+    return this.httpService.post(this.apiUrl + '/teacherTeachesCourse/course/' + courseId + '/batchAdd', teachers)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  batchRemove(teachers: Array<Teacher>, courseId: number) {
+    return this.httpService.post(this.apiUrl + '/teacherTeachesCourse/course/' + courseId + '/batchRemove', teachers)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
 }

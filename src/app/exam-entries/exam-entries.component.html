@@ -4,7 +4,7 @@
   </div>
 
   <div *ngIf="role == student" class="moreInfo">
-    <p>Balance: <span class="red-text">{{ balance }}</span></p>
+    <p>Balance: <span class="red-text">{{ balance | number : '1.2-2' }}</span></p>
   </div>
 
   <div class="panel-body">

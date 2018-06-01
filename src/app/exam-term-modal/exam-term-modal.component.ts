@@ -20,7 +20,36 @@ export class ExamTermModalComponent extends DialogComponent<ExamTermModel, ExamT
   action: string;
   examTerm: ExamTerm;
 
-  ok() {
+  get time() {
+    if (this.examTerm.examDate) {
+
+      const hour = this.examTerm.examDate.getHours();
+      const minutes = this.examTerm.examDate.getMinutes();
+
+      let hourStr, minStr;
+
+      if (hour < 10) {
+        hourStr = '0' + hour;
+      } else {
+        hourStr = hour.toString();
+      }
+
+      if (minutes < 10) {
+        minStr = '0' + minutes;
+      } else {
+        hourStr = hour.toString();
+      }
+
+      return hourStr + ':' + minStr;
+    }
+  }
+
+  ok(time) {
+    const month = this.examTerm.examDate.getMonth() + 1,
+    day = this.examTerm.examDate.getDate(),
+    year = this.examTerm.examDate.getFullYear();
+    this.examTerm.examDate = new Date(month + '-' + day + '-' + year + ' ' + time);
+
     this.result = this.examTerm;
     this.close();
   }
