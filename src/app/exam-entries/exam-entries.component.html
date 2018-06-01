@@ -3,6 +3,10 @@
     <h2>Exam Periods</h2>
   </div>
 
+  <div *ngIf="role == student" class="moreInfo">
+    <p>Balance: <span class="red-text">{{ balance }}</span></p>
+  </div>
+
   <div class="panel-body">
 
     <div *ngFor="let examPeriod of examPeriods; let i = index" class="examPeriod">
@@ -62,7 +66,7 @@
                             <td>{{ examTerm.classRoom }}</td>
                   <td class="btn-group-small text-center">
                     <!-- ispit moze da se prijavi maks 3 dana pre datuma -->
-                    <button [disabled]="deadlineDateEnter > examTerm.examDate.getTime()" class="btn btn-info" (click)="addExamEntry(examTerm)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
+                    <button [disabled]="deadlineDateEnter > examTerm.examDate.getTime() && balance > 0" class="btn btn-info" (click)="addExamEntry(examTerm)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
                       data-target="#expenseModal" title="Edit">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                     </button>
@@ -91,8 +95,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let examEntry of examPeriod[i].examEntries; let ii = index">
-                <td>{{ ii + 1 }}</td>
+              <tr *ngFor="let examEntry of examPeriod[i].examEntries; let iii = index">
+                <td>{{ iii + 1 }}</td>
                       <td>{{ examEntry.examTerm.course.name }}</td>
                       <td>{{ examEntry.examTerm.examDate | date:'short' }}</td>
                       <td>{{ examEntry.examTerm.classRoom }}</td>

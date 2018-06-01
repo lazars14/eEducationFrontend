@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { roles } from './../_core/constants';
 import { SessionService } from '../_core/index';
 import { Router } from '@angular/router';
-import { ExamTerm, StudentExamEntry } from '../_model/index';
-import { StudentExamEntryService, StudentService } from '../_services/index';
+import { ExamTerm, StudentExamEntry, ExamPeriod } from '../_model/index';
+import { StudentExamEntryService, StudentService, PaymentService, ExamPeriodService, ExamTermService } from '../_services/index';
 import { ToasterService } from 'angular2-toaster';
 
 @Component({
@@ -14,7 +14,8 @@ import { ToasterService } from 'angular2-toaster';
 export class ExamEntriesComponent implements OnInit {
 
   constructor(private router: Router, private sessionService: SessionService, private examEntryService: StudentExamEntryService, 
-    private toasterService: ToasterService, private studentService: StudentService) { }
+    private toasterService: ToasterService, private studentService: StudentService, private paymentService: PaymentService,
+    private examPeriodService: ExamPeriodService, private examTermService: ExamTermService) { }
 
   today = new Date().getTime();
 
@@ -24,6 +25,10 @@ export class ExamEntriesComponent implements OnInit {
 
   teacher = roles.teacher;
   student = roles.student;
+
+  balance = 0;
+
+  examPeriods: Array<ExamPeriod>;
 
   ngOnInit() {
     // add 3 days to today
@@ -35,6 +40,48 @@ export class ExamEntriesComponent implements OnInit {
   }
 
   refreshPage() {
+
+    this.examPeriodService.findAll().subscribe(data => {
+      this.examPeriods = data;
+      this.examPeriods.forEach(examPeriod => {
+        this.examTermService.getByExamPeriod(examPeriod.id).subscribe(examTerms => {
+          examPeriod['examTerms'] = examTerms;
+          examPeriod['examTerms'].forEach(examTerm => {
+            
+            if (this.role == this.teacher) {
+
+              this.examEntryService.findByExamTermAndTeacher(examTerm.id).subscribe(examEntries => {
+                examPeriod['examEntries'] = examEntries;
+              }, error => {
+                this.toasterService.pop({type: 'error', title: 'Get Exam Entries For Teacher (By Term)', body: error.status + ' ' + error.statusText });
+              });
+
+            } else if (this.role == this.student) {
+              
+              this.examEntryService.findByExamTermAndStudent(examTerm.id).subscribe(examEntries => {
+                examPeriod['examEntries'] = examEntries;
+              }, error => {
+                this.toasterService.pop({type: 'error', title: 'Get Exam Entries For Student (By Term)', body: error.status + ' ' + error.statusText });
+              });
+
+              // student
+              this.paymentService.getByStudent(roles.student).subscribe(data => {
+                data.forEach(payment => {
+                  this.balance = (payment.owes == true) ? this.balance += payment.amount : this.balance -= payment.amount;
+                });
+              }, error => {
+                this.toasterService.pop({type: 'error', title: 'Get Payments For Student', body: error.status + ' ' + error.statusText });
+              });
+            }
+
+          });
+        }, error => {
+          this.toasterService.pop({type: 'error', title: 'Get Exam Terms For Exam Period', body: error.status + ' ' + error.statusText });
+        });
+      });
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Get All Exam Periods', body: error.status + ' ' + error.statusText });
+    });
 
   }
 
