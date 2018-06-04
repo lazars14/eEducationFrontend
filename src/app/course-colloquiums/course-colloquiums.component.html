@@ -1,1 +1,46 @@
 <app-course-navbar></app-course-navbar>
+
+<div class="panel panel-default customTopMargin" id="entity-management">
+    <div class="panel-heading">
+      <h2>Course Colloquiums
+        <button *ngIf="role == teacher" class="btn btn-primary" (click)="add()">Add</button>
+      </h2>
+    </div>
+  
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>#</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Max Points</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let colloquium of colloquiums; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ colloquium.examType }}</td>
+              <td>{{ colloquium.examDateTime | date: 'short' }}</td>
+              <td>{{ colloquium.maxPoints | number : '1.2-2' }}</td>
+              <td class="btn-group-small text-center">
+                <button *ngIf="role == student && today < colloquium.examDateTime.getTime()" class="btn btn-success" (click)="submit(colloquium.id)" title="Submit">
+                  <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-info" (click)="edit(course)" title="Edit">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-danger" (click)="delete(driver.id)" title="Delete">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+    </div>
+  </div>
+  

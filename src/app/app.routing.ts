@@ -24,7 +24,6 @@ import { NotificationComponent } from './notification/notification.component';
 import { ClassComponent } from './class/class.component';
 import { CourseNotificationsComponent } from './course-notifications/course-notifications.component';
 import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
-import { CourseFilesComponent } from './course-files/course-files.component';
 import { CourseColloquiumsComponent } from './course-colloquiums/course-colloquiums.component';
 import { CourseLessonComponent } from './course-lesson/course-lesson.component';
 
@@ -98,10 +97,6 @@ const appRoutes: Routes = [
                         component: CourseLessonComponent
                     },
                     {
-                        path: 'courses/:id/files',
-                        component: CourseFilesComponent
-                    },
-                    {
                         path: 'courses/:id/colloquiums',
                         component: CourseColloquiumsComponent
                     },
@@ -148,10 +143,6 @@ const appRoutes: Routes = [
                     {
                         path: 'courses/:id/lessons/:lessonId',
                         component: CourseLessonComponent
-                    },
-                    {
-                        path: 'courses/:id/files',
-                        component: CourseFilesComponent
                     },
                     {
                         path: 'courses/:id/colloquiums',

@@ -4,11 +4,11 @@ import { ToasterService } from 'angular2-toaster';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { ExamPeriodService, ExamTermService } from '../_services/index';
 import { ExamTerm } from '../_model/examTerm.model';
-import { actions } from './../_core/constants';
+import { actions, strings } from './../_core/constants';
 import { ExamPeriodModalComponent } from '../exam-period-modal/exam-period-modal.component';
 import { ExamTermModalComponent } from '../exam-term-modal/exam-term-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { element } from 'protractor';
+
 
 @Component({
   selector: 'app-exam-periods',
@@ -21,6 +21,8 @@ export class ExamPeriodsComponent implements OnInit {
     private examPeriodService: ExamPeriodService, private examTermService: ExamTermService) { }
 
   examPeriods: Array<ExamPeriod>;
+
+  idSymbol = strings.id;
 
   ngOnInit() {
     this.refreshPage();

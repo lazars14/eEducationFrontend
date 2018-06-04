@@ -1,0 +1,31 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+  
+    <div class="modal-header">
+      <h4 class="modal-title">Submit Colloquium</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+
+      <p class="red-text">Be careful, you can submit your assignment only once!!!</p>
+
+      <form #f="ngForm" name="form">
+        <div class="form-group">
+          <label for="name"><span class="red-text">*</span>Document</label>
+          <input type="file" class="form-control" name="name" required>
+        </div>
+
+        <p><span class="red-text">*</span> - mandatory fields</p>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid" (click)="ok()">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+    
+  </div>
+</div>

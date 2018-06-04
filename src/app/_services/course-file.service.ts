@@ -39,4 +39,16 @@ export class CourseFileService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  getByCourseLesson(lessonId: number) {
+    return this.httpService.get(this.apiUrl + '/courseFiles/courseLessons/' + lessonId)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  getCourseNotificationFiles(courseId: number) {
+    return this.httpService.get(this.apiUrl + '/courseFiles/courses/' + courseId + '/notifications')
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
 }

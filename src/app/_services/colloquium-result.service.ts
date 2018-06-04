@@ -10,32 +10,38 @@ export class ColloquiumResultService {
 
   apiUrl = environment.apiUrl;
 
-  findAll(courseId: number) {
-    return this.httpService.get(this.apiUrl + '/course/' + courseId + '/colloquiumResults')
+  findAll(colloquiumId: number) {
+    return this.httpService.get(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults')
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  findById(courseId: number, resultId: number) {
-    return this.httpService.get(this.apiUrl + '/course/' + courseId + '/colloquiumResults/' + resultId)
+  findById(colloquiumId: number, resultId: number) {
+    return this.httpService.get(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/' + resultId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  create(courseId: number, result: ColloquiumResult) {
-    return this.httpService.post(this.apiUrl + '/course/' + courseId + '/colloquiumResults/', result)
+  create(colloquiumId: number, result: ColloquiumResult) {
+    return this.httpService.post(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/', result)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  update(courseId: number, result: ColloquiumResult) {
-    return this.httpService.put(this.apiUrl + '/course/' + courseId +  '/colloquiumResults/' + result.id, result)
+  update(colloquiumId: number, result: ColloquiumResult) {
+    return this.httpService.put(this.apiUrl + '/colloquium/' + colloquiumId +  '/colloquiumResults/' + result.id, result)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  delete(courseId: number, resultId: number) {
-    return this.httpService.delete(this.apiUrl + '/course/' + courseId + '/colloquiumResults/' + resultId)
+  delete(colloquiumId: number, resultId: number) {
+    return this.httpService.delete(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/' + resultId)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  findByStudentAndColloquium(studentId: number, colloquiumId: number) {
+    return this.httpService.get(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/student/' + studentId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

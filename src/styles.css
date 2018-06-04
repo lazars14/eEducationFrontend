@@ -222,3 +222,7 @@ form input {
 .customMarginLeft {
   margin-left: 20px;
 }
+
+.customTopMargin {
+  margin-top: 50px;
+}

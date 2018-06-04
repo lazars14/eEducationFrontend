@@ -29,7 +29,6 @@ import { NotificationComponent } from './notification/notification.component';
 import { ClassComponent } from './class/class.component';
 import { CourseNotificationsComponent } from './course-notifications/course-notifications.component';
 import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
-import { CourseFilesComponent } from './course-files/course-files.component';
 import { CourseColloquiumsComponent } from './course-colloquiums/course-colloquiums.component';
 import { CourseLessonComponent } from './course-lesson/course-lesson.component';
 import { CollegeDirectionService, ColloquiumResultService, ColloquiumService, CourseFileService,
@@ -54,6 +53,7 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { TeacherCoursesModalComponent } from './teacher-courses-modal/teacher-courses-modal.component';
 import { ColloquiumModalComponent } from './colloquium-modal/colloquium-modal.component';
 import { ColloquiumResultModalComponent } from './colloquium-result-modal/colloquium-result-modal.component';
+import { EnterColloquiumModalComponent } from './enter-colloquium-modal/enter-colloquium-modal.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -79,7 +79,6 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ClassComponent,
     CourseNotificationsComponent,
     CourseLessonsComponent,
-    CourseFilesComponent,
     CourseColloquiumsComponent,
     CourseLessonComponent,
     ClassModalComponent,
@@ -95,7 +94,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     CourseNavbarComponent,
     TeacherCoursesModalComponent,
     ColloquiumModalComponent,
-    ColloquiumResultModalComponent
+    ColloquiumResultModalComponent,
+    EnterColloquiumModalComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +121,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     TeacherCoursesModalComponent,
     SetTeachersModalComponent, 
     ColloquiumModalComponent,
-    ColloquiumResultModalComponent
+    ColloquiumResultModalComponent,
+    EnterColloquiumModalComponent
   ],
   providers: [
     SessionService, HttpService, AdminGuard, StudentGuard,

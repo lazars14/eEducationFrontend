@@ -8,3 +8,7 @@ export const actions = {
     add: 'Add',
     edit: 'Edit'
 }
+
+export const strings = {
+    id: '#'
+}

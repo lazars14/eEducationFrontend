@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { roles } from './../_core/constants';
+import { roles, strings } from './../_core/constants';
 import { SessionService } from '../_core/index';
 import { Router } from '@angular/router';
 import { ExamTerm, StudentExamEntry, ExamPeriod } from '../_model/index';
@@ -29,6 +29,8 @@ export class ExamEntriesComponent implements OnInit {
   balance = 0;
 
   examPeriods: Array<ExamPeriod>;
+
+  idSymbol = strings.id;
 
   ngOnInit() {
     // add 3 days to today
