@@ -105,15 +105,13 @@ export class ClassComponent implements OnInit {
   }
 
   addCourseToStudents() {
-    // course id is this.selectedCourse
+    const course = this.courses.find(i => i.id === this.selectedCourseId);
+
     this.selectedStudents.forEach(student => {
       const sac = new StudentAttendsCourse();
       sac.student = student;
-
-      const course = this.courses.find(i => i.id === this.selectedCourseId);
-
       sac.course = course;
-
+      
       this.sacService.create(sac).subscribe(added => {
         this.toasterService.pop({type: 'success', title: 'Added Student Enrollment', body: '' });
         this.refreshPage();
