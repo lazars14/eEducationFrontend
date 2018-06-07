@@ -1,15 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+import { Student } from '../_model/index';
+
+export interface StudentModel {
+  action: string;
+  student: Student;
+}
 
 @Component({
   selector: 'app-student-modal',
   templateUrl: './student-modal.component.html',
   styleUrls: ['./student-modal.component.css']
 })
-export class StudentModalComponent implements OnInit {
+export class StudentModalComponent  extends DialogComponent<StudentModel, Student> implements StudentModel {
 
-  constructor() { }
+  constructor(dialogService: DialogService) {
+    super(dialogService);
+  }
 
-  ngOnInit() {
+  action: string;
+  student: Student;
+
+  ok() {
+    this.result = this.student;
+    this.close();
+  }
+
+  cancel() {
+    this.result = null;
+    this.close();
   }
 
 }

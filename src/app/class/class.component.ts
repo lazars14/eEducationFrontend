@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Student, Course, StudentAttendsCourse } from '../_model/index';
-import { StudentAttendsCourseService, StudentService } from '../_services/index';
+import { Student, Course, StudentAttendsCourse, CollegeDirection } from '../_model/index';
+import { StudentAttendsCourseService, StudentService, CollegeDirectionService, CourseService } from '../_services/index';
 import { ToasterService } from 'angular2-toaster';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { actions } from './../_core/constants';
+import { StudentModalComponent } from '../student-modal/student-modal.component';
+import { Router } from '@angular/router';
+import { StudentCoursesModalComponent } from '../student-courses-modal/student-courses-modal.component';
 
 @Component({
   selector: 'app-class',
@@ -14,7 +17,9 @@ import { actions } from './../_core/constants';
 export class ClassComponent implements OnInit {
 
   constructor(private studentService: StudentService, private sacService: StudentAttendsCourseService,
-    private toasterService: ToasterService, private dialogService: DialogService) { }
+    private toasterService: ToasterService, private dialogService: DialogService,
+    private classService: CollegeDirectionService, private router: Router,
+    private courseService: CourseService) { }
 
   students: Array<Student>;
   courses: Array<Course>;
@@ -22,6 +27,8 @@ export class ClassComponent implements OnInit {
   selectedStudents = [];
 
   selectedCourseId: number;
+
+  direction: CollegeDirection;
 
   // class info
   name: string;
@@ -32,36 +39,83 @@ export class ClassComponent implements OnInit {
   }
 
   refreshPage() {
-    
+    // get class id
+    const urlItems = this.router.url.split('/');
+    const classId = Number(urlItems[4]);
+
+    // load class
+    this.classService.findById(classId).subscribe(direction => {
+      this.direction = direction;
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Get Class By Id', body: error.status + ' ' + error.statusText });
+    });
+
+    this.studentService.getByClassId(this.direction.id).subscribe(students => {
+      this.students = students;
+      this.students.forEach(student => {
+        this.courseService.getByStudent(student.id).subscribe(courses => {
+          student['courses'] = courses;
+        }, error => {
+          this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });
+        });
+      });
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Get Students By Class', body: error.status + ' ' + error.statusText });
+    });
+
+    // load students
+      // load courses for students    
   }
 
   add() {
-    // let disposable = this.dialogService.addDialog(LessonModalComponent, {
-    //   action: actions.add, 
-    //   courseLesson: new CourseLesson()})
-    //   .subscribe((added) => {
-    //       //We get dialog result
-    //       if(added != null) {
-    //         this.courseLessonService.create(this.courseId, added).subscribe(added => {
-    //           this.toasterService.pop({type: 'success', title: 'Created New Course Lesson', body: '' });
-    //           this.refreshPage();
-    //         }, error => {
-    //           this.toasterService.pop({type: 'error', title: 'Create New Course Lesson', body: error.status + ' ' + error.statusText });
-    //         });
-    //       }
-    //       else {
-    //         // do nothing, dialog closed
-    //       }
-    //   });
-    // //We can close dialog calling disposable.unsubscribe();
-    // //If dialog was not closed manually close it by timeout
-    // setTimeout(() => {
-    //     disposable.unsubscribe();
-    // }, 10000);
+    let disposable = this.dialogService.addDialog(StudentModalComponent, {
+      action: actions.add, 
+      student: new Student()})
+      .subscribe((added) => {
+          //We get dialog result
+          if(added != null) {
+            added.direction = this.direction;
+            this.studentService.create(added).subscribe(added => {
+              this.toasterService.pop({type: 'success', title: 'Created New Student', body: '' });
+              this.refreshPage();
+            }, error => {
+              this.toasterService.pop({type: 'error', title: 'Create New Student', body: error.status + ' ' + error.statusText });
+            });
+          }
+          else {
+            // do nothing, dialog closed
+          }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+        disposable.unsubscribe();
+    }, 10000);
   }
 
   edit(student: Student) {
-
+    let disposable = this.dialogService.addDialog(StudentModalComponent, {
+      action: actions.edit, 
+      student: student})
+      .subscribe((edited) => {
+          //We get dialog result
+          if(edited != null) {
+            this.studentService.update(edited).subscribe(updated => {
+              this.toasterService.pop({type: 'success', title: 'Updated Student', body: '' });
+              this.refreshPage();
+            }, error => {
+              this.toasterService.pop({type: 'error', title: 'Update Student', body: error.status + ' ' + error.statusText });
+            });
+          }
+          else {
+            // do nothing, dialog closed
+          }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+        disposable.unsubscribe();
+    }, 10000);
   }
 
   delete(id: number) {
@@ -89,8 +143,23 @@ export class ClassComponent implements OnInit {
     }, 10000);
   }
 
-  showStudentCourses(courses: Array<Course>) {
-
+  showStudentCourses(student: Student) {
+    let disposable = this.dialogService.addDialog(StudentCoursesModalComponent, {
+      name: student.lastName + ' ' + student.firstName + ' ' + student.indexNumber, 
+      courses: student['courses'] })
+      .subscribe((result)=>{
+          //We get dialog result
+          if (result != null) {
+            // read only, do nothing
+          } else {
+            // do nothing, dialog closed
+          }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+        disposable.unsubscribe();
+    }, 10000);
   }
 
   processChange(checked: boolean, student: Student) {

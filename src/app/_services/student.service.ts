@@ -39,4 +39,11 @@ export class StudentService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  getByClassId(classId: number) {
+    return this.httpService.get(this.apiUrl + '/students/class/' + classId)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+  
 }

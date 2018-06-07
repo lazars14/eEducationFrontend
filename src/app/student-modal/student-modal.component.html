@@ -1,3 +1,84 @@
-<p>
-  student-modal works!
-</p>
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4 class="modal-title">{{ action }} Student</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <form #f="ngForm" name="form">
+        <div class="form-group">
+          <label for="firstname">
+            <span class="red-text">*</span>Firstname</label>
+          <input type="text" class="form-control" [(ngModel)]="student.firstName" name="firstname" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="lastname">
+            <span class="red-text">*</span>Lastname</label>
+          <input type="text" class="form-control" [(ngModel)]="student.lastName" name="lastname" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">
+            <span class="red-text">*</span>Email</label>
+          <input type="email" class="form-control" [(ngModel)]="student.email" name="email" required email>
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <span class="red-text">*</span>Password</label>
+          <input type="password" class="form-control" [(ngModel)]="student.sPassword" name="password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="indexNumber">
+            <span class="red-text">*</span>Index Number</label>
+          <input type="text" class="form-control" [(ngModel)]="student.indexNumber" name="indexNumber" required>
+        </div>
+
+        <div class="form-group">
+          <label for="espbPoints">
+            <span class="red-text">*</span>Espb Points</label>
+          <input type="number" min="0" class="form-control" [(ngModel)]="student.espbPoints" name="espbPoints" required>
+        </div>
+
+        <div class="form-group">
+          <label for="accountNumber">
+            <span class="red-text">*</span>Account Number</label>
+          <input type="text" class="form-control" [(ngModel)]="student.accountNumber" name="accountNumber" required>
+        </div>
+
+        <div class="form-group">
+          <label for="referenceNumber">
+            <span class="red-text">*</span>Reference Number</label>
+          <input type="text" class="form-control" [(ngModel)]="student.referenceNumber" name="referenceNumber" required>
+        </div>
+
+        <div class="form-group">
+          <label for="studYear">
+            <span class="red-text">*</span>Class Year</label>
+          <input type="number" min="0" class="form-control" [(ngModel)]="student.studYear" name="studYear" required>
+        </div>
+
+        <div class="form-group">
+          <label for="studYearOrdNum">
+            <span class="red-text">*</span>Class Year Ordinal Number</label>
+          <input type="number" min="0" class="form-control" [(ngModel)]="student.studYearOrdNum" name="studYearOrdNum" required>
+        </div>
+
+        <p>
+          <span class="red-text">*</span> - mandatory fields</p>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid" (click)="ok()">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
