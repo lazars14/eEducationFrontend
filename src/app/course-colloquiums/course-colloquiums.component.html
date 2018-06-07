@@ -14,8 +14,9 @@
             <tr>
               <th>#</th>
               <th>Type</th>
-              <th>Date</th>
+              <th class="red-text">Deadline</th>
               <th>Max Points</th>
+              <th *ngIf="role == student">Result</th>
               <th class="text-center">Actions</th>
             </tr>
           </thead>
@@ -25,14 +26,17 @@
               <td>{{ colloquium.examType }}</td>
               <td>{{ colloquium.examDateTime | date: 'short' }}</td>
               <td>{{ colloquium.maxPoints | number : '1.2-2' }}</td>
+              <td *ngIf="colloquium.result && role == student">{{ colloquium.result.points | number : '1.2-2' }}</td>
+              <td *ngIf="!colloquium.result && role == student"></td>
+
               <td class="btn-group-small text-center">
-                <button *ngIf="role == student && today < colloquium.examDateTime.getTime()" class="btn btn-success" (click)="submit(colloquium.id)" title="Submit">
+                <button *ngIf="role == student && today < colloquium.examDateTime.getTime() && colloquium.result == null" class="btn btn-success" (click)="submit(colloquium.id)" title="Submit">
                   <i class="fa fa-sign-in" aria-hidden="true"></i>
                 </button>
-                <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-info" (click)="edit(course)" title="Edit">
+                <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-info" (click)="edit(colloquium)" title="Edit">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
-                <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-danger" (click)="delete(driver.id)" title="Delete">
+                <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-danger" (click)="delete(colloquium.id)" title="Delete">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
               </td>
@@ -41,6 +45,64 @@
         </table>
       </div>
   
+      <div *ngIf="role == teacher">
+
+        <p>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" [attr.data-target]="idSymbol + i" aria-expanded="false"
+          [attr.aria-controls]="i">
+            Toggle colloquium results
+          </button>
+        </p>
+  
+        <br>
+  
+        <div class="collapse" id="collapseExample">
+          <h3>Results
+            <button class="btn btn-primary" (click)="addExamTerm(examPeriod[i].id)">Add</button>
+          </h3>
+  
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Index number</th>
+                  <th>Lastname</th>
+                  <th>Firstname</th>
+                  <th>Document</th>
+                  <th>Points</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let colloquiumResult of colloquium.results; let ii = index">
+                  <td>{{ ii + 1 }}</td>
+                  <td>{{ colloquiumResult.student.indexNumber }}</td>
+                  <td>{{ colloquiumResult.student.lastName }}</td>
+                  <td>{{ colloquiumResult.student.firstName }}</td>
+                  <td>
+                    <button class="btn btn-info" (click)="downloadDocument(colloquiumResult.document)" title="Download">
+                      <i class="fa fa-download" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  <td>{{ colloquiumResult.points | number : '1.2-2' }}</td>
+    
+                  <td class="btn-group-small text-center">
+                    <button class="btn btn-success" (click)="grade(colloquiumResult, colloquium.id)" title="Grade">
+                      <i class="fa fa-gavel" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <br>
+        </div>
+
+      </div>
+
     </div>
   </div>
   

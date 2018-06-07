@@ -39,4 +39,10 @@ export class ColloquiumService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  getByCourse(courseId: number) {
+    return this.httpService.get(this.apiUrl + '/course/' + courseId + '/colloquiums/byCourse')
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
 }

@@ -13,7 +13,7 @@
       <form #f="ngForm" name="form">
         <div class="form-group">
           <label for="name"><span class="red-text">*</span>Document</label>
-          <input type="file" class="form-control" name="name" required>
+          <input type="file" [(ngModel)]="document" class="form-control" name="name" required>
         </div>
 
         <p><span class="red-text">*</span> - mandatory fields</p>

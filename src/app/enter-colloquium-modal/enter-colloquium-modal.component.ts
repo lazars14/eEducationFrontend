@@ -4,8 +4,7 @@ import { ExamPeriod } from '../_model/index';
 import { StudentService, ColloquiumService } from '../_services/index';
 
 export interface EnterColloquiumModel {
-  colloquiumId: number;
-  studentId: number;
+
 }
 
 @Component({
@@ -13,17 +12,26 @@ export interface EnterColloquiumModel {
   templateUrl: './enter-colloquium-modal.component.html',
   styleUrls: ['./enter-colloquium-modal.component.css']
 })
-export class EnterColloquiumModalComponent  extends DialogComponent<EnterColloquiumModel, ExamPeriod> implements EnterColloquiumModel, OnInit {
+export class EnterColloquiumModalComponent  extends DialogComponent<EnterColloquiumModel, any> implements EnterColloquiumModel, OnInit {
 
-  constructor(dialogService: DialogService, private studentService: StudentService, private colloquiumService: ColloquiumService) {
+  constructor(dialogService: DialogService) {
     super(dialogService);
   }
 
-  colloquiumId: number;
-  studentId: number;
+  document: any;
 
   ngOnInit() {
     
+  }
+
+  ok() {
+    this.result = this.document;
+    this.close();
+  }
+
+  cancel() {
+    this.result = null;
+    this.close();
   }
 
 }

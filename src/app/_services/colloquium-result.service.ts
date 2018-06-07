@@ -45,4 +45,10 @@ export class ColloquiumResultService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  getByColloquium(colloquiumId: number) {
+    return this.httpService.get(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/byColloquium')
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
 }
