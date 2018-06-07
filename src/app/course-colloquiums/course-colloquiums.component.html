@@ -24,7 +24,7 @@
             <tr *ngFor="let colloquium of colloquiums; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ colloquium.examType }}</td>
-              <td>{{ colloquium.examDateTime | date: 'short' }}</td>
+              <td class="red-text">{{ colloquium.examDateTime | date: 'short' }}</td>
               <td>{{ colloquium.maxPoints | number : '1.2-2' }}</td>
               <td *ngIf="colloquium.result && role == student">{{ colloquium.result.points | number : '1.2-2' }}</td>
               <td *ngIf="!colloquium.result && role == student"></td>

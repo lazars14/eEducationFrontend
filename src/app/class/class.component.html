@@ -1,3 +1,83 @@
-<p>
-  class works!
-</p>
+<div class="panel panel-default" id="entity-management">
+  <div class="panel-heading">
+    <h2>Class</h2>
+  </div>
+
+  <div class="panel-body">
+
+    <br>
+    <div class="moreInfo">
+      <p>Name: {{ name }}</p>
+      <p>Number of years: {{ numOfYears }}</p>
+    </div>
+
+    <div class="moreInfo">
+      <h3>Add Course To Students</h3>
+
+      <label for="teacher">Course</label>
+      <select id="course" name="course" class="customMarginLeft" [(ngModel)]="selectedCourseId">
+        <option #coursesSelect *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
+      </select>
+      <br>
+      <button [disabled]="!selectedCourse || selectedStudents.length == 0" class="btn btn-danger" (click)="addCourseToStudents()">Add To Selected Students</button>
+    </div>
+
+    <h2>
+      Students
+      <button class="btn btn-primary" (click)="add()">Add</button>
+    </h2>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Selected</th>
+            <th>Index</th>
+            <th>Lastname</th>
+            <th>Firstname</th>
+            <th>Email</th>
+            <th>Account Number</th>
+            <th>Reference Number</th>
+            <th>Year Of Class</th>
+            <th>Year Ord Num</th>
+            <th>Espb Points</th>
+            <th>Courses</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="student.selected" (ngModelChange)="processChange($event, student)">
+            </td>
+            <td>{{ student.indexNumber }}</td>
+            <td>{{ student.lastName }}</td>
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.accountNumber }}</td>
+            <td>{{ student.referenceNumber }}</td>
+            <td>{{ student.studYear }}</td>
+            <td>{{ student.studYearOrdNum }}</td>
+            <td>{{ student.espbPoints }}</td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="showStudentCourses(student.courses)" title="Courses">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+              </button>
+            </td>
+            <td class="btn-group-small text-center">
+                <button class="btn btn-info" (click)="edit(student)" title="Edit">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-danger" (click)="delete(student.id)" title="Delete">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

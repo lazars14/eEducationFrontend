@@ -54,6 +54,7 @@ import { TeacherCoursesModalComponent } from './teacher-courses-modal/teacher-co
 import { ColloquiumModalComponent } from './colloquium-modal/colloquium-modal.component';
 import { ColloquiumResultModalComponent } from './colloquium-result-modal/colloquium-result-modal.component';
 import { EnterColloquiumModalComponent } from './enter-colloquium-modal/enter-colloquium-modal.component';
+import { StudentModalComponent } from './student-modal/student-modal.component';
 
 export function httpServiceFactory(backend: XHRBackend, options: RequestOptions, sessionService: SessionService) {
   return new HttpService(backend, options, sessionService);
@@ -95,7 +96,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     TeacherCoursesModalComponent,
     ColloquiumModalComponent,
     ColloquiumResultModalComponent,
-    EnterColloquiumModalComponent
+    EnterColloquiumModalComponent,
+    StudentModalComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +124,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     SetTeachersModalComponent, 
     ColloquiumModalComponent,
     ColloquiumResultModalComponent,
-    EnterColloquiumModalComponent
+    EnterColloquiumModalComponent,
+    StudentModalComponent
   ],
   providers: [
     SessionService, HttpService, AdminGuard, StudentGuard,
