@@ -35,7 +35,7 @@
         <div class="form-group">
             <label for="rank">
                 <span class="red-text">*</span>Rank</label>
-          <select id="rank" name="rank" class="customMarginLeft">
+          <select id="rank" name="rank" class="customMarginLeft" [(ngModel)]="selectedRankId" required>
             <option *ngFor="let rank of ranks" [selected]="teacher.rank.id == rank.id" value="{{ rank.id }}">{{ rank.name }}</option>
           </select>
         </div>

@@ -19,6 +19,7 @@ export class TeacherModalComponent extends DialogComponent<TeacherModel, Teacher
   teacher: Teacher;
   
   ranks: Array<Rank>;
+  selectedRankId: number;
 
   constructor(dialogService: DialogService, private rankService: RankService, private toasterService: ToasterService) {
     super(dialogService);
@@ -33,6 +34,9 @@ export class TeacherModalComponent extends DialogComponent<TeacherModel, Teacher
   }
 
   ok() {
+    const selectedRank = this.ranks.find(i => i.id === this.selectedRankId);
+    this.teacher.rank = selectedRank;
+
     this.result = this.teacher;
     this.close();
   }

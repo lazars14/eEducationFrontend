@@ -8,6 +8,7 @@ import { actions } from './../_core/constants';
 import { StudentModalComponent } from '../student-modal/student-modal.component';
 import { Router } from '@angular/router';
 import { StudentCoursesModalComponent } from '../student-courses-modal/student-courses-modal.component';
+import { StudentTransferModalComponent } from '../student-transfer-modal/student-transfer-modal.component';
 
 @Component({
   selector: 'app-class',
@@ -189,5 +190,30 @@ export class ClassComponent implements OnInit {
       });
     });
   }
+
+  transfer(student: Student) {
+    let disposable = this.dialogService.addDialog(StudentTransferModalComponent, { 
+      student: student})
+      .subscribe((edited) => {
+          //We get dialog result
+          if(edited != null) {
+            this.studentService.update(edited).subscribe(updated => {
+              this.toasterService.pop({type: 'success', title: 'Transfered Student', body: '' });
+              this.refreshPage();
+            }, error => {
+              this.toasterService.pop({type: 'error', title: 'Transfer Student', body: error.status + ' ' + error.statusText });
+            });
+          }
+          else {
+            // do nothing, dialog closed
+          }
+      });
+    //We can close dialog calling disposable.unsubscribe();
+    //If dialog was not closed manually close it by timeout
+    setTimeout(() => {
+        disposable.unsubscribe();
+    }, 10000);
+  }
+
 
 }

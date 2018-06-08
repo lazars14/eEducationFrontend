@@ -20,6 +20,7 @@ export class CourseModalComponent extends DialogComponent<CourseModel, Course> i
   course: Course;
 
   teachers: Array<Teacher>;
+  selectedTeacherId: number;
 
   constructor(dialogService: DialogService, private teacherService: TeacherService, private toasterService: ToasterService) {
     super(dialogService);
@@ -34,6 +35,9 @@ export class CourseModalComponent extends DialogComponent<CourseModel, Course> i
   }
 
   ok() {
+    const selectedTeacher = this.teachers.find(i => i.id === this.selectedTeacherId);
+    this.course.teacher = selectedTeacher;
+
     this.result = this.course;
     this.close();
   }
