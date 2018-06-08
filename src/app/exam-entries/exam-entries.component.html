@@ -67,7 +67,7 @@
                   <td class="btn-group-small text-center">
                     <!-- ispit moze da se prijavi maks 3 dana pre datuma -->
                     <button [disabled]="deadlineDateEnter > examTerm.examDate.getTime() && balance > 0" class="btn btn-info" (click)="addExamEntry(examTerm)" data-backdrop="static" data-keyboard="false" data-toggle="modal"
-                      data-target="#expenseModal" title="Edit">
+                      data-target="#expenseModal" title="Submit">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                     </button>
                   </td>

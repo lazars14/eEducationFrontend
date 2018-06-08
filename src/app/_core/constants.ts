@@ -12,3 +12,8 @@ export const actions = {
 export const strings = {
     id: '#'
 }
+
+export const payment = {
+    examTerm: 500,
+    examTermCause: 'Exam entry'
+}

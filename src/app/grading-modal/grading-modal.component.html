@@ -1,3 +1,62 @@
-<p>
-  grading-modal works!
-</p>
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4 class="modal-title">Grade Student</h4>
+      <button type="button" class="close" (click)="cancel()">&times;</button>
+    </div>
+
+    <p>Student: {{ name }}</p>
+
+    <p>Points: {{ points }}</p>
+    <p>Max Points: {{ maxPoints }}</p>
+    <p>Percent: {{ percent + '%' }}</p>
+
+    <div class="modal-body">
+      <form #f="ngForm" name="form">
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <th>Index number</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Points</th>
+                <th>Max Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let colloquiumResult of colloquiumResults; let ii = index">
+                <td>{{ ii + 1 }}</td>
+                <td>{{ colloquiumResult.student.indexNumber }}</td>
+                <td>{{ colloquiumResult.student.lastName }}</td>
+                <td>{{ colloquiumResult.student.firstName }}</td>
+                <td>{{ colloquiumResult.points | number : '1.2-2' }}</td>
+                <td>{{ colloquiumResult.colloquium.maxPoints | number : '1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-group">
+          <label for="grade">
+            <span class="red-text">*</span>Grade</label>
+          <input type="number" min="5" max="10" class="form-control" [(ngModel)]="grade" name="grade" required autofocus>
+        </div>
+
+        <p>
+          <span class="red-text">*</span> - mandatory fields</p>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <div class="mx-auto">
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid" (click)="ok()">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
