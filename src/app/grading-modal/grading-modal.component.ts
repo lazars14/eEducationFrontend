@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColloquiumResult, StudentExamEntry, Grade } from '../_model/index';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
-import { RankService, ColloquiumService, ColloquiumResultService } from './../_services/index';
+import { ColloquiumService, ColloquiumResultService } from './../_services/index';
 import { ToasterService } from 'angular2-toaster';
 
 export interface GradingModel {

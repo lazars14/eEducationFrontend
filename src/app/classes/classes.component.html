@@ -9,13 +9,13 @@
     <div *ngFor="let class of classes" class="card cardBorder col-xl-4 col-lg-3 col-md-12 col-sm-12 col-xs-12">
       <div class="card-body">
         <p class="cardTitle">{{ class.name }}</p>
-        <a routerLink="class.id" class="btn btn-primary">
+        <a routerLink="{{ class.id }}" class="btn btn-primary">
           <i class="fa fa-info"></i>
         </a>
-        <a href="#" (click)="edit(class)" class="btn btn-info">
+        <a (click)="edit(class)" class="btn btn-info">
           <i class="fa fa-pencil"></i>
         </a>
-        <a href="#" (click)="delete()" class="btn btn-danger">
+        <a (click)="delete(class.id)" class="btn btn-danger">
           <i class="fa fa-trash-o"></i>
         </a>
       </div>

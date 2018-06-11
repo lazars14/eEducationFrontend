@@ -22,12 +22,12 @@
         <tbody>
           <tr *ngFor="let teacher of teachers; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ teacher.firstName }}</td>
-            <td>{{ teacher.lastName }}</td>
+            <td>{{ teacher.firstname }}</td>
+            <td>{{ teacher.lastname }}</td>
             <td>{{ teacher.email }}</td>
             <td>{{ teacher.rank.name }}</td>
             <td>
-              <button class="btn btn-info" (click)="viewCourses(teacher.id)" title="Courses">
+              <button class="btn btn-info" (click)="viewCourses(teacher.id, teacher.firstname, teacher.lastname)" title="Courses">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
               </button>
             </td>

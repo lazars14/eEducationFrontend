@@ -47,25 +47,32 @@ export class ClassComponent implements OnInit {
     // load class
     this.classService.findById(classId).subscribe(direction => {
       this.direction = direction;
+
+      this.name = direction.name;
+      this.numOfYears = direction.numOfYears;
+
+      this.studentService.getByClassId(this.direction.id).subscribe(students => {
+        this.students = students;
+        this.students.forEach(student => {
+          this.courseService.getByStudent(student.id).subscribe(courses => {
+            student['courses'] = courses;
+          }, error => {
+            this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });
+          });
+        });
+      }, error => {
+        this.toasterService.pop({type: 'error', title: 'Get Students By Class', body: error.status + ' ' + error.statusText });
+      });
     }, error => {
       this.toasterService.pop({type: 'error', title: 'Get Class By Id', body: error.status + ' ' + error.statusText });
     });
 
-    this.studentService.getByClassId(this.direction.id).subscribe(students => {
-      this.students = students;
-      this.students.forEach(student => {
-        this.courseService.getByStudent(student.id).subscribe(courses => {
-          student['courses'] = courses;
-        }, error => {
-          this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });
-        });
-      });
+    this.courseService.findAll().subscribe(courses => {
+      this.courses = courses;
     }, error => {
-      this.toasterService.pop({type: 'error', title: 'Get Students By Class', body: error.status + ' ' + error.statusText });
+      this.toasterService.pop({type: 'error', title: 'Get All Courses', body: error.status + ' ' + error.statusText });
     });
-
-    // load students
-      // load courses for students    
+    
   }
 
   add() {
@@ -146,7 +153,7 @@ export class ClassComponent implements OnInit {
 
   showStudentCourses(student: Student) {
     let disposable = this.dialogService.addDialog(StudentCoursesModalComponent, {
-      name: student.lastName + ' ' + student.firstName + ' ' + student.indexNumber, 
+      name: student.lastname + ' ' + student.firstname + ' ' + student.indexNumber, 
       courses: student['courses'] })
       .subscribe((result)=>{
           //We get dialog result

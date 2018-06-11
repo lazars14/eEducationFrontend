@@ -53,8 +53,8 @@
               <input type="checkbox" [(ngModel)]="student.selected" (ngModelChange)="processChange($event, student)">
             </td>
             <td>{{ student.indexNumber }}</td>
-            <td>{{ student.lastName }}</td>
-            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastname }}</td>
+            <td>{{ student.firstname }}</td>
             <td>{{ student.email }}</td>
             <td>{{ student.accountNumber }}</td>
             <td>{{ student.referenceNumber }}</td>
@@ -67,7 +67,7 @@
               </button>
             </td>
             <td class="btn-group-small text-center">
-                <button class="btn btn-warning" (click)="transfer(student)" title="Edit">
+                <button class="btn btn-warning" (click)="transfer(student)" title="Transfer">
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
                 <button class="btn btn-info" (click)="edit(student)" title="Edit">

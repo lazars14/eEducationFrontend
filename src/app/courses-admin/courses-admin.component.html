@@ -24,7 +24,7 @@
             <td>{{ course.name }}</td>
             <td>{{ course.description }}</td>
             <td>{{ course.espbPoints }}</td>
-            <td>{{ course.teacher.firstName + ' ' + course.teacher.lastName }}</td>
+            <td>{{ course.teacher.firstname + ' ' + course.teacher.lastname }}</td>
             <td class="btn-group-small text-center">
               <button class="btn btn-success" (click)="setTeachers(course.id)" title="Set Teachers">
                 <i class="fa fa-users" aria-hidden="true"></i>

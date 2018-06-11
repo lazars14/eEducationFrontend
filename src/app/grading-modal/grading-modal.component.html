@@ -31,8 +31,8 @@
               <tr *ngFor="let colloquiumResult of colloquiumResults; let ii = index">
                 <td>{{ ii + 1 }}</td>
                 <td>{{ colloquiumResult.student.indexNumber }}</td>
-                <td>{{ colloquiumResult.student.lastName }}</td>
-                <td>{{ colloquiumResult.student.firstName }}</td>
+                <td>{{ colloquiumResult.student.lastname }}</td>
+                <td>{{ colloquiumResult.student.firstname }}</td>
                 <td>{{ colloquiumResult.points | number : '1.2-2' }}</td>
                 <td>{{ colloquiumResult.colloquium.maxPoints | number : '1.2-2' }}</td>
               </tr>

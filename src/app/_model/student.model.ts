@@ -3,8 +3,8 @@ import { CollegeDirection } from "./index";
 export class Student {
     id: number;
     indexNumber: string;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     accountNumber: string;
     referenceNumber: string;
     studYear: number;

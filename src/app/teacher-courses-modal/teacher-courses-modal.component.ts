@@ -34,6 +34,7 @@ export class TeacherCoursesModalComponent extends DialogComponent<TeacherCourses
   }
 
   close() {
+    this.result = false;
     this.close();
   }
 

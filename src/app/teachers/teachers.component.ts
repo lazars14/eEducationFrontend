@@ -106,7 +106,7 @@ export class TeachersComponent implements OnInit {
     }, 10000);
   }
 
-  viewCourses(teacherId: number, teacherFirstName: string, teacherLastName) {
+  viewCourses(teacherId: number, teacherFirstName: string, teacherLastName: string) {
     let disposable = this.dialogService.addDialog(TeacherCoursesModalComponent, {
       name: teacherFirstName + ' ' + teacherLastName, 
       teacherId: teacherId })
