@@ -9,6 +9,7 @@ import { StudentModalComponent } from '../student-modal/student-modal.component'
 import { Router } from '@angular/router';
 import { StudentCoursesModalComponent } from '../student-courses-modal/student-courses-modal.component';
 import { StudentTransferModalComponent } from '../student-transfer-modal/student-transfer-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-class',
@@ -104,7 +105,7 @@ export class ClassComponent implements OnInit {
   edit(student: Student) {
     let disposable = this.dialogService.addDialog(StudentModalComponent, {
       action: actions.edit, 
-      student: student})
+      student: _.cloneDeep(student)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {

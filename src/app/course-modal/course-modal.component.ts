@@ -3,6 +3,7 @@ import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 import { Course, Teacher } from '../_model/index';
 import { TeacherService } from './../_services/index';
 import { ToasterService } from 'angular2-toaster';
+import { actions } from './../_core/constants';
 
 export interface CourseModel {
   action: string;
@@ -20,7 +21,10 @@ export class CourseModalComponent extends DialogComponent<CourseModel, Course> i
   course: Course;
 
   teachers: Array<Teacher>;
-  selectedTeacherId: number;
+  selectedTeacherId: any;
+
+  add = actions.add;
+  edit = actions.edit;
 
   constructor(dialogService: DialogService, private teacherService: TeacherService, private toasterService: ToasterService) {
     super(dialogService);
@@ -29,14 +33,21 @@ export class CourseModalComponent extends DialogComponent<CourseModel, Course> i
   ngOnInit() {
     this.teacherService.findAll().subscribe(data => {
       this.teachers = data;
+
+      if(this.action == actions.edit) {
+        // set selected teacher
+        this.selectedTeacherId = this.course.teacher.id;
+      }
     }, error => {
       this.toasterService.pop({type: 'error', title: 'Get All Teachers', body: error.status + ' ' + error.statusText });
     });
   }
 
-  ok() {
-    const selectedTeacher = this.teachers.find(i => i.id === this.selectedTeacherId);
+  async ok() {
+    const selectedTeacher = await this.teachers.find(i => i.id == Number(this.selectedTeacherId));
     this.course.teacher = selectedTeacher;
+
+    console.log(selectedTeacher);
 
     this.result = this.course;
     this.close();

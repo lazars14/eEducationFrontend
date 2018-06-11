@@ -8,6 +8,7 @@ import { ToasterService } from 'angular2-toaster';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { LessonModalComponent } from '../lesson-modal/lesson-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-course-lessons',
@@ -73,7 +74,7 @@ export class CourseLessonsComponent implements OnInit {
   edit(courseLesson: CourseLesson) {
     let disposable = this.dialogService.addDialog(LessonModalComponent, {
       action: actions.add, 
-      courseLesson: courseLesson})
+      courseLesson: _.cloneDeep(courseLesson)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {

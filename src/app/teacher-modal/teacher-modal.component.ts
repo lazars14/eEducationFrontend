@@ -3,6 +3,7 @@ import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 import { Teacher, Rank } from '../_model/index';
 import { RankService } from './../_services/index';
 import { ToasterService } from 'angular2-toaster';
+import { actions } from '../_core/constants';
 
 export interface TeacherModel {
   action: string;
@@ -19,7 +20,10 @@ export class TeacherModalComponent extends DialogComponent<TeacherModel, Teacher
   teacher: Teacher;
   
   ranks: Array<Rank>;
-  selectedRankId: number;
+  selectedRankId: any;
+
+  add = actions.add;
+  edit = actions.edit;
 
   constructor(dialogService: DialogService, private rankService: RankService, private toasterService: ToasterService) {
     super(dialogService);
@@ -28,13 +32,18 @@ export class TeacherModalComponent extends DialogComponent<TeacherModel, Teacher
   ngOnInit() {
     this.rankService.findAll().subscribe(data => {
       this.ranks = data;
+
+      if(this.action == actions.edit) {
+        // set selected rank
+        this.selectedRankId = this.teacher.rank.id;
+      }
     }, error => {
       this.toasterService.pop({type: 'error', title: 'Get All Ranks', body: error.status + ' ' + error.statusText });
     });
   }
 
   ok() {
-    const selectedRank = this.ranks.find(i => i.id === this.selectedRankId);
+    const selectedRank = this.ranks.find(i => i.id === Number(this.selectedRankId));
     this.teacher.rank = selectedRank;
 
     this.result = this.teacher;

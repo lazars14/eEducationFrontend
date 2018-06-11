@@ -8,6 +8,7 @@ import { ToasterService } from 'angular2-toaster';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { NotificationModalComponent } from '../notification-modal/notification-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-course-notifications',
@@ -96,7 +97,7 @@ export class CourseNotificationsComponent implements OnInit {
 
     let disposable = this.dialogService.addDialog(NotificationModalComponent, {
       action: actions.add, 
-      notification: notification})
+      notification: _.cloneDeep(notification)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {

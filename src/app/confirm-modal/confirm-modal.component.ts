@@ -26,6 +26,7 @@ export class ConfirmModalComponent extends DialogComponent<ConfirmModel, boolean
   }
 
   cancel() {
+    this.result = false;
     this.close();
   }
 

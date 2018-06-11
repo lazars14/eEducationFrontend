@@ -49,7 +49,9 @@ import { LessonModalComponent } from './lesson-modal/lesson-modal.component';
 import { FileDropModule } from 'ngx-file-drop';
 import { CourseNavbarComponent } from './course-navbar/course-navbar.component';
 import { ToasterModule } from 'angular2-toaster';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+
 import { TeacherCoursesModalComponent } from './teacher-courses-modal/teacher-courses-modal.component';
 import { ColloquiumModalComponent } from './colloquium-modal/colloquium-modal.component';
 import { ColloquiumResultModalComponent } from './colloquium-result-modal/colloquium-result-modal.component';
@@ -113,7 +115,8 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     ReactiveFormsModule,
     FileDropModule,
     ToasterModule.forRoot(),
-    BootstrapModalModule.forRoot({container:document.body})
+    BootstrapModalModule.forRoot({container:document.body}),
+    DateValueAccessorModule
   ],
   entryComponents: [
     ConfirmModalComponent,

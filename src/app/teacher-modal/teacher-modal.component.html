@@ -26,17 +26,22 @@
           <input type="email" class="form-control" [(ngModel)]="teacher.email" name="email" required email>
         </div>
 
-        <div class="form-group">
+        <div *ngIf="action == add" class="form-group">
           <label for="password">
             <span class="red-text">*</span>Password</label>
           <input type="password" class="form-control" [(ngModel)]="teacher.sPassword" name="password" required>
+        </div>
+
+        <div *ngIf="action == edit" class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="teacher.sPassword" name="password">
         </div>
 
         <div class="form-group">
             <label for="rank">
                 <span class="red-text">*</span>Rank</label>
           <select id="rank" name="rank" class="customMarginLeft" [(ngModel)]="selectedRankId" required>
-            <option *ngFor="let rank of ranks" [selected]="teacher.rank.id == rank.id" value="{{ rank.id }}">{{ rank.name }}</option>
+            <option *ngFor="let rank of ranks" value="{{ rank.id }}">{{ rank.name }}</option>
           </select>
         </div>
 

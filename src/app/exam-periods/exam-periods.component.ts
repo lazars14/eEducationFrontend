@@ -8,7 +8,7 @@ import { actions, strings } from './../_core/constants';
 import { ExamPeriodModalComponent } from '../exam-period-modal/exam-period-modal.component';
 import { ExamTermModalComponent } from '../exam-term-modal/exam-term-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-exam-periods',
@@ -70,8 +70,8 @@ export class ExamPeriodsComponent implements OnInit {
 
   editExamPeriod(examPeriod: ExamPeriod) {
     let disposable = this.dialogService.addDialog(ExamPeriodModalComponent, {
-      action: actions.add, 
-      examPeriod: examPeriod})
+      action: actions.edit, 
+      examPeriod: _.cloneDeep(examPeriod)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {
@@ -99,7 +99,7 @@ export class ExamPeriodsComponent implements OnInit {
       text: 'Are you sure you want to delete this exam period?'})
       .subscribe((isConfirmed)=>{
           //We get dialog result
-          if(isConfirmed) {
+          if(isConfirmed == true) {
             this.examPeriodService.delete(id).subscribe(deleted => {
               this.toasterService.pop({type: 'success', title: 'Deleted Exam Period', body: '' });
               this.refreshPage();
@@ -145,8 +145,8 @@ export class ExamPeriodsComponent implements OnInit {
 
   editExamTerm(examPeriodId: number, examTerm: ExamTerm) {
     let disposable = this.dialogService.addDialog(ExamTermModalComponent, {
-      action: actions.add, 
-      examTerm: new ExamTerm()})
+      action: actions.edit, 
+      examTerm: _.cloneDeep(examTerm)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {
@@ -174,7 +174,7 @@ export class ExamPeriodsComponent implements OnInit {
       text: 'Are you sure you want to delete this exam term?'})
       .subscribe((isConfirmed)=>{
           //We get dialog result
-          if(isConfirmed) {
+          if(isConfirmed == true) {
             this.examTermService.delete(examPeriodId, id).subscribe(deleted => {
               this.toasterService.pop({type: 'success', title: 'Deleted Exam Term', body: '' });
               this.refreshPage();

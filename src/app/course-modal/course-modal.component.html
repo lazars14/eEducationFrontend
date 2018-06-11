@@ -29,7 +29,7 @@
           <label for="teacher">
             <span class="red-text">*</span>Teacher</label>
           <select id="teacher" name="teacher" class="customMarginLeft" [(ngModel)]="selectedTeacherId">
-            <option *ngFor="let teacher of teachers" [selected]="teacher.id == course.teacher.id" value="{{ teacher.id }}">{{ teacher.firstname + ' ' + teacher.lastname }}</option>
+            <option *ngFor="let teacher of teachers" value="{{ teacher.id }}">{{ teacher.firstname + ' ' + teacher.lastname }}</option>
           </select>
         </div>
 

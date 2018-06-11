@@ -7,6 +7,7 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { actions } from './../_core/constants';
 import { ClassModalComponent } from '../class-modal/class-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-classes',
@@ -30,10 +31,6 @@ export class ClassesComponent implements OnInit {
     }, error => {
       this.toasterService.pop({type: 'error', title: 'Get All Classes', body: error.status + ' ' + error.statusText });
     });
-  }
-
-  moreInfo(id: number) {
-    this.router.navigate([id]);
   }
 
   add() {
@@ -64,7 +61,7 @@ export class ClassesComponent implements OnInit {
   edit(collegeDirection: CollegeDirection) {
     let disposable = this.dialogService.addDialog(ClassModalComponent, {
       action: actions.edit, 
-      class: collegeDirection})
+      class: _.cloneDeep(collegeDirection)})
       .subscribe((edited)=>{
           //We get dialog result
           if(edited != null) {

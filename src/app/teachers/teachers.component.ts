@@ -7,6 +7,7 @@ import { TeacherModalComponent } from '../teacher-modal/teacher-modal.component'
 import { actions } from './../_core/constants';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { TeacherCoursesModalComponent } from '../teacher-courses-modal/teacher-courses-modal.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-teachers',
@@ -59,7 +60,7 @@ export class TeachersComponent implements OnInit {
   edit(teacher: Teacher) {
     let disposable = this.dialogService.addDialog(TeacherModalComponent, {
       action: actions.edit, 
-      teacher: teacher})
+      teacher: _.cloneDeep(teacher)})
       .subscribe((edited)=>{
           //We get dialog result
           if(edited != null) {

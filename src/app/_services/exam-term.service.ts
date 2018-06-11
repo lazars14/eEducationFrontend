@@ -41,7 +41,7 @@ export class ExamTermService {
   }
 
   getByExamPeriod(examPeriodId: number) {
-    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId + '/byExamPeriod')
+    return this.httpService.get(this.apiUrl + '/examPeriod/' + examPeriodId + '/examTerms/byExamPeriod')
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

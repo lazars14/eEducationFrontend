@@ -11,10 +11,15 @@ export interface ExamPeriodModel {
   templateUrl: './exam-period-modal.component.html',
   styleUrls: ['./exam-period-modal.component.css']
 })
-export class ExamPeriodModalComponent extends DialogComponent<ExamPeriodModel, ExamPeriod> implements ExamPeriodModel {
+export class ExamPeriodModalComponent extends DialogComponent<ExamPeriodModel, ExamPeriod> implements ExamPeriodModel, OnInit {
 
   constructor(dialogService: DialogService) {
     super(dialogService);
+  }
+
+  ngOnInit() {
+    this.examPeriod.startDate = new Date(this.examPeriod.startDate);
+    this.examPeriod.endDate = new Date(this.examPeriod.endDate);
   }
 
   action: string;

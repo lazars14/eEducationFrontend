@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
-import { ExamTerm } from '../_model/index';
+import { ExamTerm, Course } from '../_model/index';
+import { CourseService } from '../_services';
+import { ToasterService } from 'angular2-toaster';
+import { actions } from '../_core';
 
 export interface ExamTermModel {
   action: string;
@@ -11,11 +14,29 @@ export interface ExamTermModel {
   templateUrl: './exam-term-modal.component.html',
   styleUrls: ['./exam-term-modal.component.css']
 })
-export class ExamTermModalComponent extends DialogComponent<ExamTermModel, ExamTerm> implements ExamTermModel {
+export class ExamTermModalComponent extends DialogComponent<ExamTermModel, ExamTerm> implements ExamTermModel, OnInit {
 
-  constructor(dialogService: DialogService) {
+  constructor(dialogService: DialogService, private courseService: CourseService, private toasterService: ToasterService) {
     super(dialogService);
   }
+
+  ngOnInit() {
+    this.examTerm.examDate = new Date(this.examTerm.examDate);
+
+    this.courseService.findAll().subscribe(courses => {
+      this.courses = courses;
+
+      // set selected course if edit
+      if(this.action == actions.edit) {
+        this.selectedCourseId = this.examTerm.course.id; 
+      }
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Get All Courses', body: error.status + ' ' + error.statusText });
+    });
+  }
+
+  courses: Array<Course>;
+  selectedCourseId: any;
 
   action: string;
   examTerm: ExamTerm;
@@ -49,6 +70,9 @@ export class ExamTermModalComponent extends DialogComponent<ExamTermModel, ExamT
     day = this.examTerm.examDate.getDate(),
     year = this.examTerm.examDate.getFullYear();
     this.examTerm.examDate = new Date(month + '-' + day + '-' + year + ' ' + time);
+
+    const found = this.courses.find(i => i.id == Number(this.selectedCourseId));
+    this.examTerm.course = found;
 
     this.result = this.examTerm;
     this.close();

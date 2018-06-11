@@ -12,7 +12,7 @@
         <div class="form-group">
           <label for="startDate">
             <span class="red-text">*</span>Start Date</label>
-          <input type="date" class="form-control" [min]="today" [(ngModel)]="examTerm.examDate" useValueAsDate id="startDate" name="startDate" required>
+          <input type="date" class="form-control" [(ngModel)]="examTerm.examDate" useValueAsDate id="startDate" name="startDate" required>
         </div>
 
         <div class="form-group">
@@ -22,15 +22,15 @@
         </div>
 
         <div class="form-group">
-          <label for="classRoom">Classroom</label>
-          <input type="text" class="form-control" [(ngModel)]="examTerm.classRoom" name="classRoom">
+          <label for="classRoom"><span class="red-text">*</span>Classroom</label>
+          <input type="text" class="form-control" [(ngModel)]="examTerm.classRoom" name="classRoom" required>
         </div>
 
         <div class="form-group">
             <label for="course">
                 <span class="red-text">*</span>Course</label>
-          <select id="course" name="course" class="customMarginLeft">
-            <option *ngFor="let course of courses" [selected]="examTerm.course.id == course.id" value="{{ course.id }}">{{ course.name }}</option>
+          <select id="course" name="course" class="customMarginLeft" [(ngModel)]="selectedCourseId">
+            <option *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
           </select>
         </div>
 
@@ -41,7 +41,7 @@
 
     <div class="modal-footer">
       <div class="mx-auto">
-        <button type="submit" class="btn btn-success" [disabled]="startTime.value == null || !visible"
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid"
           (click)="ok(startTime.value)">Ok</button>
         <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
       </div>
