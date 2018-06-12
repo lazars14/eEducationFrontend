@@ -64,11 +64,6 @@ export class CourseLessonsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   edit(courseLesson: CourseLesson) {
@@ -89,11 +84,6 @@ export class CourseLessonsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   delete(id: number) {
@@ -114,11 +104,6 @@ export class CourseLessonsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
 }

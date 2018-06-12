@@ -11,7 +11,7 @@ export interface ConfirmModel {
   styleUrls: ['./confirm-modal.component.css']
 })
 
-export class ConfirmModalComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
+export class ConfirmModalComponent extends DialogComponent<ConfirmModel, Boolean> implements ConfirmModel {
 
   constructor(dialogService: DialogService) {
     super(dialogService);

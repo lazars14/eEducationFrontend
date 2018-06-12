@@ -36,7 +36,7 @@ export class RankService {
 
   delete(id: number) {
     return this.httpService.delete(this.apiUrl + '/ranks/' + id)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 }

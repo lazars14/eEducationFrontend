@@ -51,11 +51,6 @@ export class ClassesComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   edit(collegeDirection: CollegeDirection) {
@@ -76,11 +71,6 @@ export class ClassesComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   delete(id: number) {
@@ -94,6 +84,7 @@ export class ClassesComponent implements OnInit {
                 this.toasterService.pop({type: 'success', title: 'Deleted Student Notification', body: '' });
                 this.refreshPage();
               }, error => {
+                console.log('error is this', error);
                 this.toasterService.pop({type: 'error', title: 'Student Delete Notification', body: error.status + ' ' + error.statusText });
               });
             }
@@ -101,11 +92,6 @@ export class ClassesComponent implements OnInit {
               // do nothing, dialog closed
             }
         });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
 }

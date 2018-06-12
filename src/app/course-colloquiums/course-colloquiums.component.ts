@@ -91,11 +91,6 @@ export class CourseColloquiumsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   edit(colloquium: Colloquium) {
@@ -116,11 +111,6 @@ export class CourseColloquiumsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   delete(colloquiumId: number) {
@@ -141,11 +131,6 @@ export class CourseColloquiumsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   submit(colloquiumId: number) {
@@ -173,11 +158,6 @@ export class CourseColloquiumsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   downloadDocument(document: StudentDocument) {
@@ -201,11 +181,6 @@ export class CourseColloquiumsComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
 }

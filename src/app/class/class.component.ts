@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student, Course, StudentAttendsCourse, CollegeDirection } from '../_model/index';
 import { StudentAttendsCourseService, StudentService, CollegeDirectionService, CourseService } from '../_services/index';
 import { ToasterService } from 'angular2-toaster';
-import { DialogService } from 'ng2-bootstrap-modal';
+import { DialogService, DialogOptions } from 'ng2-bootstrap-modal';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { actions } from './../_core/constants';
 import { StudentModalComponent } from '../student-modal/student-modal.component';
@@ -95,11 +95,6 @@ export class ClassComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   edit(student: Student) {
@@ -120,11 +115,6 @@ export class ClassComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   delete(id: number) {
@@ -145,11 +135,6 @@ export class ClassComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   showStudentCourses(student: Student) {
@@ -164,11 +149,6 @@ export class ClassComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   processChange(checked: boolean, student: Student) {
@@ -216,11 +196,6 @@ export class ClassComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
 

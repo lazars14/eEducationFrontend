@@ -1,3 +1,5 @@
+import { DialogOptions } from "ng2-bootstrap-modal";
+
 export const roles = {
     admin: 'admin',
     teacher: 'teacher',

@@ -37,7 +37,7 @@ export class GradeService {
 
   delete(id: number) {
     return this.httpService.delete(this.apiUrl + '/grades/' + id)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

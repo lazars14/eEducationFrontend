@@ -36,7 +36,7 @@ export class PaymentService {
 
   delete(id: number) {
     return this.httpService.delete(this.apiUrl + '/payments/' + id)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

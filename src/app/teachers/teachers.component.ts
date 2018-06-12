@@ -50,11 +50,6 @@ export class TeachersComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   edit(teacher: Teacher) {
@@ -75,11 +70,6 @@ export class TeachersComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   delete(id: number) {
@@ -100,11 +90,6 @@ export class TeachersComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
   viewCourses(teacherId: number, teacherFirstName: string, teacherLastName: string) {
@@ -119,11 +104,6 @@ export class TeachersComponent implements OnInit {
             // do nothing, dialog closed
           }
       });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
   }
 
 }

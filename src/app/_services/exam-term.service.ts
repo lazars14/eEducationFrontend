@@ -36,7 +36,7 @@ export class ExamTermService {
 
   delete(examPeriodId: number, examTermId: number) {
     return this.httpService.delete(this.apiUrl + '/examPeriod/' + examPeriodId + '/examTerms/' + examTermId)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

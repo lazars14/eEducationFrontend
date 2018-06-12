@@ -36,7 +36,7 @@ export class StudentService {
 
   delete(id: number) {
     return this.httpService.delete(this.apiUrl + '/students/' + id)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

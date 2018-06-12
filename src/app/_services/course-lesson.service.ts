@@ -36,7 +36,7 @@ export class CourseLessonService {
 
   delete(courseId: number, courseLessonId: number) {
     return this.httpService.delete(this.apiUrl + '/course/' + courseId + '/courseLessons/' + courseLessonId)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

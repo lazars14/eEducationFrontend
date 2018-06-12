@@ -36,7 +36,7 @@ export class ColloquiumResultService {
 
   delete(colloquiumId: number, resultId: number) {
     return this.httpService.delete(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/' + resultId)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
