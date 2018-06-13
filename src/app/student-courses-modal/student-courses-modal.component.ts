@@ -12,7 +12,7 @@ export interface StudentCoursesModel {
   templateUrl: './student-courses-modal.component.html',
   styleUrls: ['./student-courses-modal.component.css']
 })
-export class StudentCoursesModalComponent extends DialogComponent<StudentCoursesModel, boolean> implements StudentCoursesModel {
+export class StudentCoursesModalComponent extends DialogComponent<StudentCoursesModel, any> implements StudentCoursesModel {
 
   constructor(dialogService: DialogService) {
     super(dialogService);
@@ -22,6 +22,7 @@ export class StudentCoursesModalComponent extends DialogComponent<StudentCourses
   name: string;
 
   close() {
+    this.result = true;
     this.close();
   }
 

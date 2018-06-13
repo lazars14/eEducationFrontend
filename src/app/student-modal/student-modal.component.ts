@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 import { Student } from '../_model/index';
+import { actions } from '../_core';
 
 export interface StudentModel {
   action: string;
@@ -20,6 +21,9 @@ export class StudentModalComponent  extends DialogComponent<StudentModel, Studen
 
   action: string;
   student: Student;
+
+  add = actions.add;
+  edit = actions.edit;
 
   ok() {
     this.result = this.student;

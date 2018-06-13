@@ -26,10 +26,15 @@
           <input type="email" class="form-control" [(ngModel)]="student.email" name="email" required email>
         </div>
 
-        <div class="form-group">
+        <div *ngIf="action == add" class="form-group">
           <label for="password">
             <span class="red-text">*</span>Password</label>
           <input type="password" class="form-control" [(ngModel)]="student.sPassword" name="password" required>
+        </div>
+
+        <div *ngIf="action == edit" class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="student.sPassword" name="password">
         </div>
 
         <div class="form-group">
