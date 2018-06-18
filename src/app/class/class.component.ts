@@ -26,9 +26,14 @@ export class ClassComponent implements OnInit {
   students: Array<Student>;
   courses: Array<Course>;
 
+  studentsBackup: Array<Student>;
+
   selectedStudents = [];
 
   selectedCourseId: number;
+  selectedCourse: Course;
+
+  addCourse: boolean;
 
   direction: CollegeDirection;
 
@@ -55,6 +60,17 @@ export class ClassComponent implements OnInit {
       this.studentService.getByClassId(this.direction.id).subscribe(students => {
         this.students = students;
         this.students.forEach(student => {
+          for (let index = 0; index < students.length; index++) {
+            this.courseService.getByStudent(students[index].id).subscribe(courses => {
+              student['courses'] = courses;
+
+              if(index == students.length - 1) {
+                this.studentsBackup = _.cloneDeep(students);
+              }
+            }, error => {
+              this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });
+            });
+          }
           this.courseService.getByStudent(student.id).subscribe(courses => {
             student['courses'] = courses;
           }, error => {
@@ -162,7 +178,80 @@ export class ClassComponent implements OnInit {
     }
   }
 
+  processCourseChange() {
+    this.selectedCourse = this.courses.find(i => i.id === this.selectedCourseId);
+  }
+
+  prepareAdd() {
+    this.addCourse = true;
+
+    this.students = [];
+
+    this.studentsBackup.forEach(student => {
+      const contains = student['courses'].find(i => this.selectedCourse.id == i.id);
+      if(contains.length == 0) {
+        this.students.push(student);
+      }
+    });
+  }
+
+  prepareRemove() {
+    this.addCourse = false;
+
+    this.students = [];
+
+    this.studentsBackup.forEach(student => {
+      const contains = student['courses'].find(i => this.selectedCourse.id == i.id);
+      if(contains.length > 0) {
+        this.students.push(student);
+      }
+    });
+  }
+
+  resetStudents() {
+    this.students = _.cloneDeep(this.studentsBackup);
+  }
+
+  addOrRemoveCourseForStudents() {
+    if(this.addCourse) {
+      // batch add
+      this.sacService.batchAdd(this.selectedCourseId, this.selectedStudents).subscribe(finished => {
+        console.log(finished);
+      }, error => {
+        console.log('error is ', error);
+        this.toasterService.pop({type: 'error', title: 'Batch Enrollment', body: error.status + ' ' + error.statusText });
+      });
+    } else {
+      // batch remove
+      this.sacService.batchRemove(this.selectedCourseId, this.selectedStudents).subscribe(finished => {
+        console.log(finished);
+      }, error => {
+        console.log('error is ', error);
+        this.toasterService.pop({type: 'error', title: 'Batch Enrollment', body: error.status + ' ' + error.statusText });
+      });
+    }
+
+    
+  }
+
   addCourseToStudents() {
+    const course = this.courses.find(i => i.id === this.selectedCourseId);
+
+    this.selectedStudents.forEach(student => {
+      const sac = new StudentAttendsCourse();
+      sac.student = student;
+      sac.course = course;
+      
+      this.sacService.create(sac).subscribe(added => {
+        this.toasterService.pop({type: 'success', title: 'Added Student Enrollment', body: '' });
+        this.refreshPage();
+      }, error => {
+        this.toasterService.pop({type: 'error', title: 'Add Student Enrollment', body: error.status + ' ' + error.statusText });
+      });
+    });
+  }
+
+  removeCourseFromStudents() {
     const course = this.courses.find(i => i.id === this.selectedCourseId);
 
     this.selectedStudents.forEach(student => {

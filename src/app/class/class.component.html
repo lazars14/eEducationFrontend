@@ -15,12 +15,18 @@
       <h3>Add Course To Students</h3>
 
       <label for="teacher">Course</label>
-      <select id="course" name="course" class="customMarginLeft" [(ngModel)]="selectedCourseId">
+      <select id="course" name="course" class="customMarginLeft" [(ngModel)]="selectedCourseId" (ngModelChange)="processCourseChange()">
         <option #coursesSelect *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
       </select>
       <div class="courseButtons">
-        <button [disabled]="!selectedCourse || selectedStudents.length == 0" class="btn btn-danger" (click)="addCourseToStudents()">Add To Selected Students</button>
-        <button [disabled]="!selectedCourse || selectedStudents.length == 0" class="btn btn-danger" (click)="removeCourseFromStudents()">Remove From Selected Students</button>
+        <label>Mode: </label>
+        <input type="radio" name="courseMode" [disabled]="!selectedCourseId" (click)="prepareAdd()">Add
+        <input type="radio" name="courseMode" [disabled]="!selectedCourseId" (click)="prepareRemove()">Remove
+
+        <br>
+
+        <button [disabled]="!selectedCourseId || selectedStudents.length == 0" class="btn btn-success" (click)="addOrRemoveCourseForStudents()">Ok</button>
+        <button class="btn btn-danger" (click)="resetStudents()">Reset</button>
       </div>
     </div>
 

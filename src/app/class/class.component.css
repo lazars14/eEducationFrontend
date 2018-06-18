@@ -2,6 +2,10 @@
     margin-top: 15px;
 }
 
-.courseButtons button:first-child {
-    margin-right: 5px;
+.courseButtons input:first-child {
+    margin-right: 15px !important;
+}
+
+.courseButtons label {
+    margin-right: 10px;
 }
