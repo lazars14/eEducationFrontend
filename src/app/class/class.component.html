@@ -18,8 +18,10 @@
       <select id="course" name="course" class="customMarginLeft" [(ngModel)]="selectedCourseId">
         <option #coursesSelect *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
       </select>
-      <br>
-      <button [disabled]="!selectedCourse || selectedStudents.length == 0" class="btn btn-danger" (click)="addCourseToStudents()">Add To Selected Students</button>
+      <div class="courseButtons">
+        <button [disabled]="!selectedCourse || selectedStudents.length == 0" class="btn btn-danger" (click)="addCourseToStudents()">Add To Selected Students</button>
+        <button [disabled]="!selectedCourse || selectedStudents.length == 0" class="btn btn-danger" (click)="removeCourseFromStudents()">Remove From Selected Students</button>
+      </div>
     </div>
 
     <h2>

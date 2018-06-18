@@ -28,7 +28,7 @@ export class StudentTransferModalComponent extends DialogComponent<StudentTransf
       this.classes = data;
 
       // remove student's class
-      const found = this.classes.find(i => i.id === this.student.direction.id);
+      const found = this.classes.find(i => i.id === this.student.collegeDirection.id);
       const index = this.classes.indexOf(found);
       this.classes.splice(index, 1);
 
@@ -38,8 +38,10 @@ export class StudentTransferModalComponent extends DialogComponent<StudentTransf
   }
 
   ok() {
-    const selectedClass = this.classes.find(i => i.id === this.selectedClassId);
-    this.student.direction = selectedClass;
+    const selectedClass = this.classes.find(i => i.id === Number(this.selectedClassId));
+    this.student.collegeDirection = selectedClass;
+
+    console.log(this.student);
 
     this.result = this.student;
     this.close();

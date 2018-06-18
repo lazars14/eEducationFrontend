@@ -1,0 +1,7 @@
+.courseButtons {
+    margin-top: 15px;
+}
+
+.courseButtons button:first-child {
+    margin-right: 5px;
+}

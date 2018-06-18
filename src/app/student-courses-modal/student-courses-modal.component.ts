@@ -21,7 +21,7 @@ export class StudentCoursesModalComponent extends DialogComponent<StudentCourses
   courses: Array<Course>;
   name: string;
 
-  close() {
+  cancel() {
     this.result = true;
     this.close();
   }

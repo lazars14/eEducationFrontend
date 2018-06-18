@@ -39,4 +39,6 @@ export class StudentAttendsCourseService {
     .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  
 }

@@ -11,6 +11,6 @@ export class Student {
     studYearOrdNum: number;
     email: string;
     sPassword: string;
-    direction: CollegeDirection; 
+    collegeDirection: CollegeDirection; 
     espbPoints: number;
 }

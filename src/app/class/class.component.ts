@@ -83,7 +83,7 @@ export class ClassComponent implements OnInit {
       .subscribe((added) => {
           //We get dialog result
           if(added != null) {
-            added.direction = this.direction;
+            added.collegeDirection = this.direction;
             this.studentService.create(added).subscribe(created => {
               this.toasterService.pop({type: 'success', title: 'Created New Student', body: '' });
               this.refreshPage();

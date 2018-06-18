@@ -33,7 +33,7 @@ export class TeacherCoursesModalComponent extends DialogComponent<TeacherCourses
     });
   }
 
-  close() {
+  cancel() {
     this.result = false;
     this.close();
   }
