@@ -20,8 +20,8 @@
       </select>
       <div class="courseButtons">
         <label>Mode: </label>
-        <input type="radio" name="courseMode" [disabled]="!selectedCourseId" (click)="prepareAdd()">Add
-        <input type="radio" name="courseMode" [disabled]="!selectedCourseId" (click)="prepareRemove()">Remove
+        <input type="radio" name="courseMode" [checked]="coursesAdd" [disabled]="!selectedCourseId" (click)="prepareAdd()">Add
+        <input type="radio" name="courseMode" [checked]="coursesRemove" [disabled]="!selectedCourseId" (click)="prepareRemove()">Remove
 
         <br>
 

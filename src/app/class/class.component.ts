@@ -1,14 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { Student, Course, StudentAttendsCourse, CollegeDirection } from '../_model/index';
-import { StudentAttendsCourseService, StudentService, CollegeDirectionService, CourseService } from '../_services/index';
-import { ToasterService } from 'angular2-toaster';
-import { DialogService, DialogOptions } from 'ng2-bootstrap-modal';
-import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
-import { actions } from './../_core/constants';
-import { StudentModalComponent } from '../student-modal/student-modal.component';
-import { Router } from '@angular/router';
-import { StudentCoursesModalComponent } from '../student-courses-modal/student-courses-modal.component';
-import { StudentTransferModalComponent } from '../student-transfer-modal/student-transfer-modal.component';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  Student,
+  Course,
+  StudentAttendsCourse,
+  CollegeDirection
+} from '../_model/index';
+import {
+  StudentAttendsCourseService,
+  StudentService,
+  CollegeDirectionService,
+  CourseService
+} from '../_services/index';
+import {
+  ToasterService
+} from 'angular2-toaster';
+import {
+  DialogService,
+  DialogOptions
+} from 'ng2-bootstrap-modal';
+import {
+  ConfirmModalComponent
+} from '../confirm-modal/confirm-modal.component';
+import {
+  actions
+} from './../_core/constants';
+import {
+  StudentModalComponent
+} from '../student-modal/student-modal.component';
+import {
+  Router
+} from '@angular/router';
+import {
+  StudentCoursesModalComponent
+} from '../student-courses-modal/student-courses-modal.component';
+import {
+  StudentTransferModalComponent
+} from '../student-transfer-modal/student-transfer-modal.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -21,12 +51,12 @@ export class ClassComponent implements OnInit {
   constructor(private studentService: StudentService, private sacService: StudentAttendsCourseService,
     private toasterService: ToasterService, private dialogService: DialogService,
     private classService: CollegeDirectionService, private router: Router,
-    private courseService: CourseService) { }
+    private courseService: CourseService) {}
 
-  students: Array<Student>;
-  courses: Array<Course>;
+  students: Array < Student > ;
+  courses: Array < Course > ;
 
-  studentsBackup: Array<Student>;
+  studentsBackup: Array < Student > ;
 
   selectedStudents = [];
 
@@ -34,6 +64,9 @@ export class ClassComponent implements OnInit {
   selectedCourse: Course;
 
   addCourse: boolean;
+
+  coursesAdd: any;
+  coursesRemove: any;
 
   direction: CollegeDirection;
 
@@ -64,111 +97,156 @@ export class ClassComponent implements OnInit {
             this.courseService.getByStudent(students[index].id).subscribe(courses => {
               student['courses'] = courses;
 
-              if(index == students.length - 1) {
+              if (index == students.length - 1) {
                 this.studentsBackup = _.cloneDeep(students);
               }
             }, error => {
-              this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });
+              this.toasterService.pop({
+                type: 'error',
+                title: 'Get Courses For Student',
+                body: error.status + ' ' + error.statusText
+              });
             });
           }
           this.courseService.getByStudent(student.id).subscribe(courses => {
             student['courses'] = courses;
           }, error => {
-            this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });
+            this.toasterService.pop({
+              type: 'error',
+              title: 'Get Courses For Student',
+              body: error.status + ' ' + error.statusText
+            });
           });
         });
       }, error => {
-        this.toasterService.pop({type: 'error', title: 'Get Students By Class', body: error.status + ' ' + error.statusText });
+        this.toasterService.pop({
+          type: 'error',
+          title: 'Get Students By Class',
+          body: error.status + ' ' + error.statusText
+        });
       });
     }, error => {
-      this.toasterService.pop({type: 'error', title: 'Get Class By Id', body: error.status + ' ' + error.statusText });
+      this.toasterService.pop({
+        type: 'error',
+        title: 'Get Class By Id',
+        body: error.status + ' ' + error.statusText
+      });
     });
 
     this.courseService.findAll().subscribe(courses => {
       this.courses = courses;
     }, error => {
-      this.toasterService.pop({type: 'error', title: 'Get All Courses', body: error.status + ' ' + error.statusText });
+      this.toasterService.pop({
+        type: 'error',
+        title: 'Get All Courses',
+        body: error.status + ' ' + error.statusText
+      });
     });
-    
+
   }
 
   add() {
     let disposable = this.dialogService.addDialog(StudentModalComponent, {
-      action: actions.add, 
-      student: new Student()})
+        action: actions.add,
+        student: new Student()
+      })
       .subscribe((added) => {
-          //We get dialog result
-          if(added != null) {
-            added.collegeDirection = this.direction;
-            this.studentService.create(added).subscribe(created => {
-              this.toasterService.pop({type: 'success', title: 'Created New Student', body: '' });
-              this.refreshPage();
-            }, error => {
-              this.toasterService.pop({type: 'error', title: 'Create New Student', body: error.status + ' ' + error.statusText });
+        //We get dialog result
+        if (added != null) {
+          added.collegeDirection = this.direction;
+          this.studentService.create(added).subscribe(created => {
+            this.toasterService.pop({
+              type: 'success',
+              title: 'Created New Student',
+              body: ''
             });
-          }
-          else {
-            // do nothing, dialog closed
-          }
+            this.refreshPage();
+          }, error => {
+            this.toasterService.pop({
+              type: 'error',
+              title: 'Create New Student',
+              body: error.status + ' ' + error.statusText
+            });
+          });
+        } else {
+          // do nothing, dialog closed
+        }
       });
   }
 
   edit(student: Student) {
     let disposable = this.dialogService.addDialog(StudentModalComponent, {
-      action: actions.edit, 
-      student: _.cloneDeep(student)})
+        action: actions.edit,
+        student: _.cloneDeep(student)
+      })
       .subscribe((edited) => {
-          //We get dialog result
-          if(edited != null) {
-            this.studentService.update(edited).subscribe(updated => {
-              this.toasterService.pop({type: 'success', title: 'Updated Student', body: '' });
-              this.refreshPage();
-            }, error => {
-              this.toasterService.pop({type: 'error', title: 'Update Student', body: error.status + ' ' + error.statusText });
+        //We get dialog result
+        if (edited != null) {
+          this.studentService.update(edited).subscribe(updated => {
+            this.toasterService.pop({
+              type: 'success',
+              title: 'Updated Student',
+              body: ''
             });
-          }
-          else {
-            // do nothing, dialog closed
-          }
+            this.refreshPage();
+          }, error => {
+            this.toasterService.pop({
+              type: 'error',
+              title: 'Update Student',
+              body: error.status + ' ' + error.statusText
+            });
+          });
+        } else {
+          // do nothing, dialog closed
+        }
       });
   }
 
   delete(id: number) {
     let disposable = this.dialogService.addDialog(ConfirmModalComponent, {
-      header: 'Delete Course Lesson', 
-      text: 'Are you sure you want to delete this course lesson?'})
-      .subscribe((isConfirmed)=>{
-          //We get dialog result
-          if(isConfirmed) {
-            this.studentService.delete(id).subscribe(deleted => {
-              this.toasterService.pop({type: 'success', title: 'Deleted Student', body: '' });
-              this.refreshPage();
-            }, error => {
-              this.toasterService.pop({type: 'error', title: 'Delete Student', body: error.status + ' ' + error.statusText });
+        header: 'Delete Course Lesson',
+        text: 'Are you sure you want to delete this course lesson?'
+      })
+      .subscribe((isConfirmed) => {
+        //We get dialog result
+        if (isConfirmed) {
+          this.studentService.delete(id).subscribe(deleted => {
+            this.toasterService.pop({
+              type: 'success',
+              title: 'Deleted Student',
+              body: ''
             });
-          }
-          else {
-            // do nothing, dialog closed
-          }
+            this.refreshPage();
+          }, error => {
+            this.toasterService.pop({
+              type: 'error',
+              title: 'Delete Student',
+              body: error.status + ' ' + error.statusText
+            });
+          });
+        } else {
+          // do nothing, dialog closed
+        }
       });
   }
 
   showStudentCourses(student: Student) {
     let disposable = this.dialogService.addDialog(StudentCoursesModalComponent, {
-      name: student.lastname + ' ' + student.firstname + ' ' + student.indexNumber, 
-      courses: student['courses'] })
-      .subscribe((result)=>{
-          //We get dialog result
-          if (result != null) {
-            // read only, do nothing
-          } else {
-            // do nothing, dialog closed
-          }
+        name: student.lastname + ' ' + student.firstname + ' ' + student.indexNumber,
+        courses: student['courses']
+      })
+      .subscribe((result) => {
+        //We get dialog result
+        if (result != null) {
+          // read only, do nothing
+        } else {
+          // do nothing, dialog closed
+        }
       });
   }
 
   processChange(checked: boolean, student: Student) {
-    if(checked) {
+    if (checked) {
       // add student to selected list
       this.selectedStudents.push(student);
     } else {
@@ -179,47 +257,76 @@ export class ClassComponent implements OnInit {
   }
 
   processCourseChange() {
-    this.selectedCourse = this.courses.find(i => i.id === this.selectedCourseId);
+    this.resetStudents();
   }
 
   prepareAdd() {
     this.addCourse = true;
 
+    this.coursesAdd = true;
+    this.coursesRemove = false;
+
     this.students = [];
 
+    this.selectedCourse = this.courses.find(i => i.id === this.selectedCourseId);
+
     this.studentsBackup.forEach(student => {
-      const contains = student['courses'].find(i => this.selectedCourse.id == i.id);
-      if(contains.length == 0) {
+      const studentCourses = student['courses'];
+
+      if (studentCourses) {
+        const contains = studentCourses.find(i => this.selectedCourseId == i.id);
+        if (!contains) {
+          this.students.push(student);
+        }
+      } else {
         this.students.push(student);
       }
+
     });
   }
 
   prepareRemove() {
     this.addCourse = false;
 
+    this.coursesRemove = true;
+    this.coursesAdd = false;
+
     this.students = [];
 
+    this.selectedCourse = this.courses.find(i => i.id === this.selectedCourseId);
+
     this.studentsBackup.forEach(student => {
-      const contains = student['courses'].find(i => this.selectedCourse.id == i.id);
-      if(contains.length > 0) {
+      const studentCourses = student['courses'];
+
+      if (studentCourses) {
+        const contains = studentCourses.find(i => this.selectedCourseId == i.id);
+        if (contains) {
+          this.students.push(student);
+        }
+      } else {
         this.students.push(student);
       }
     });
   }
 
   resetStudents() {
+    this.coursesAdd = false;
+    this.coursesRemove = false;
     this.students = _.cloneDeep(this.studentsBackup);
   }
 
   addOrRemoveCourseForStudents() {
-    if(this.addCourse) {
+    if (this.addCourse) {
       // batch add
       this.sacService.batchAdd(this.selectedCourseId, this.selectedStudents).subscribe(finished => {
         console.log(finished);
       }, error => {
         console.log('error is ', error);
-        this.toasterService.pop({type: 'error', title: 'Batch Enrollment', body: error.status + ' ' + error.statusText });
+        this.toasterService.pop({
+          type: 'error',
+          title: 'Batch Enrollment',
+          body: error.status + ' ' + error.statusText
+        });
       });
     } else {
       // batch remove
@@ -227,11 +334,15 @@ export class ClassComponent implements OnInit {
         console.log(finished);
       }, error => {
         console.log('error is ', error);
-        this.toasterService.pop({type: 'error', title: 'Batch Enrollment', body: error.status + ' ' + error.statusText });
+        this.toasterService.pop({
+          type: 'error',
+          title: 'Batch Enrollment',
+          body: error.status + ' ' + error.statusText
+        });
       });
     }
 
-    
+
   }
 
   addCourseToStudents() {
@@ -241,12 +352,20 @@ export class ClassComponent implements OnInit {
       const sac = new StudentAttendsCourse();
       sac.student = student;
       sac.course = course;
-      
+
       this.sacService.create(sac).subscribe(added => {
-        this.toasterService.pop({type: 'success', title: 'Added Student Enrollment', body: '' });
+        this.toasterService.pop({
+          type: 'success',
+          title: 'Added Student Enrollment',
+          body: ''
+        });
         this.refreshPage();
       }, error => {
-        this.toasterService.pop({type: 'error', title: 'Add Student Enrollment', body: error.status + ' ' + error.statusText });
+        this.toasterService.pop({
+          type: 'error',
+          title: 'Add Student Enrollment',
+          body: error.status + ' ' + error.statusText
+        });
       });
     });
   }
@@ -258,32 +377,48 @@ export class ClassComponent implements OnInit {
       const sac = new StudentAttendsCourse();
       sac.student = student;
       sac.course = course;
-      
+
       this.sacService.create(sac).subscribe(added => {
-        this.toasterService.pop({type: 'success', title: 'Added Student Enrollment', body: '' });
+        this.toasterService.pop({
+          type: 'success',
+          title: 'Added Student Enrollment',
+          body: ''
+        });
         this.refreshPage();
       }, error => {
-        this.toasterService.pop({type: 'error', title: 'Add Student Enrollment', body: error.status + ' ' + error.statusText });
+        this.toasterService.pop({
+          type: 'error',
+          title: 'Add Student Enrollment',
+          body: error.status + ' ' + error.statusText
+        });
       });
     });
   }
 
   transfer(student: Student) {
-    let disposable = this.dialogService.addDialog(StudentTransferModalComponent, { 
-      student: student})
+    let disposable = this.dialogService.addDialog(StudentTransferModalComponent, {
+        student: student
+      })
       .subscribe((edited) => {
-          //We get dialog result
-          if(edited != null) {
-            this.studentService.update(edited).subscribe(updated => {
-              this.toasterService.pop({type: 'success', title: 'Transfered Student', body: '' });
-              this.refreshPage();
-            }, error => {
-              this.toasterService.pop({type: 'error', title: 'Transfer Student', body: error.status + ' ' + error.statusText });
+        //We get dialog result
+        if (edited != null) {
+          this.studentService.update(edited).subscribe(updated => {
+            this.toasterService.pop({
+              type: 'success',
+              title: 'Transfered Student',
+              body: ''
             });
-          }
-          else {
-            // do nothing, dialog closed
-          }
+            this.refreshPage();
+          }, error => {
+            this.toasterService.pop({
+              type: 'error',
+              title: 'Transfer Student',
+              body: error.status + ' ' + error.statusText
+            });
+          });
+        } else {
+          // do nothing, dialog closed
+        }
       });
   }
 
