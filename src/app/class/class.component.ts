@@ -92,24 +92,20 @@ export class ClassComponent implements OnInit {
 
       this.studentService.getByClassId(this.direction.id).subscribe(students => {
         this.students = students;
-        this.students.forEach(student => {
-          for (let index = 0; index < students.length; index++) {
-            this.courseService.getByStudent(students[index].id).subscribe(courses => {
-              student['courses'] = courses;
 
-              if (index == students.length - 1) {
-                this.studentsBackup = _.cloneDeep(students);
-              }
-            }, error => {
-              this.toasterService.pop({
-                type: 'error',
-                title: 'Get Courses For Student',
-                body: error.status + ' ' + error.statusText
-              });
-            });
-          }
+        for (let i = 0; i < this.students.length; i++) {
+          const student = this.students[i];
+          
           this.courseService.getByStudent(student.id).subscribe(courses => {
             student['courses'] = courses;
+            if(i == this.students.length - 1) {
+              this.studentsBackup = _.cloneDeep(students);
+              this.toasterService.pop({
+                type: 'info',
+                title: 'Loaded Student Data',
+                body: ''
+              });
+            }
           }, error => {
             this.toasterService.pop({
               type: 'error',
@@ -117,7 +113,9 @@ export class ClassComponent implements OnInit {
               body: error.status + ' ' + error.statusText
             });
           });
-        });
+
+        }
+        
       }, error => {
         this.toasterService.pop({
           type: 'error',
@@ -247,8 +245,14 @@ export class ClassComponent implements OnInit {
 
   processChange(checked: boolean, student: Student) {
     if (checked) {
-      // add student to selected list
-      this.selectedStudents.push(student);
+      // check if student in list already
+      const found = this.selectedStudents.find(i => i.id == student.id);
+
+      if(!found) {
+        // add student to selected list
+        this.selectedStudents.push(student);
+      }
+
     } else {
       // remove from list of selected
       const index = this.selectedStudents.indexOf(student);
@@ -313,15 +317,21 @@ export class ClassComponent implements OnInit {
     this.coursesAdd = false;
     this.coursesRemove = false;
     this.students = _.cloneDeep(this.studentsBackup);
+    this.selectedStudents = [];
   }
 
   addOrRemoveCourseForStudents() {
     if (this.addCourse) {
       // batch add
       this.sacService.batchAdd(this.selectedCourseId, this.selectedStudents).subscribe(finished => {
-        console.log(finished);
+        this.toasterService.pop({
+          type: 'success',
+          title: 'Added Student Enrollment',
+          body: ''
+        });
+        this.refreshPage();
+        this.resetStudents();
       }, error => {
-        console.log('error is ', error);
         this.toasterService.pop({
           type: 'error',
           title: 'Batch Enrollment',
@@ -331,9 +341,14 @@ export class ClassComponent implements OnInit {
     } else {
       // batch remove
       this.sacService.batchRemove(this.selectedCourseId, this.selectedStudents).subscribe(finished => {
-        console.log(finished);
+        this.toasterService.pop({
+          type: 'success',
+          title: 'Added Student Enrollment',
+          body: ''
+        });
+        this.refreshPage();
+        this.resetStudents();
       }, error => {
-        console.log('error is ', error);
         this.toasterService.pop({
           type: 'error',
           title: 'Batch Enrollment',
