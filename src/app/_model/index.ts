@@ -16,3 +16,4 @@ export * from './studentDocument.model';
 export * from './studentExamEntry.model';
 export * from './teacher.model';
 export * from './teacherTeachesCourse.model';
+export * from './login.model';

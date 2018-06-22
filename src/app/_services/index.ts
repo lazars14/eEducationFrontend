@@ -16,3 +16,4 @@ export * from './student-document.service';
 export * from './student-exam-entry.service';
 export * from './teacher.service';
 export * from './teacher-teaches-course.service';
+export * from './user.service';

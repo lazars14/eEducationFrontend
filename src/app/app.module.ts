@@ -34,7 +34,7 @@ import { CourseLessonComponent } from './course-lesson/course-lesson.component';
 import { CollegeDirectionService, ColloquiumResultService, ColloquiumService, CourseFileService,
         CourseLessonService, CourseService, ExamPeriodService, ExamTermService, GradeService, NotificationService,
         PaymentService, RankService, StudentAttendsCourseService, StudentDocumentService, StudentExamEntryService,
-        StudentService, TeacherTeachesCourseService, TeacherService } from './_services/index';
+        StudentService, TeacherTeachesCourseService, TeacherService, UserService } from './_services/index';
 import { ClassModalComponent } from './class-modal/class-modal.component';
 import { TeacherModalComponent } from './teacher-modal/teacher-modal.component';
 import { ExamPeriodModalComponent } from './exam-period-modal/exam-period-modal.component';
@@ -141,7 +141,7 @@ export function httpServiceFactory(backend: XHRBackend, options: RequestOptions,
     CollegeDirectionService, ColloquiumResultService, ColloquiumService, CourseFileService,
         CourseLessonService, CourseService, ExamPeriodService, ExamTermService, GradeService, NotificationService,
         PaymentService, RankService, StudentAttendsCourseService, StudentDocumentService, StudentExamEntryService,
-        StudentService, TeacherTeachesCourseService, TeacherService, 
+        StudentService, TeacherTeachesCourseService, TeacherService, UserService,
     { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
     {
       provide: HttpService,
