@@ -102,13 +102,18 @@ export class CoursesAdminComponent implements OnInit {
             const addedTeachers = lists['added'];
             const removedTeachers = lists['removed'];
 
+            console.log('added teachers ', addedTeachers);
+            console.log('removed teachers ', removedTeachers);
+
             this.ttcService.batchAdd(addedTeachers, courseId).subscribe(done => {
               this.ttcService.batchRemove(removedTeachers, courseId).subscribe(done => {
                 this.refreshPage();
               }, error => {
+                console.log('error on remove ', error);
                 this.toasterService.pop({type: 'error', title: 'Batch Remove Ttc', body: error.status + ' ' + error.statusText });
               });
             }, error => {
+              console.log('error on add ', error);
               this.toasterService.pop({type: 'error', title: 'Batch Add Ttc', body: error.status + ' ' + error.statusText });
             });
 

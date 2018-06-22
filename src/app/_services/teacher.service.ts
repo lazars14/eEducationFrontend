@@ -42,7 +42,7 @@ export class TeacherService {
   }
 
   getByCourse(courseId: number) {
-    return this.httpService.get(this.apiUrl + '/course/' + courseId)
+    return this.httpService.get(this.apiUrl + '/teachers/course/' + courseId)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

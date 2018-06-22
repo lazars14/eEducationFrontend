@@ -20,12 +20,12 @@ export class SetTeachersModalComponent extends DialogComponent<SetTeachersModel,
 
   courseId: number;
 
-  teachers: Array<Teacher>;
+  teachers = [];
 
-  currentTeachers: Array<Teacher>;
+  currentTeachers = [];
 
-  addedTeachers: Array<Teacher>;
-  removedTeachers: Array<Teacher>;
+  addedTeachers = [];
+  removedTeachers = [];
 
   ngOnInit() {
     this.teacherService.getByCourse(this.courseId).subscribe(teachers => {

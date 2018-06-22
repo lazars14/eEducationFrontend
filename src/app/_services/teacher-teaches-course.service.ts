@@ -42,13 +42,13 @@ export class TeacherTeachesCourseService {
 
   batchAdd(teachers: Array<Teacher>, courseId: number) {
     return this.httpService.post(this.apiUrl + '/teacherTeachesCourse/course/' + courseId + '/batchAdd', teachers)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
   batchRemove(teachers: Array<Teacher>, courseId: number) {
     return this.httpService.post(this.apiUrl + '/teacherTeachesCourse/course/' + courseId + '/batchRemove', teachers)
-    .map((res) => res.json())
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
