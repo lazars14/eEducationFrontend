@@ -7,12 +7,18 @@ export class SessionService {
 
   constructor(private router: Router) { }
 
-  getUserRole(url: string){
-    if(url.indexOf(roles.admin) === 1) {
+  // user = {
+  //   token: token
+  //   email: email
+  //   id: id
+  // };
+
+  getUserRole(url: string) {
+    if (url.indexOf(roles.admin) === 1) {
       return roles.admin;
-    } else if(url.indexOf(roles.teacher) === 1) {
+    } else if (url.indexOf(roles.teacher) === 1) {
       return roles.teacher;
-    } else if(url.indexOf(roles.student) === 1) {
+    } else if (url.indexOf(roles.student) === 1) {
       return roles.student;
     }
   }
@@ -20,15 +26,15 @@ export class SessionService {
   /**
    * Store user email and token in local storage
    */
-  storeUser(user: Object, userRole: string) {
-    localStorage.setItem(userRole, JSON.stringify(user));
+  storeUser(user: Object) {
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   /**
    * Check if user is logged in
    */
-  isUserLoggedIn(userRole: string) {
-    const data = localStorage.getItem(userRole);
+  isUserLoggedIn() {
+    const data = localStorage.getItem('user');
     if (!data) { return null; }
     const session = JSON.parse(data);
     return session && session.token;
@@ -37,15 +43,15 @@ export class SessionService {
   /**
    * Destroy object in local storage
    */
-  destroyUser(userRole: string) {
-    localStorage.removeItem(userRole);
+  destroyUser() {
+    localStorage.removeItem('user');
   }
 
   /**
    * Get user session token
    */
-  getUserToken(userRole: string) {
-    const data = localStorage.getItem(userRole);
+  getUserToken() {
+    const data = localStorage.getItem('user');
     if (!data) { return null; }
     const user = JSON.parse(data);
     return user.token;
@@ -54,30 +60,30 @@ export class SessionService {
   /**
    * Get logged user email
    */
-  getUserEmail(userRole: string) {
-    const data = localStorage.getItem(userRole);
+  getUserEmail() {
+    const data = localStorage.getItem('user');
     if (!data) { return null; }
     const user = JSON.parse(data);
-    return user.user.email;
+    return user.email;
   }
 
   /**
    * Get logged user id
    */
-  getUserId(userRole: string) {
-    const data = localStorage.getItem(userRole);
+  getUserId() {
+    const data = localStorage.getItem('user');
     if (!data) { return null; }
     const user = JSON.parse(data);
-    return user._id;
+    return user.id;
   }
 
   /**
    * Set updated email
    */
-  setUpdatedUser(updatedUser: Object, userRole: string) {
-    const user = JSON.parse(localStorage.getItem(userRole));
-    user.user = updatedUser;
-    localStorage.setItem(userRole, JSON.stringify(user));
+  setUpdatedUser(email: string) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    user.email = email;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
 }

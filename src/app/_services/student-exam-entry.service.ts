@@ -42,13 +42,13 @@ export class StudentExamEntryService {
   }
 
   findByExamTermAndStudent(examTermId: number) {
-    return this.httpService.get(this.apiUrl + '/examEntries/examTerms/' + examTermId + '/student/' + this.sessionService.getUserId(roles.student))
+    return this.httpService.get(this.apiUrl + '/examEntries/examTerms/' + examTermId + '/student/' + this.sessionService.getUserId())
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
   findByExamTermAndTeacher(examTermId: number) {
-    return this.httpService.get(this.apiUrl + '/examEntries/examTerms/' + examTermId + '/teacher/' + this.sessionService.getUserId(roles.teacher))
+    return this.httpService.get(this.apiUrl + '/examEntries/examTerms/' + examTermId + '/teacher/' + this.sessionService.getUserId())
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

@@ -18,7 +18,7 @@ export class GradesComponent implements OnInit {
   average = 0;
 
   ngOnInit() {
-    this.gradeService.getByStudent(roles.student).subscribe(data => {
+    this.gradeService.getByStudent().subscribe(data => {
       this.grades = data;
       let sum = 0;
       for (let index = 0; index < data.length; index++) {

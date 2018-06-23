@@ -107,7 +107,7 @@ export class ExamEntriesComponent implements OnInit {
               });
 
               // student
-              this.paymentService.getByStudent(roles.student).subscribe(data => {
+              this.paymentService.getByStudent().subscribe(data => {
                 data.forEach(payment => {
                   this.balance = (payment.owes == true) ? this.balance += payment.amount : this.balance -= payment.amount;
                 });
@@ -140,7 +140,7 @@ export class ExamEntriesComponent implements OnInit {
   }
 
   addExamEntry(examTerm: ExamTerm) {
-    const studentId = this.sessionService.getUserId(roles.student);
+    const studentId = this.sessionService.getUserId();
 
     this.studentService.findById(Number(studentId)).subscribe(student => {
       const newExamEntry = new StudentExamEntry();

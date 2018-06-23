@@ -22,7 +22,7 @@ export class PaymentsComponent implements OnInit {
   balance = 0;
 
   ngOnInit() {
-    this.paymentService.getByStudent(roles.student).subscribe(data => {
+    this.paymentService.getByStudent().subscribe(data => {
       this.payments = data;
       data.forEach(payment => {
         this.balance = (payment.owes == true) ? this.balance += payment.amount : this.balance -= payment.amount;
@@ -31,7 +31,7 @@ export class PaymentsComponent implements OnInit {
       this.toasterService.pop({type: 'error', title: 'Get Payments For Student', body: error.status + ' ' + error.statusText });
     });
 
-    this.studentService.findById(this.sessionService.getUserId(roles.student)).subscribe(student => {
+    this.studentService.findById(this.sessionService.getUserId()).subscribe(student => {
       this.accountNumber = student.accountNumber;
       this.referenceNumber = student.referenceNumber;
     }, error => {

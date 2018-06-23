@@ -40,8 +40,8 @@ export class PaymentService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  getByStudent(userRole: string) {
-    return this.httpService.get(this.apiUrl + '/payments/students/' + this.sessionService.getUserId(userRole))
+  getByStudent() {
+    return this.httpService.get(this.apiUrl + '/payments/students/' + this.sessionService.getUserId())
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

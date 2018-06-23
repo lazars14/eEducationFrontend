@@ -40,16 +40,16 @@ export class CourseColloquiumsComponent implements OnInit {
 
   refreshPage() {
     this.role = this.sessionService.getUserRole(this.router.url);
-    
-    if(this.role == roles.student) {
-      this.studentId = this.sessionService.getUserId(roles.student);
+
+    if (this.role === roles.student) {
+      this.studentId = this.sessionService.getUserId();
     }
     // get course id
     const urlItems = this.router.url.split('/');
     this.courseId = Number(urlItems[4]);
 
     this.colloquiumService.getByCourse(this.courseId).subscribe(colloquiums => {
-      if(this.role == roles.student) {
+      if (this.role === roles.student) {
         this.colloquiums = colloquiums;
 
         colloquiums.forEach(colloquium => {
@@ -59,7 +59,7 @@ export class CourseColloquiumsComponent implements OnInit {
             this.toasterService.pop({type: 'error', title: 'Get Colloquium Result', body: error.status + ' ' + error.statusText });
           });
         });
-      } else if (this.role == roles.teacher) {
+      } else if (this.role === roles.teacher) {
         colloquiums.forEach(colloquium => {
           this.resultService.getByColloquium(colloquium.id).subscribe(results => {
             colloquium.results = results;
@@ -75,11 +75,11 @@ export class CourseColloquiumsComponent implements OnInit {
 
   add() {
     let disposable = this.dialogService.addDialog(ColloquiumModalComponent, {
-      action: actions.add, 
+      action: actions.add,
       colloquium: new Colloquium()})
-      .subscribe((created)=>{
+      .subscribe((created) => {
           //We get dialog result
-          if(created) {
+          if (created) {
             this.colloquiumService.create(this.courseId, created).subscribe(added => {
               this.toasterService.pop({type: 'success', title: 'Add Colloquium', body: '' });
               this.refreshPage();

@@ -1,5 +1,3 @@
-import { DialogOptions } from "ng2-bootstrap-modal";
-
 export const roles = {
     admin: 'admin',
     teacher: 'teacher',
@@ -9,13 +7,13 @@ export const roles = {
 export const actions = {
     add: 'Add',
     edit: 'Edit'
-}
+};
 
 export const strings = {
     id: '#'
-}
+};
 
 export const payment = {
     examTerm: 500,
     examTermCause: 'Exam entry'
-}
+};

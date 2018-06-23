@@ -20,16 +20,4 @@ export class UserService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  // update() {
-  //   return this.httpService.put(this.apiUrl + '/students/' + student.id, student)
-  //   .map((res) => res.json())
-  //   .catch(err => this.errorHandlerService.handleError(err));
-  // }
-
-  // delete(id: number) {
-  //   return this.httpService.delete(this.apiUrl + '/students/' + id)
-  //   .map((res) => res.status)
-  //   .catch(err => this.errorHandlerService.handleError(err));
-  // }
-  
 }

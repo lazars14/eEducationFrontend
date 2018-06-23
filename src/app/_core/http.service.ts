@@ -24,22 +24,18 @@ export class HttpService extends Http {
         options = { headers: new Headers() };
       }
 
-      this.role = this.sessionService.getUserRole(url);
-
-      options.headers.set('x-access-token', this.sessionService.getUserToken(this.role));
-      options.headers.set('from', this.sessionService.getUserEmail(this.role));
+      options.headers.set('x-access-token', this.sessionService.getUserToken());
+      options.headers.set('from', this.sessionService.getUserEmail());
 
     } else {
 
-      this.role = this.sessionService.getUserRole(url.url);
-
       // we have to add the token to the url object
-      url.headers.set('x-access-token', this.sessionService.getUserToken(this.role));
-      url.headers.set('from', this.sessionService.getUserEmail(this.role));
+      url.headers.set('x-access-token', this.sessionService.getUserToken());
+      url.headers.set('from', this.sessionService.getUserEmail());
     }
     return super.request(url, options).catch((error: Response) => {
       if (error.status === 401 || error.status === 403) {
-        this.sessionService.destroyUser(this.role)
+        this.sessionService.destroyUser();
       }
 
       return Observable.throw(error);

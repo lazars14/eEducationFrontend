@@ -23,7 +23,7 @@ export class CoursesComponent implements OnInit {
 
     if (role == roles.teacher) {
 
-      this.courseService.getByTeacher(this.sessionService.getUserId(role)).subscribe(data => {
+      this.courseService.getByTeacher(this.sessionService.getUserId()).subscribe(data => {
         this.courses = data;
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Get Courses For Teacher', body: error.status + ' ' + error.statusText });
@@ -31,7 +31,7 @@ export class CoursesComponent implements OnInit {
     
     } else if (role == roles.student) {
 
-      this.courseService.getByStudent(this.sessionService.getUserId(roles.student)).subscribe(data => {
+      this.courseService.getByStudent(this.sessionService.getUserId()).subscribe(data => {
         this.courses = data;
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Get Courses For Student', body: error.status + ' ' + error.statusText });

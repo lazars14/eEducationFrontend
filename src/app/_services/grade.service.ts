@@ -41,8 +41,8 @@ export class GradeService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  getByStudent(userRole: string) {
-    return this.httpService.get(this.apiUrl + '/grades/students/' + this.sessionService.getUserId(userRole))
+  getByStudent() {
+    return this.httpService.get(this.apiUrl + '/grades/students/' + this.sessionService.getUserId())
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

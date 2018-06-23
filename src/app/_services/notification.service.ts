@@ -43,13 +43,13 @@ export class NotificationService {
   }
 
   getByStudent() {
-    return this.httpService.get(this.apiUrl + '/notifications/student/' + this.sessionService.getUserId(roles.student))
+    return this.httpService.get(this.apiUrl + '/notifications/student/' + this.sessionService.getUserId())
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
   getByCourseAndStudent(courseId: number) {
-    return this.httpService.get(this.apiUrl + '/notifications/course/' + courseId + '/student/' + this.sessionService.getUserId(roles.student))
+    return this.httpService.get(this.apiUrl + '/notifications/course/' + courseId + '/student/' + this.sessionService.getUserId())
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

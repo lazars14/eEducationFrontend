@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../_core';
 import { UserService } from '../_services';
+import { ToasterService } from 'angular2-toaster';
+import { Router } from '@angular/router';
+import { roles } from './../_core/constants';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +12,8 @@ import { UserService } from '../_services';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private sessionService: SessionService, private userService: UserService) { }
+  constructor(private router: Router, private sessionService: SessionService,
+    private userService: UserService, private toasterService: ToasterService) { }
 
   email: string;
   password: string;
@@ -20,8 +24,25 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.userService.login(this.email, this.password).subscribe(response => {
       console.log('response is ', response);
+      const sessionObject = {
+        token: response.token,
+        email: response.user,
+        id: response.id
+      };
+
+      this.sessionService.storeUser(sessionObject);
+
+      // navigate to page
+      if (response.role === roles.admin) {
+        this.router.navigate(['admin/dashboard/classes']);
+      } else if (response.role === roles.teacher) {
+        this.router.navigate(['teacher/dashboard/courses']);
+      } else if (response.role === roles.student) {
+        this.router.navigate(['student/dashboard/courses']);
+      }
+
     }, error => {
-      console.log('error is ', error);
+      this.toasterService.pop({type: 'error', title: 'Login User', body: error.status + ' ' + error.statusText });
     });
   }
 }
