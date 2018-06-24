@@ -24,7 +24,7 @@ export class StudentExamEntryService {
   }
 
   create(entry: StudentExamEntry) {
-    return this.httpService.post(this.apiUrl + '/examEntries/', entry)
+    return this.httpService.post(this.apiUrl + '/examEntries', entry)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

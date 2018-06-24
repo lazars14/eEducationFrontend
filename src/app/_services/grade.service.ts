@@ -24,7 +24,7 @@ export class GradeService {
   }
 
   create(grade: Grade) {
-    return this.httpService.post(this.apiUrl + '/grades/', grade)
+    return this.httpService.post(this.apiUrl + '/grades', grade)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

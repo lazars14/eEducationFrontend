@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService, ErrorHandlerService } from '../_core/index';
+import { HttpService, ErrorHandlerService, SessionService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { Teacher } from '../_model/index';
 import 'rxjs/add/operator/map';
@@ -7,7 +7,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class TeacherService {
 
-  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService) {}
+  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService,
+    private sessionService: SessionService) {}
 
   apiUrl = environment.apiUrl;
 
@@ -46,4 +47,21 @@ export class TeacherService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  // returns token
+  changeEmail(oldEmail: string, newEmail: string) {
+    return this.httpService.put(this.apiUrl + '/teachers/' + this.sessionService.getUserId() + '/changeEmail',
+      {oldEmail: oldEmail, newEmail: newEmail})
+    .map((res) => res)
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  // returns token
+  changePassword(oldPassword: string, newPassword: string, repeatPassword: string) {
+    return this.httpService.put(this.apiUrl + '/teachers/' + this.sessionService.getUserId() + '/changePassword',
+      {oldPassword: oldPassword, newPassword: newPassword, repeatPassword: repeatPassword})
+    .map((res) => res)
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
 }

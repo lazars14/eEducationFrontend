@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpService, ErrorHandlerService } from '../_core/index';
+import { HttpService, ErrorHandlerService, SessionService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { Student } from '../_model/index';
 
 @Injectable()
 export class StudentService {
 
-  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService) {}
+  constructor(private httpService: HttpService, private errorHandlerService: ErrorHandlerService,
+    private sessionService: SessionService) {}
 
   apiUrl = environment.apiUrl;
 
@@ -43,6 +44,22 @@ export class StudentService {
   getByClassId(classId: number) {
     return this.httpService.get(this.apiUrl + '/students/class/' + classId)
     .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  // returns token
+  changeEmail(oldEmail: string, newEmail: string) {
+    return this.httpService.put(this.apiUrl + '/students/' + this.sessionService.getUserId() + '/changeEmail',
+      {oldEmail: oldEmail, newEmail: newEmail})
+    .map((res) => res)
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  // returns token
+  changePassword(oldPassword: string, newPassword: string, repeatPassword: string) {
+    return this.httpService.put(this.apiUrl + '/students/' + this.sessionService.getUserId() + '/changePassword',
+      {oldPassword: oldPassword, newPassword: newPassword, repeatPassword: repeatPassword})
+    .map((res) => res)
     .catch(err => this.errorHandlerService.handleError(err));
   }
   

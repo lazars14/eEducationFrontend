@@ -77,4 +77,10 @@ export class NotificationService {
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
+
+  batchDelete(notification: Notification) {
+    return this.httpService.put(this.apiUrl + '/notifications/batchDelete/', notification)
+    .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
 }

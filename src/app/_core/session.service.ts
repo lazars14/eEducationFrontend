@@ -78,11 +78,20 @@ export class SessionService {
   }
 
   /**
-   * Set updated email
+   * Set updated user's email
    */
-  setUpdatedUser(email: string) {
+  setUpdatedUserEmail(email: string) {
     const user = JSON.parse(localStorage.getItem('user'));
     user.email = email;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  /**
+   * Set updated user's token
+   */
+  setUpdatedUserToken(token: string) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    user.token = token;
     localStorage.setItem('user', JSON.stringify(user));
   }
 
