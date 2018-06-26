@@ -28,10 +28,10 @@
           <tr *ngFor="let payment of payments; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ payment.cause }}</td>
-            <td>{{ payment.date | date: 'short' }}</td>
+            <td>{{ payment.paymentDate | date: 'short' }}</td>
             <td>{{ payment.amount }}</td>
-            <td *ngIf="owes == true">+</td>
-            <td *ngIf="owes == false">-</td>
+            <td *ngIf="payment.owes == true">+</td>
+            <td *ngIf="payment.owes == false">-</td>
           </tr>
         </tbody>
       </table>

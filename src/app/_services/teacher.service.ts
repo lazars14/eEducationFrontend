@@ -52,7 +52,7 @@ export class TeacherService {
   changeEmail(oldEmail: string, newEmail: string) {
     return this.httpService.put(this.apiUrl + '/teachers/' + this.sessionService.getUserId() + '/changeEmail',
       {oldEmail: oldEmail, newEmail: newEmail})
-    .map((res) => res)
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
@@ -60,7 +60,7 @@ export class TeacherService {
   changePassword(oldPassword: string, newPassword: string, repeatPassword: string) {
     return this.httpService.put(this.apiUrl + '/teachers/' + this.sessionService.getUserId() + '/changePassword',
       {oldPassword: oldPassword, newPassword: newPassword, repeatPassword: repeatPassword})
-    .map((res) => res)
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

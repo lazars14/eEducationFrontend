@@ -30,10 +30,6 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  moreInfo(id: number) {
-    this.router.navigate([id]);
-  }
-
   delete(id: number) {
     let disposable = this.dialogService.addDialog(ConfirmModalComponent, {
         header: 'Delete Notification', 

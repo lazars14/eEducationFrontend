@@ -12,10 +12,11 @@ export class ErrorHandlerService {
 
   public handleError(error: Response) {
     const httpErrorCode = error.status;
-    if (httpErrorCode === 403) {
-      this.router.navigate(['']);
+    if (httpErrorCode === 403 || httpErrorCode === 401) {
+      this.sessionService.destroyUser();
+      this.router.navigate(['/']);
     } else if (httpErrorCode === 401) {
-      this.router.navigate(['']);
+      this.router.navigate(['/']);
     }
 
     return Observable.throw(error);

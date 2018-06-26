@@ -31,7 +31,7 @@ export class UserService {
   changeEmail(oldEmail: string, newEmail: string) {
     return this.httpService.put(this.apiUrl + '/admin/changeEmail',
       {oldEmail: oldEmail, newEmail: newEmail})
-    .map((res) => res)
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
@@ -39,7 +39,7 @@ export class UserService {
   changePassword(oldPassword: string, newPassword: string, repeatPassword: string) {
     return this.httpService.put(this.apiUrl + '/admin/changePassword/',
       {oldPassword: oldPassword, newPassword: newPassword, repeatPassword: repeatPassword, email: this.sessionService.getUserEmail()})
-    .map((res) => res)
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

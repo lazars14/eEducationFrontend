@@ -9,7 +9,7 @@
   
     <div class="panel-body">
       <ul class="notificationsList">
-        <li *ngFor="let notification of notifications" class="singleNotification" [ngClass]="{'unreadBackground': role == student && notification.seen == false }" (click)="moreInfo(notification.id)">
+        <li *ngFor="let notification of notifications" class="singleNotification" [ngClass]="{'unreadBackground': role == student && notification.seen == false }" routerLink="{{ notification.id }}">
           <p class="notificationCourse">{{ notification.course.courseName }}</p>
           <p class="notificationDate">{{ notification.nDate | date:'short' }}</p>
           <p class="notificationMessage">{{ notification.message | slice:0:50 }}...</p>

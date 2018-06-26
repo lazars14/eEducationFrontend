@@ -165,6 +165,10 @@ form input {
   margin: 0px;
 }
 
+.unreadBackground {
+  background-color: red;
+}
+
 /* Single class/course */
 
 .cardBorder {

@@ -18,7 +18,19 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loggedIn = await this.sessionService.isUserLoggedIn();
+
+    if (loggedIn === true) {
+      const role = await this.sessionService.getLoggedUserRole();
+      if (role === roles.admin) {
+        this.router.navigate(['admin/dashboard/classes']);
+      } else if (role === roles.teacher) {
+        this.router.navigate(['teacher/dashboard/courses']);
+      } else if (role === roles.student) {
+        this.router.navigate(['student/dashboard/courses']);
+      }
+    }
   }
 
   onSubmit() {

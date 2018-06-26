@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { roles } from './../_core/constants';
 import { NotificationService } from './../_services/index';
-import { Notification } from './../_model/index';
+import { Notification, Course } from './../_model/index';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 import { SessionService } from './../_core/index';
@@ -19,6 +19,7 @@ export class NotificationComponent implements OnInit {
   notification = new Notification();
 
   ngOnInit() {
+    this.notification.course = new Course();
     const role = this.sessionService.getUserRole(this.router.url);
 
     // get notification id

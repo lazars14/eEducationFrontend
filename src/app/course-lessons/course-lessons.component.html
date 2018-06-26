@@ -9,7 +9,7 @@
 
   <div class="panel-body">
     <ul class="notificationsList">
-      <li *ngFor="let courseLesson of courseLessons" class="singleNotification" (click)="moreInfo(courseLesson.id)">
+      <li *ngFor="let courseLesson of courseLessons" class="singleNotification" routerLink="{{ courseLesson.id }}">
         <p class="notificationCourse">{{ courseLesson.name }}</p>
         <p class="notificationMessage">{{ courseLesson.description | slice:0:50 }}...</p>
         <div *ngIf="role == teacher">

@@ -29,28 +29,28 @@ export class ChangePasswordComponent implements OnInit {
   ok() {
     if (this.role === roles.admin) {
       this.userService.changePassword(this.oldPassword, this.newPassword, this.repeatPassword)
-      .subscribe(newToken => {
-        console.log('new token is ', newToken);
-        this.sessionService.setUpdatedUserToken(String(newToken));
+      .subscribe(status => {
         this.toasterService.pop({type: 'success', title: 'Changed Admin Password', body: '' });
+        this.sessionService.destroyUser();
+        this.router.navigate(['/']);
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Change Admin Password', body: error.status + ' ' + error.statusText });
       });
     } else if (this.role === roles.teacher) {
       this.teacherService.changePassword(this.oldPassword, this.newPassword, this.repeatPassword)
-      .subscribe(newToken => {
-        console.log('new token is ', newToken);
-        this.sessionService.setUpdatedUserToken(String(newToken));
+      .subscribe(status => {
         this.toasterService.pop({type: 'success', title: 'Changed Teacher Password', body: '' });
+        this.sessionService.destroyUser();
+        this.router.navigate(['/']);
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Change Teacher Password', body: error.status + ' ' + error.statusText });
       });
     } else if (this.role === roles.student) {
       this.studentService.changePassword(this.oldPassword, this.newPassword, this.repeatPassword)
-      .subscribe(newToken => {
-        console.log('new token is ', newToken);
-        this.sessionService.setUpdatedUserToken(String(newToken));
+      .subscribe(status => {
         this.toasterService.pop({type: 'success', title: 'Changed Student Password', body: '' });
+        this.sessionService.destroyUser();
+        this.router.navigate(['/']);
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Change Student Password', body: error.status + ' ' + error.statusText });
       });

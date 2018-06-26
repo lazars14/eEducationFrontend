@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from './../_core/index';
 import { roles } from './../_core/constants';
 import { Router } from '@angular/router';
+import { UserService } from '../_services/index';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private sessionService: SessionService, private router: Router) { }
+  constructor(private sessionService: SessionService, private router: Router,
+    private userService: UserService) { }
 
   role: string;
 
@@ -20,6 +22,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.role = this.sessionService.getUserRole(this.router.url);
+  }
+
+  logout() {
+    this.userService.logout().subscribe(httpStatus => {
+      this.router.navigate(['/']);
+    }, error => {
+      console.log('error on logout', error);
+    });
   }
 
 }

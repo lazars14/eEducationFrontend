@@ -62,10 +62,6 @@ export class CourseNotificationsComponent implements OnInit {
 
   }
 
-  moreInfo(id: number) {
-    this.router.navigate([id]);
-  }
-
   add() {
     let disposable = this.dialogService.addDialog(NotificationModalComponent, {
       action: actions.add, 

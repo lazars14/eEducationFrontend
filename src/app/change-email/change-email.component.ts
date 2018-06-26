@@ -27,40 +27,26 @@ export class ChangeEmailComponent implements OnInit {
 
   ok() {
     if (this.role === roles.admin) {
-      this.userService.changeEmail(this.oldEmail, this.newEmail).subscribe(newToken => {
-        console.log('new token is ', newToken);
-        const sessionObject = {
-          token: newToken,
-          email: this.newEmail
-        };
-        this.sessionService.storeUser(sessionObject);
+      this.userService.changeEmail(this.oldEmail, this.newEmail).subscribe(status => {
         this.toasterService.pop({type: 'success', title: 'Changed Admin Email', body: '' });
+        this.sessionService.destroyUser();
+        this.router.navigate(['/']);
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Change Admin Email', body: error.status + ' ' + error.statusText });
       });
     } else if (this.role === roles.teacher) {
       this.teacherService.changeEmail(this.oldEmail, this.newEmail).subscribe(newToken => {
-        console.log('new token is ', newToken);
-        const sessionObject = {
-          token: newToken,
-          email: this.newEmail,
-          id: this.sessionService.getUserId()
-        };
-        this.sessionService.storeUser(sessionObject);
         this.toasterService.pop({type: 'success', title: 'Changed Teacher Email', body: '' });
+        this.sessionService.destroyUser();
+        this.router.navigate(['/']);
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Change Teacher Email', body: error.status + ' ' + error.statusText });
       });
     } else if (this.role === roles.student) {
       this.studentService.changeEmail(this.oldEmail, this.newEmail).subscribe(newToken => {
-        console.log('new token is ', newToken);
-        const sessionObject = {
-          token: newToken,
-          email: this.newEmail,
-          id: this.sessionService.getUserId()
-        };
-        this.sessionService.storeUser(sessionObject);
         this.toasterService.pop({type: 'success', title: 'Changed Student Email', body: '' });
+        this.sessionService.destroyUser();
+        this.router.navigate(['/']);
       }, error => {
         this.toasterService.pop({type: 'error', title: 'Change Student Email', body: error.status + ' ' + error.statusText });
       });

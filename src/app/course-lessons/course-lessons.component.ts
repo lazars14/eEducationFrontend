@@ -46,6 +46,10 @@ export class CourseLessonsComponent implements OnInit {
     });
   }
 
+  moreInfo(id: number) {
+    this.router.navigate([id]);
+  }
+
   add() {
     let disposable = this.dialogService.addDialog(LessonModalComponent, {
       action: actions.add, 

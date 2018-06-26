@@ -58,6 +58,16 @@ export class SessionService {
   }
 
   /**
+   * Get logged user role
+   */
+  getLoggedUserRole() {
+    const data = localStorage.getItem('user');
+    if (!data) { return null; }
+    const user = JSON.parse(data);
+    return user.role;
+  }
+
+  /**
    * Get logged user email
    */
   getUserEmail() {
