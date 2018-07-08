@@ -21,7 +21,7 @@ export class CourseColloquiumsComponent implements OnInit {
   constructor(private sessionService: SessionService, private colloquiumService: ColloquiumService, private dialogService: DialogService,
     private resultService: ColloquiumResultService, private router: Router, private toasterService: ToasterService) { }
 
-  today = new Date().getTime();
+  today = new Date();
 
   role: string;
   teacher = roles.teacher;
@@ -49,25 +49,28 @@ export class CourseColloquiumsComponent implements OnInit {
     this.courseId = Number(urlItems[4]);
 
     this.colloquiumService.getByCourse(this.courseId).subscribe(colloquiums => {
-      if (this.role === roles.student) {
-        this.colloquiums = colloquiums;
+      console.log('colloquiums are ', colloquiums);
+      this.colloquiums = colloquiums;
+      // if (this.role === roles.student) {
+      //   this.colloquiums = colloquiums;
 
-        colloquiums.forEach(colloquium => {
-          this.resultService.findByStudentAndColloquium(this.studentId, colloquium.id).subscribe(result => {
-            colloquium.result = result;
-          }, error => {
-            this.toasterService.pop({type: 'error', title: 'Get Colloquium Result', body: error.status + ' ' + error.statusText });
-          });
-        });
-      } else if (this.role === roles.teacher) {
-        colloquiums.forEach(colloquium => {
-          this.resultService.getByColloquium(colloquium.id).subscribe(results => {
-            colloquium.results = results;
-          }, error => {
-            this.toasterService.pop({type: 'error', title: 'Get Colloquium Results', body: error.status + ' ' + error.statusText });
-          });
-        });
-      }
+      //   colloquiums.forEach(colloquium => {
+      //     this.resultService.findByStudentAndColloquium(this.studentId, colloquium.id).subscribe(result => {
+      //       colloquium.result = result;
+      //     }, error => {
+      //       this.toasterService.pop({type: 'error', title: 'Get Colloquium Result', body: error.status + ' ' + error.statusText });
+      //     });
+      //   });
+      // } else if (this.role === roles.teacher) {
+      //   colloquiums.forEach(colloquium => {
+      //     this.resultService.getByColloquium(colloquium.id).subscribe(results => {
+      //       console.log('colloquium', colloquium);
+      //       colloquium.results = results;
+      //     }, error => {
+      //       this.toasterService.pop({type: 'error', title: 'Get Colloquium Results', body: error.status + ' ' + error.statusText });
+      //     });
+      //   });
+      // }
     }, error => {
       this.toasterService.pop({type: 'error', title: 'Get Colloquiums', body: error.status + ' ' + error.statusText });
     });

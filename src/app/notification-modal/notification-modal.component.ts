@@ -11,7 +11,7 @@ export interface NotificationModel {
   templateUrl: './notification-modal.component.html',
   styleUrls: ['./notification-modal.component.css']
 })
-export class NotificationModalComponent extends DialogComponent<NotificationModel, Notification> implements NotificationModel {
+export class NotificationModalComponent extends DialogComponent<NotificationModel, any> implements NotificationModel {
 
   constructor(dialogService: DialogService) {
     super(dialogService);
@@ -20,8 +20,13 @@ export class NotificationModalComponent extends DialogComponent<NotificationMode
   action: string;
   notification: Notification;
 
+  file: any;
+
   ok() {
-    this.result = this.notification;
+    if (!this.file) {
+      this.file = null;
+    }
+    this.result = {file: this.file, notification: this.notification};
     this.close();
   }
 
@@ -29,4 +34,10 @@ export class NotificationModalComponent extends DialogComponent<NotificationMode
     this.result = null;
     this.close();
   }
+
+  onChange(files: any) {
+    console.log('file is ', files[0]);
+    this.file = files[0];
+  }
+
 }

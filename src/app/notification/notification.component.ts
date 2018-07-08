@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { roles } from './../_core/constants';
-import { NotificationService } from './../_services/index';
+import { NotificationService, CourseFileService } from './../_services/index';
 import { Notification, Course } from './../_model/index';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { SessionService } from './../_core/index';
 export class NotificationComponent implements OnInit {
 
   constructor(private router: Router, private toasterService: ToasterService, private notificationService: NotificationService,
-    private sessionService: SessionService) { }
+    private sessionService: SessionService, private courseFileService: CourseFileService) { }
 
   notification = new Notification();
 
@@ -41,7 +41,26 @@ export class NotificationComponent implements OnInit {
     }
   }
 
-  download(courseFileId: number) {
-    // to do
+  download() {
+    this.courseFileService.download(this.notification.course.id, this.notification.document.id).subscribe(file => {
+      console.log('file is ', file);
+      // console.log('array buffer is ', file.arrayBuffer());
+      // console.log('content type is ', file['headers'].get('content-type'));
+      const blob = new Blob([file['_body']], { type: this.notification.document.mimeType });
+      console.log('blob is ', blob);
+      // saveAs(blob, this.notification.document.documentName);
+
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.style.display = 'none';
+      const url = window.URL.createObjectURL(blob);
+      a.href = url;
+      a.download = this.notification.document.documentName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Download Notification File By Id', body: error.status + ' ' + error.statusText });
+    });
   }
 }

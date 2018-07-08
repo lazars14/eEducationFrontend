@@ -46,7 +46,7 @@ export class CourseLessonsComponent implements OnInit {
     });
   }
 
-  moreInfo(id: number) {
+  showLesson(id: number) {
     this.router.navigate([id]);
   }
 
@@ -72,12 +72,12 @@ export class CourseLessonsComponent implements OnInit {
 
   edit(courseLesson: CourseLesson) {
     let disposable = this.dialogService.addDialog(LessonModalComponent, {
-      action: actions.add, 
+      action: actions.edit, 
       courseLesson: _.cloneDeep(courseLesson)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {
-            this.courseLessonService.create(this.courseId, edited).subscribe(updated => {
+            this.courseLessonService.update(this.courseId, edited).subscribe(updated => {
               this.toasterService.pop({type: 'success', title: 'Updated Course Lesson', body: '' });
               this.refreshPage();
             }, error => {

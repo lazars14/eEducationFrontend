@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService, ErrorHandlerService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { CourseFile } from '../_model/index';
+import { RequestOptions, ResponseType, ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class CourseFileService {
@@ -49,6 +50,14 @@ export class CourseFileService {
   getCourseNotificationFiles(courseId: number) {
     return this.httpService.get(this.apiUrl + '/courseFiles/courses/' + courseId + '/notifications')
     .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  download(courseId: number, courseFileId: number) {
+    const options = new RequestOptions({});
+    options.responseType = ResponseContentType.Blob;
+    return this.httpService.get(this.apiUrl + '/courseFiles/course/' + courseId + '/download/' + courseFileId, options)
+    .map((res) => res)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 }

@@ -7,31 +7,15 @@
     </div>
     
     <div class="modal-body">
-      <form #f="ngForm" name="form">
+      <form #f="ngForm" name="form" enctype="multipart/form-data">
         <div class="form-group">
           <label for="message"><span class="red-text">*</span>Message</label>
-          <textarea type="text" class="form-control" [(ngModel)]="notification.message" name="message" required autofocus></textarea>
+          <textarea type="text" class="form-control" [(ngModel)]="notification.message" name="message" autofocus required></textarea>
         </div>
 
         <div class="form-group">
-          <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" 
-            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                <span>optional content (don't set headertext then)</span>
-            </file-drop>
-            <div class="upload-table">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody class="upload-name-style">
-                        <tr *ngFor="let item of files; let i=index">
-                            <td><strong>{{ item.relativePath }}</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+          <label for="file">File</label>
+          <input type="file" id="file" name="file" #file id="file" name="file" (change)="onChange(file.files)">
         </div>
 
         <p><span class="red-text">*</span> - mandatory fields</p>

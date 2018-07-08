@@ -9,6 +9,7 @@ import { DialogService } from 'ng2-bootstrap-modal';
 import { NotificationModalComponent } from '../notification-modal/notification-modal.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import * as _ from 'lodash';
+import { RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'app-course-notifications',
@@ -46,19 +47,11 @@ export class CourseNotificationsComponent implements OnInit {
       this.toasterService.pop({type: 'error', title: 'Get Course By Id', body: error.status + ' ' + error.statusText });
     });
 
-    if (this.role == this.teacher) {
-      this.notificationService.getByCourseDistinct(this.courseId).subscribe(data => {
-        this.notifications = data;
-      }, error => {
-        this.toasterService.pop({type: 'error', title: 'Get Notifications For Teacher Course', body: error.status + ' ' + error.statusText });
-      });
-    } else if (this.role == this.student) {
-      this.notificationService.getByCourseAndStudent(this.courseId).subscribe(data => {
-        this.notifications = data;
-      }, error => {
-        this.toasterService.pop({type: 'error', title: 'Get Notifications For Student Course', body: error.status + ' ' + error.statusText });
-      });
-    }
+    this.notificationService.getByCourseDistinct(this.courseId).subscribe(data => {
+      this.notifications = data;
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Get Notifications For Teacher Course', body: error.status + ' ' + error.statusText });
+    });
 
   }
 
@@ -69,8 +62,14 @@ export class CourseNotificationsComponent implements OnInit {
       .subscribe((added) => {
           //We get dialog result
           if(added != null) {
-            added.course = this.course;
-            this.notificationService.batchAdd(added).subscribe(added => {
+            console.log('added is ', added);
+            // added.course = this.course;
+            console.log('file is ', added.file);
+            const formData = new FormData();
+            formData.append('file', added.file);
+            formData.append('message', added.notification.message);
+            console.log('form data is ', formData);
+            this.notificationService.batchAdd(this.courseId, formData).subscribe(created => {
               this.toasterService.pop({type: 'success', title: 'Created New Notification', body: '' });
               this.refreshPage();
             }, error => {
@@ -84,21 +83,24 @@ export class CourseNotificationsComponent implements OnInit {
   }
 
   edit(notification: Notification) {
-    const oldNotificationMessage = notification.message;
-
     let disposable = this.dialogService.addDialog(NotificationModalComponent, {
-      action: actions.add, 
+      action: actions.edit, 
       notification: _.cloneDeep(notification)})
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {
-            edited.course = this.course;
-            edited.message += "|" + oldNotificationMessage;
-            this.notificationService.batchUpdate(edited).subscribe(updated => {
-              this.toasterService.pop({type: 'success', title: 'Updated Notification', body: '' });
+            // added.course = this.course;
+            console.log('file is ', edited.file);
+            const formData = new FormData();
+            formData.append('file', edited.file);
+            formData.append('message', edited.notification.message);
+            formData.append('notificationId', String(notification.id));
+            console.log('form data is ', formData);
+            this.notificationService.batchUpdate(this.courseId, formData).subscribe(changed => {
+              this.toasterService.pop({type: 'success', title: 'Updated Notifications', body: '' });
               this.refreshPage();
             }, error => {
-              this.toasterService.pop({type: 'error', title: 'Update Notification', body: error.status + ' ' + error.statusText });
+              this.toasterService.pop({type: 'error', title: 'Error Updating Notifications', body: error.status + ' ' + error.statusText });
             });
           }
           else {
@@ -107,17 +109,18 @@ export class CourseNotificationsComponent implements OnInit {
       });
   }
 
-  delete(id: number) {
+  delete(notification: Notification) {
     let disposable = this.dialogService.addDialog(ConfirmModalComponent, {
       header: 'Delete Notification', 
       text: 'Are you sure you want to delete this notification?'})
       .subscribe((isConfirmed)=>{
           //We get dialog result
           if(isConfirmed) {
-            this.notificationService.delete(id).subscribe(deleted => {
+            this.notificationService.batchDelete(notification).subscribe(deleted => {
               this.toasterService.pop({type: 'success', title: 'Deleted Notification', body: '' });
               this.refreshPage();
             }, error => {
+              console.log('error is ', error);
               this.toasterService.pop({type: 'error', title: 'Delete Notification', body: error.status + ' ' + error.statusText });
             });
           }

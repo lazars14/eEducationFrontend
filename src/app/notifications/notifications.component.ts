@@ -30,29 +30,4 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  delete(id: number) {
-    let disposable = this.dialogService.addDialog(ConfirmModalComponent, {
-        header: 'Delete Notification', 
-        text: 'Are you sure you want to delete this notification?'})
-        .subscribe((isConfirmed)=>{
-            //We get dialog result
-            if(isConfirmed) {
-              this.notificationService.delete(id).subscribe(deleted => {
-                this.toasterService.pop({type: 'success', title: 'Deleted Student Notification', body: '' });
-                this.refreshPage();
-              }, error => {
-                this.toasterService.pop({type: 'error', title: 'Student Delete Notification', body: error.status + ' ' + error.statusText });
-              });
-            }
-            else {
-              // do nothing, dialog closed
-            }
-        });
-    //We can close dialog calling disposable.unsubscribe();
-    //If dialog was not closed manually close it by timeout
-    setTimeout(() => {
-        disposable.unsubscribe();
-    }, 10000);
-}
-
 }

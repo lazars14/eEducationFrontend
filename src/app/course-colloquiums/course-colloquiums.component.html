@@ -28,8 +28,8 @@
               <td>{{ colloquium.maxPoints | number : '1.2-2' }}</td>
               <td *ngIf="colloquium.result && role == student">{{ colloquium.result.points | number : '1.2-2' }}</td>
               <td *ngIf="!colloquium.result && role == student"></td>
-
-              <td class="btn-group-small text-center">
+              <td *ngIf="colloquium.examDateTime > today">Sljaka</td>
+              <!-- <td class="btn-group-small text-center">
                 <button *ngIf="role == student && today < colloquium.examDateTime.getTime() && colloquium.result == null" class="btn btn-success" (click)="submit(colloquium.id)" title="Submit">
                   <i class="fa fa-sign-in" aria-hidden="true"></i>
                 </button>
@@ -39,7 +39,7 @@
                 <button *ngIf="role == teacher && today < colloquium.examDateTime.getTime()" class="btn btn-danger" (click)="delete(colloquium.id)" title="Delete">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -75,7 +75,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let colloquiumResult of colloquium.results; let ii = index">
+                <!-- <tr *ngFor="let colloquiumResult of colloquium.results; let ii = index">
                   <td>{{ ii + 1 }}</td>
                   <td>{{ colloquiumResult.student.indexNumber }}</td>
                   <td>{{ colloquiumResult.student.lastName }}</td>
@@ -93,7 +93,7 @@
                     </button>
                   </td>
                   
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>

@@ -37,7 +37,7 @@ export class SessionService {
     const data = localStorage.getItem('user');
     if (!data) { return null; }
     const session = JSON.parse(data);
-    return session && session.token;
+    return (session.token) ? true : false;
   }
 
   /**
