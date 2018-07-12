@@ -244,3 +244,7 @@ form input {
 .customTopMargin {
   margin-top: 50px;
 }
+
+.customTopMargin2 {
+  margin-top: 100px !important;
+}

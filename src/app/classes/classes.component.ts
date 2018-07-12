@@ -84,7 +84,6 @@ export class ClassesComponent implements OnInit {
                 this.toasterService.pop({type: 'success', title: 'Deleted Student Notification', body: '' });
                 this.refreshPage();
               }, error => {
-                console.log('error is this', error);
                 this.toasterService.pop({type: 'error', title: 'Student Delete Notification', body: error.status + ' ' + error.statusText });
               });
             }

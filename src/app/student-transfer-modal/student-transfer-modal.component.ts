@@ -41,8 +41,6 @@ export class StudentTransferModalComponent extends DialogComponent<StudentTransf
     const selectedClass = this.classes.find(i => i.id === Number(this.selectedClassId));
     this.student.collegeDirection = selectedClass;
 
-    console.log(this.student);
-
     this.result = this.student;
     this.close();
   }

@@ -49,9 +49,9 @@ export class ExamEntriesComponent implements OnInit {
     private examPeriodService: ExamPeriodService, private examTermService: ExamTermService, private dialogService: DialogService,
     private gradeService: GradeService) {}
 
-  today = new Date().getTime();
+  today = new Date();
 
-  deadlineDate: number;
+  deadlineDate: Date;
 
   role: string;
 
@@ -66,7 +66,7 @@ export class ExamEntriesComponent implements OnInit {
 
   ngOnInit() {
     // add 3 days to today
-    this.deadlineDate = this.today + 259200000;
+    this.deadlineDate = new Date(this.today.getTime() + 259200000);
 
     this.role = this.sessionService.getUserRole(this.router.url);
 
@@ -81,11 +81,11 @@ export class ExamEntriesComponent implements OnInit {
         this.examTermService.getByExamPeriod(examPeriod.id).subscribe(examTerms => {
           examPeriod['examTerms'] = examTerms;
           examPeriod['examTerms'].forEach(examTerm => {
-
+            examTerm.examDate = new Date(examTerm.examDate);
             if (this.role == this.teacher) {
 
               this.examEntryService.findByExamTermAndTeacher(examTerm.id).subscribe(examEntries => {
-                examPeriod['examEntries'] = examEntries;
+                examTerm['examEntries'] = examEntries;
               }, error => {
                 this.toasterService.pop({
                   type: 'error',
@@ -95,6 +95,8 @@ export class ExamEntriesComponent implements OnInit {
               });
 
             } else if (this.role == this.student) {
+
+              console.log('exam term id is ', examTerm.id);
 
               this.examEntryService.findByExamTermAndStudent(examTerm.id).subscribe(examEntries => {
                 examPeriod['examEntries'] = examEntries;

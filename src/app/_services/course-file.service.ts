@@ -23,19 +23,13 @@ export class CourseFileService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  create(courseId: number, courseFile: CourseFile) {
-    return this.httpService.post(this.apiUrl + '/courseFiles/', courseFile)
-    .map((res) => res.json())
-    .catch(err => this.errorHandlerService.handleError(err));
-  }
-
   update(courseId: number, courseFile: CourseFile) {
     return this.httpService.put(this.apiUrl + '/courseFiles/' + courseFile.id, courseFile)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  delete(courseId: number, courseFileId: number) {
+  delete(courseFileId: number) {
     return this.httpService.delete(this.apiUrl + '/courseFiles/' + courseFileId)
     .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
@@ -50,6 +44,13 @@ export class CourseFileService {
   getCourseNotificationFiles(courseId: number) {
     return this.httpService.get(this.apiUrl + '/courseFiles/courses/' + courseId + '/notifications')
     .map((res) => res.json())
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  create(courseId: number, courseLessonId: number, formData: FormData) {
+    return this.httpService.post(this.apiUrl + '/courseFiles/course/' + courseId + '/courseLesson/' + courseLessonId,
+    formData)
+    .map((res) => res.status)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 

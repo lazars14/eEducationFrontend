@@ -7,7 +7,7 @@
     </div>
     
     <div class="modal-body">
-      <form #f="ngForm" name="form">
+      <form #f="ngForm" name="form" enctype="multipart/form-data">
           <div class="form-group">
               <label for="name"><span class="red-text">*</span>Name</label>
               <input type="text" class="form-control" [(ngModel)]="courseLesson.name" name="name" required>
@@ -16,6 +16,12 @@
         <div class="form-group">
           <label for="description"><span class="red-text">*</span>Description</label>
           <textarea type="text" class="form-control" [(ngModel)]="courseLesson.description" name="description" required autofocus></textarea>
+        </div>
+
+        <div class="form-group" *ngIf="action == add">
+          <label for="file">Files</label>
+          <input accept=".pdf,.zip,.png,.jpg,.gif,.txt,.doc,.docx,.odt,.xls,.xlsx,.ods,.ppt,.pptx,.odp"
+          type="file" multiple id="file" name="file" #file id="file" name="file" (change)="onChange(file.files)">
         </div>
 
         <p><span class="red-text">*</span> - mandatory fields</p>

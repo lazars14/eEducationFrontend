@@ -22,8 +22,9 @@ export class CourseLessonService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  create(courseId: number, courseLesson: CourseLesson) {
-    return this.httpService.post(this.apiUrl + '/course/' + courseId + '/courseLessons/', courseLesson)
+  create(courseId: number, formData: FormData) {
+    return this.httpService.post(this.apiUrl + '/course/' + courseId + '/courseLessons/',
+    formData)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

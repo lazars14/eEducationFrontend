@@ -36,7 +36,6 @@ export class NotificationModalComponent extends DialogComponent<NotificationMode
   }
 
   onChange(files: any) {
-    console.log('file is ', files[0]);
     this.file = files[0];
   }
 

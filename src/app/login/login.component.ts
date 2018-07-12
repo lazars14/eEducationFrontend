@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
     if (loggedIn === true) {
       const role = await this.sessionService.getLoggedUserRole();
-      console.log('user role is ', role);
+      
       if (role === roles.admin) {
         this.router.navigate(['admin/dashboard/classes']);
       } else if (role === roles.teacher) {
@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.userService.login(this.email, this.password).subscribe(response => {
-      console.log('response is ', response);
       const sessionObject = {
         token: response.token,
         email: response.user,

@@ -11,7 +11,7 @@ export interface ColloquiumModel {
   templateUrl: './colloquium-modal.component.html',
   styleUrls: ['./colloquium-modal.component.css']
 })
-export class ColloquiumModalComponent extends DialogComponent<ColloquiumModel, Colloquium> implements ColloquiumModel {
+export class ColloquiumModalComponent extends DialogComponent<ColloquiumModel, Colloquium> implements OnInit, ColloquiumModel {
 
   constructor(dialogService: DialogService) { 
     super(dialogService);
@@ -21,6 +21,7 @@ export class ColloquiumModalComponent extends DialogComponent<ColloquiumModel, C
   colloquium: Colloquium;
 
   ngOnInit() {
+    this.colloquium.examDateTime = new Date(this.colloquium.examDateTime);
   }
 
   get time() {

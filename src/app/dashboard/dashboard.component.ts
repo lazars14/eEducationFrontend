@@ -26,9 +26,10 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.userService.logout().subscribe(httpStatus => {
+      this.sessionService.destroyUser();
       this.router.navigate(['/']);
     }, error => {
-      console.log('error on logout', error);
+      
     });
   }
 

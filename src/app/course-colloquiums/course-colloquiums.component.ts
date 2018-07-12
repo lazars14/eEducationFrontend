@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Colloquium, StudentDocument, ColloquiumResult } from '../_model/index';
 import { SessionService } from '../_core/index';
-import { ColloquiumService, ColloquiumResultService } from '../_services/index';
+import { ColloquiumService, ColloquiumResultService, StudentDocumentService } from '../_services/index';
 import { roles, strings, actions } from './../_core/constants';
 import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
@@ -19,7 +19,8 @@ import { ColloquiumModalComponent } from '../colloquium-modal/colloquium-modal.c
 export class CourseColloquiumsComponent implements OnInit {
 
   constructor(private sessionService: SessionService, private colloquiumService: ColloquiumService, private dialogService: DialogService,
-    private resultService: ColloquiumResultService, private router: Router, private toasterService: ToasterService) { }
+    private resultService: ColloquiumResultService, private router: Router, private toasterService: ToasterService,
+    private documentService: StudentDocumentService) { }
 
   today = new Date();
 
@@ -34,43 +35,49 @@ export class CourseColloquiumsComponent implements OnInit {
 
   colloquiums: Array<Colloquium>;
 
-  ngOnInit() {
-    this.refreshPage();
-  }
+  selectedColloquium: any;
 
-  refreshPage() {
+  ngOnInit() {
     this.role = this.sessionService.getUserRole(this.router.url);
 
     if (this.role === roles.student) {
       this.studentId = this.sessionService.getUserId();
     }
+    this.refreshPage();
+  }
+
+  refreshPage() {
+    this.selectedColloquium = null;
     // get course id
     const urlItems = this.router.url.split('/');
     this.courseId = Number(urlItems[4]);
 
     this.colloquiumService.getByCourse(this.courseId).subscribe(colloquiums => {
-      console.log('colloquiums are ', colloquiums);
       this.colloquiums = colloquiums;
-      // if (this.role === roles.student) {
-      //   this.colloquiums = colloquiums;
+      if (this.role === roles.student) {
+        this.colloquiums = colloquiums;
 
-      //   colloquiums.forEach(colloquium => {
-      //     this.resultService.findByStudentAndColloquium(this.studentId, colloquium.id).subscribe(result => {
-      //       colloquium.result = result;
-      //     }, error => {
-      //       this.toasterService.pop({type: 'error', title: 'Get Colloquium Result', body: error.status + ' ' + error.statusText });
-      //     });
-      //   });
-      // } else if (this.role === roles.teacher) {
-      //   colloquiums.forEach(colloquium => {
-      //     this.resultService.getByColloquium(colloquium.id).subscribe(results => {
-      //       console.log('colloquium', colloquium);
-      //       colloquium.results = results;
-      //     }, error => {
-      //       this.toasterService.pop({type: 'error', title: 'Get Colloquium Results', body: error.status + ' ' + error.statusText });
-      //     });
-      //   });
-      // }
+        this.colloquiums.forEach(colloquium => {
+          colloquium.examDateTime = new Date(colloquium.examDateTime);
+          this.resultService.findByStudentAndColloquium(this.studentId, colloquium.id).subscribe(result => {
+            if(result.id) {
+              colloquium['result'] = result;
+            }
+            
+          }, error => {
+            this.toasterService.pop({type: 'error', title: 'Get Colloquium Result', body: error.status + ' ' + error.statusText });
+          });
+        });
+      } else if (this.role === roles.teacher) {
+        colloquiums.forEach(colloquium => {
+          colloquium.examDateTime = new Date(colloquium.examDateTime);
+          this.resultService.getByColloquium(colloquium.id).subscribe(results => {
+            colloquium['results'] = results;
+          }, error => {
+            this.toasterService.pop({type: 'error', title: 'Get Colloquium Results', body: error.status + ' ' + error.statusText });
+          });
+        });
+      }
     }, error => {
       this.toasterService.pop({type: 'error', title: 'Get Colloquiums', body: error.status + ' ' + error.statusText });
     });
@@ -99,7 +106,7 @@ export class CourseColloquiumsComponent implements OnInit {
   edit(colloquium: Colloquium) {
     let disposable = this.dialogService.addDialog(ColloquiumModalComponent, {
       action: actions.edit, 
-      colloquium: new Colloquium()})
+      colloquium: colloquium})
       .subscribe((edited)=>{
           //We get dialog result
           if(edited) {
@@ -141,21 +148,15 @@ export class CourseColloquiumsComponent implements OnInit {
       .subscribe((file) => {
           //We get dialog result
           if(file != null) {
-            // file is from the modal
-
-            // upload file
-            // create student document
-            // create colloquiumResult
-
-
-
-
-            // this.courseLessonService.create(this.courseId, added).subscribe(added => {
-            //   this.toasterService.pop({type: 'success', title: 'Created New Course Lesson', body: '' });
-            //   this.refreshPage();
-            // }, error => {
-            //   this.toasterService.pop({type: 'error', title: 'Create New Course Lesson', body: error.status + ' ' + error.statusText });
-            // });
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('studentId', String(this.studentId));
+            this.resultService.create(colloquiumId, formData).subscribe(added => {
+              this.toasterService.pop({type: 'success', title: 'Successfully Submitted Colloquium', body: '' });
+              this.refreshPage();
+            }, error => {
+              this.toasterService.pop({type: 'error', title: 'Failed To Submit Colloquium', body: error.status + ' ' + error.statusText });
+            });
           }
           else {
             // do nothing, dialog closed
@@ -163,20 +164,36 @@ export class CourseColloquiumsComponent implements OnInit {
       });
   }
 
-  downloadDocument(document: StudentDocument) {
-    // to do
+  downloadDocument(sDocument: StudentDocument) {
+    this.documentService.download(this.studentId, sDocument.id).subscribe(file => {
+      const blob = new Blob([file['_body']], { type: sDocument.mimeType });
+      
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.style.display = 'none';
+      const url = window.URL.createObjectURL(blob);
+      a.href = url;
+      a.download = sDocument.documentName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    }, error => {
+      this.toasterService.pop({type: 'error', title: 'Download Student Document File By Id', body: error.status + ' ' + error.statusText });
+    });
   }
 
-  grade(colloquiumResult: ColloquiumResult, colloquiumId: number) {
+  grade(colloquiumResult: ColloquiumResult) {
     let disposable = this.dialogService.addDialog(ColloquiumResultModalComponent)
       .subscribe((points) => {
           //We get dialog result
           if(points != null) {
             colloquiumResult.points = points;
-            this.resultService.update(colloquiumId, colloquiumResult).subscribe(added => {
+            console.log('result is ', colloquiumResult);
+            this.resultService.update(this.selectedColloquium.id, colloquiumResult).subscribe(added => {
               this.toasterService.pop({type: 'success', title: 'Updated Colloquium Result', body: '' });
               this.refreshPage();
             }, error => {
+              console.log('error is ', error);
               this.toasterService.pop({type: 'error', title: 'Update Colloquium Result', body: error.status + ' ' + error.statusText });
             });
           }

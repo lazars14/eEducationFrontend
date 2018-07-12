@@ -13,7 +13,8 @@
       <form #f="ngForm" name="form">
         <div class="form-group">
           <label for="name"><span class="red-text">*</span>Document</label>
-          <input type="file" [(ngModel)]="document" class="form-control" name="name" required>
+          <input accept=".pdf,.zip,.png,.jpg,.gif,.txt,.doc,.docx,.odt,.xls,.xlsx,.ods,.ppt,.pptx,.odp"
+          type="file" (change)="onChange(file.files)" class="form-control" #file name="file" required>
         </div>
 
         <p><span class="red-text">*</span> - mandatory fields</p>

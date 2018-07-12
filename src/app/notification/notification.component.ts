@@ -24,7 +24,13 @@ export class NotificationComponent implements OnInit {
 
     // get notification id
     const urlParts = this.router.url.split('/');
-    const notificationId = Number(urlParts[4]);
+    let notificationId;
+    if(urlParts.length > 6) {
+      notificationId = Number(urlParts[6]);
+    } else {
+      notificationId = Number(urlParts[4]);
+    }
+    
 
     if(role == roles.teacher) {
       this.notificationService.findById(notificationId).subscribe(notification => {
@@ -43,13 +49,8 @@ export class NotificationComponent implements OnInit {
 
   download() {
     this.courseFileService.download(this.notification.course.id, this.notification.document.id).subscribe(file => {
-      console.log('file is ', file);
-      // console.log('array buffer is ', file.arrayBuffer());
-      // console.log('content type is ', file['headers'].get('content-type'));
       const blob = new Blob([file['_body']], { type: this.notification.document.mimeType });
-      console.log('blob is ', blob);
-      // saveAs(blob, this.notification.document.documentName);
-
+      
       const a = document.createElement('a');
       document.body.appendChild(a);
       a.style.display = 'none';

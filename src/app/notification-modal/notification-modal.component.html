@@ -15,7 +15,8 @@
 
         <div class="form-group">
           <label for="file">File</label>
-          <input type="file" id="file" name="file" #file id="file" name="file" (change)="onChange(file.files)">
+          <input accept=".pdf,.zip,.png,.jpg,.gif,.txt,.doc,.docx,.odt,.xls,.xlsx,.ods,.ppt,.pptx,.odp"
+          type="file" id="file" name="file" #file id="file" name="file" (change)="onChange(file.files)">
         </div>
 
         <p><span class="red-text">*</span> - mandatory fields</p>

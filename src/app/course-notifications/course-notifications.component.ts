@@ -62,13 +62,10 @@ export class CourseNotificationsComponent implements OnInit {
       .subscribe((added) => {
           //We get dialog result
           if(added != null) {
-            console.log('added is ', added);
             // added.course = this.course;
-            console.log('file is ', added.file);
             const formData = new FormData();
             formData.append('file', added.file);
             formData.append('message', added.notification.message);
-            console.log('form data is ', formData);
             this.notificationService.batchAdd(this.courseId, formData).subscribe(created => {
               this.toasterService.pop({type: 'success', title: 'Created New Notification', body: '' });
               this.refreshPage();
@@ -89,13 +86,10 @@ export class CourseNotificationsComponent implements OnInit {
       .subscribe((edited) => {
           //We get dialog result
           if(edited != null) {
-            // added.course = this.course;
-            console.log('file is ', edited.file);
             const formData = new FormData();
             formData.append('file', edited.file);
             formData.append('message', edited.notification.message);
             formData.append('notificationId', String(notification.id));
-            console.log('form data is ', formData);
             this.notificationService.batchUpdate(this.courseId, formData).subscribe(changed => {
               this.toasterService.pop({type: 'success', title: 'Updated Notifications', body: '' });
               this.refreshPage();
@@ -120,7 +114,6 @@ export class CourseNotificationsComponent implements OnInit {
               this.toasterService.pop({type: 'success', title: 'Deleted Notification', body: '' });
               this.refreshPage();
             }, error => {
-              console.log('error is ', error);
               this.toasterService.pop({type: 'error', title: 'Delete Notification', body: error.status + ' ' + error.statusText });
             });
           }

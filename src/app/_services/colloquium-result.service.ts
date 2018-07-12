@@ -22,14 +22,14 @@ export class ColloquiumResultService {
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
-  create(colloquiumId: number, result: ColloquiumResult) {
-    return this.httpService.post(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults/', result)
+  create(colloquiumId: number, formData: FormData) {
+    return this.httpService.post(this.apiUrl + '/colloquium/' + colloquiumId + '/colloquiumResults', formData)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }
 
   update(colloquiumId: number, result: ColloquiumResult) {
-    return this.httpService.put(this.apiUrl + '/colloquium/' + colloquiumId +  '/colloquiumResults/' + result.id, result)
+    return this.httpService.put(this.apiUrl + '/colloquium/' + colloquiumId +  '/colloquiumResults', result)
     .map((res) => res.json())
     .catch(err => this.errorHandlerService.handleError(err));
   }

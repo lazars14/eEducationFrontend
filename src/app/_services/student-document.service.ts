@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService, ErrorHandlerService } from '../_core/index';
 import { environment } from '../../environments/environment';
 import { StudentDocument, Course } from '../_model/index';
+import { RequestOptions, ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class StudentDocumentService {
@@ -37,6 +38,14 @@ export class StudentDocumentService {
   delete(courseId: number, documentId: number) {
     return this.httpService.delete(this.apiUrl + '/course/' + courseId + '/studentDocuments/' + documentId)
     .map((res) => res.status)
+    .catch(err => this.errorHandlerService.handleError(err));
+  }
+
+  download(studentId: number, documentId: number) {
+    const options = new RequestOptions({});
+    options.responseType = ResponseContentType.Blob;
+    return this.httpService.get(this.apiUrl + '/student/' + studentId + '/studentDocuments/download/' + documentId, options)
+    .map((res) => res)
     .catch(err => this.errorHandlerService.handleError(err));
   }
 }

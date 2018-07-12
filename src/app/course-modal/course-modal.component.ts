@@ -47,8 +47,6 @@ export class CourseModalComponent extends DialogComponent<CourseModel, Course> i
     const selectedTeacher = await this.teachers.find(i => i.id == Number(this.selectedTeacherId));
     this.course.teacher = selectedTeacher;
 
-    console.log(selectedTeacher);
-
     this.result = this.course;
     this.close();
   }

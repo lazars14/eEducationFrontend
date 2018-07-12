@@ -6,45 +6,41 @@
   </div>
 
   <div class="panel-body">
-    <p>
-      <strong>Name: </strong>{{ courseLesson.name }}</p>
-    <p>
-      <strong>Description: </strong>{{ courseLesson.description }}</p>
+    <p><strong>Name: </strong>{{ courseLesson.name }}</p>
+    <p><strong>Description: </strong>{{ courseLesson.description }}</p>
 
-    <div class="form-group">
-      <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-        <span>optional content (don't set headertext then)</span>
-      </file-drop>
-      <div class="upload-table">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody class="upload-name-style">
-            <tr *ngFor="let item of files; let i=index">
-              <td>
-                <strong>{{ item.relativePath }}</strong>
-              </td>
-              <td *ngIf="role == teacher" class="btn-group-small text-center">
-                <button class="btn btn-danger" (click)="deleteFile(item)" title="Delete">
-                  <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <button class="btn btn-primary customMarginBtnBottom" (click)="file.click()">Add Files</button>
+
+    <form>
+        <input accept=".pdf,.zip,.png,.jpg,.gif,.txt,.doc,.docx,.odt,.xls,.xlsx,.ods,.ppt,.pptx,.odp"
+        type="file" multiple (change)="onChange(file.files)" id="file" name="file" #file>
+    </form>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>File Name</th>
+            <th>Mime Type</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let courseFile of courseFiles">
+            <td>{{ courseFile.documentName }}</td>
+            <td>{{ courseFile.mimeType }}</td>
+            <td class="btn-group-small text-center">
+              <button class="btn btn-success" (click)="download(courseFile)" title="Download">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </button>
+              <button *ngIf="role == teacher" class="btn btn-danger" (click)="delete(courseFile.id)" title="Delete">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <button class="btn btn-danger" (click)="saveChanges()" title="Save">Save changes</button>
-
-    <p *ngIf="courseLesson.courseFiles.length > 0">Download attachment:
-      <button class="btn btn-info " (click)="download(courseLesson.document.id)" title="Download">
-        <i class="fa fa-download" aria-hidden="true"></i>
-      </button>
-    </p>
   </div>
 </div>

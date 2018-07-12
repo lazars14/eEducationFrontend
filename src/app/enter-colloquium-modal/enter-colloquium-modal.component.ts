@@ -34,4 +34,10 @@ export class EnterColloquiumModalComponent  extends DialogComponent<EnterColloqu
     this.close();
   }
 
+  onChange(files: any) {
+    if (files.length > 0) {
+      this.document = files[0];
+    }
+  }
+
 }

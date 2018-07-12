@@ -57,7 +57,14 @@ export class CourseLessonsComponent implements OnInit {
       .subscribe((added) => {
           //We get dialog result
           if(added != null) {
-            this.courseLessonService.create(this.courseId, added).subscribe(added => {
+            const formData = new FormData();
+            for (let index = 0; index < added.file.length; index++) {
+              formData.append('file', added.file[index]);
+            }
+
+            formData.append('name', added.courseLesson.name);
+            formData.append('description', added.courseLesson.description);
+            this.courseLessonService.create(this.courseId, formData).subscribe(created => {
               this.toasterService.pop({type: 'success', title: 'Created New Course Lesson', body: '' });
               this.refreshPage();
             }, error => {

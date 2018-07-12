@@ -22,7 +22,7 @@ export class ColloquiumResultModalComponent extends DialogComponent<ColloquiumRe
 
   ok() {
     this.result = this.points;
-    this.close;
+    this.close();
   }
 
   cancel() {
